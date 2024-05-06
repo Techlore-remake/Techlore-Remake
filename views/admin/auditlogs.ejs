@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Vidul">
+    <title>Audit Logs | Admin Panel</title>
+
+    <%- include('../partials/links') %>   
+
+<style>
+       html, body {
+        height: 100%;
+        font-family: cursive;
+        overflow: hidden;
+      }
+      .card-tools{
+        display: none;
+      }
+      .card-tool{
+        display: none;
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+      }
+      .card:hover .card-tools .card-tool{
+        display: block;
+      }
+      .inner-arr-txt{
+        margin-left: 30px;
+        margin-bottom: 0px;
+      }
+      .exp-arr:hover {
+        cursor: pointer;
+      }
+</style>
+
+  </head>
+  <body>
+
+    <!-- Icons -->
+    <%- include('../partials/icons') %>
+
+<main class="d-flex">
+
+  <!-- Sidebar -->
+  <%- include('../partials/admin-sidebar', {page: "audit"}) %>
+
+  <!-- Body -->
+  <div class="container" style="max-height: 100%;">
+
+    <div class="d-flex gap-2" style="padding-top: 20px; padding-left: 20px; padding-right: 20px; margin-bottom: -15px;">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-database-tab" data-bs-toggle="pill" data-bs-target="#pills-database" type="button" role="tab" aria-controls="pills-database" aria-selected="true">Database</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false" disabled>Disabled</button>
+            </li>
+          </ul>
+          <div class="b-divider b-vr" style="width: 5px; height: 40px; margin-right: 15px;"></div>
+          <div>
+            <button type="button" style="height: 40px; width: 40px;" id="refreshbtn" onclick="load_cards(this)" class="btn btn-primary" aria-expanded="false"><span id="spinner" class="spinner-border" style="margin-left: -2.5px; height: 20px; width: 20px; display: none;" aria-hidden="true"></span><svg id="icon" class="bi pe-none me-2 position-absolute translate-middle" width="20" height="20" style="padding-right: -10px;"><use xlink:href="#rotate-right-solid"/></svg></button>
+          </div>
+
+</div>
+
+  <div class="b-divider" style="height: 5px; border-radius: 10px; margin-top: 20px; margin-bottom: 20px;"></div>
+
+  <div class="position-relative" style="height: 650px; width: 1200px; overflow: scroll; overflow-x: hidden;">
+    <div style="height: 75px; margin: 1100px; margin: auto;">
+      <nav class="position-absolute top-0 start-50 translate-middle-x">
+        <ul class="pagination">
+          <li class="page-item disabled" id="prev">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item" id="next">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+      </div>
+    <div class="tab-content" id="pills-tabContent" style="max-width: 100%; margin:auto;">
+    <div class="tab-pane fade show active d-flex gap-3 flex-wrap" id="pills-database" role="tabpanel" aria-labelledby="pills-database-tab" tabindex="0">
+
+  </div>
+  </div>
+</div>
+</main>
+<script>
+
+  function loading_cards() {
+  function getRandomItems(array, count) {
+  let shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray.slice(0, count);
+}
+    $('#pills-database').empty();
+        for (let i = 0; i < (Math.floor(Math.random()*100)+50); i++) {
+          $('#pills-database').append(`<div class="card mb-3" style="width: 350px; height: min-content;">
+        <div class="card-header text-bg-${getRandomItems(['success', 'warning', 'danger','success', 'warning', 'danger','success', 'warning', 'danger','success', 'warning', 'danger','success', 'warning', 'danger'], 1)} placeholder-glow" style="border-radius: 0.312rem;">
+          <span class="placeholder col-8" style="border-radius: 3px;"></span>
+            <br> 
+            <span class="placeholder placeholder-sm col-7" style="border-radius: 3px;"></span>
+          </div>
+      </div>`);
+        }
+  }
+  function load_cards() {
+    $('#refreshbtn').prop("disabled", true)
+        $('#refreshbtn').find('#icon').hide()
+        $('#refreshbtn').find('#spinner').show()
+        loading_cards()
+        let page = 1
+        if(!$('.pagination').hasClass('placeholder-glow')){
+            page = $('.pagination').find('.active').attr('id').replace('page_', '')
+          }
+
+        setTimeout(() => {
+          axios.get(`/api/database/audits?page=${page}`)
+        .then(function(response) {
+          if($('.pagination').hasClass('placeholder-glow')){
+            $('.pagination').empty()
+        $('.pagination').removeClass('placeholder-glow')
+        for (let i = 0; i < response.data.pages; i++) {
+          if(i === 0){
+            $('.pagination').append(`<li onclick="pages(this)" data-bs-pages="${response.data.pages}" class="page-item active" id="page_${i+1}"><a class="page-link" href="#">${i+1}</a></li>`)
+          }else{
+          $('.pagination').append(`<li onclick="pages(this)" data-bs-pages="${response.data.pages}" class="page-item" id="page_${i+1}"><a class="page-link" href="#">${i+1}</a></li>`)
+          }
+        }
+        $('.pagination').prepend(`<li onclick="prevpage(this)" class="page-item disabled prevbtn">
+            <a class="page-link">Previous</a>
+          </li>`)
+          if(response.data.pages === 1){
+        $('.pagination').append(`<li class="page-item disabled nextbtn">
+            <a class="page-link" href="#">Next</a>
+          </li>`)
+          }else{
+            $('.pagination').append(`<li  onclick="nextpage(this)" class="page-item nextbtn">
+            <a class="page-link" href="#">Next</a>
+          </li>`)
+          }
+        }
+        function type(operation) {
+          if(operation === 'update'){
+            return 'warning'
+          }
+          if(operation === 'insert'){
+            return 'success'
+          }
+          if(operation === 'delete'){
+            return 'danger'
+          }
+        }
+        function type2(operation) {
+          if(operation === 'update'){
+            return 'Updated Object'
+          }
+          if(operation === 'insert'){
+            return 'Inserted Object'
+          }
+          if(operation === 'delete'){
+            return 'Deleted Object'
+          }
+        }
+        $('#pills-database').empty()
+        for (let i = 0; i < response.data.pagedata.length; i++) {
+          const element = response.data.pagedata[i];
+          $('#pills-database').append(`
+          <div class="card mb-3" data-bs-type="${type(element.operation)}" style="width: 350px; height: min-content;">
+        <div class="card-header text-bg-${type(element.operation)}" style="border-radius: 0.312rem; cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#c${i}" aria-expanded="false" aria-controls="c${i}">
+          ${type2(element.operation)}
+           <span class="position-absolute top-0 end-0" style="margin-right: 10px; margin-top: 18px;">
+            <svg class="bi pe-none me-2" width="25" height="25"><use xlink:href="#caret-down-solid" id="icon"/></svg></span> 
+            <br> <span style="font-size: 13px;">${new Date(element.walltime)}</span>
+          </div>
+        <div class="card-body collapse" id="c${i}">
+          <p class="card-text" style="margin-bottom: 0px; margin-left: 20px;">Key/_id : ${element.documentKey}</p>
+          <p class="card-text" style="margin-bottom: 0px; margin-left: 20px;">Collection : ${element.objcollection}</p>
+        </div>
+      </div>
+          `)
+          
+        }
+        $('#refreshbtn').prop("disabled", false)
+        $('#refreshbtn').find('#icon').show()
+        $('#refreshbtn').find('#spinner').hide()
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+        }, 500);
+      }
+
+
+  $(document).ready(function(){
+    $('.pagination').empty()
+        $('.pagination').addClass('placeholder-glow')
+        for (let i = 0; i < (Math.floor(Math.random()*15)+2); i++) {
+          $('.pagination').append(`<li class="page-item disabled" style="border-radius: 10px;"><a class="page-link" href="#"><span class="placeholder bg-secondary placeholder-lg" style="width: 10px; border-radius: 2px;"></span></a></li>`)
+        }
+        $('.pagination').append(`<li class="page-item disabled">
+            <a class="page-link" href="#">Next</a>
+          </li>`)
+          $('.pagination').prepend(`<li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>`)
+    load_cards()
+  })
+
+
+  function pages(element) {
+  if($(element).attr('id')){
+  if(!$(element).hasClass('active')){
+    $('.pagination').find('.active').removeClass('active')
+    $(element).addClass('active')
+    if($('.pagination').find('.active').data('bs-pages').toString() === $('.pagination').find('.active').attr('id').replace('page_','').toString()){
+      $(".nextbtn").addClass('disabled')
+          $(".nextbtn").removeAttr('onclick')
+    }else{
+      $(".nextbtn").removeClass('disabled')
+      $(".nextbtn").attr('onclick', 'nextpage(this)')
+    }
+    if($('.pagination').find('.active').attr('id').replace('page_','') === '1'){
+      $(".prevbtn").addClass('disabled')
+          $(".prevbtn").removeAttr('onclick')
+    }else{
+      $(".prevbtn").removeClass('disabled')
+      $(".prevbtn").attr('onclick', 'prevpage(this)')
+    }
+
+    load_cards()
+  }
+}
+  }
+
+  function nextpage(element) {
+    if($('.pagination').find('.active').data('bs-pages') !== $('.pagination').find('.active').attr('id').replace('page_','')){
+    $('.pagination').find('.active').removeClass('active').next().addClass('active')
+    if($('.pagination').find('.active').data('bs-pages').toString() === $('.pagination').find('.active').attr('id').replace('page_','').toString()){
+      $(".nextbtn").addClass('disabled')
+      $(".nextbtn").removeAttr('onclick')
+    }else{
+      $(".nextbtn").removeClass('disabled')
+      $(".nextbtn").attr('onclick', 'nextpage(this)')
+    }
+    load_cards()
+    }
+  }
+
+  function prevpage(element) {
+    if($('.pagination').find('.active').attr('id').replace('page_','') !== '1'){
+    $('.pagination').find('.active').removeClass('active').prev().addClass('active')
+    if($('.pagination').find('.active').attr('id').replace('page_','') === '1'){
+      $(".prevbtn").addClass('disabled')
+      $(".prevbtn").removeAttr('onclick')
+    }else{
+      $(".prevbtn").removeClass('disabled')
+      $(".prevbtn").attr('onclick', 'prevpage(this)')
+    }
+    load_cards()
+    }
+  }
+const collapsables = document.querySelectorAll('.collapse')
+document.addEventListener('hide.bs.collapse', event => {
+  if(event.target.classList.contains('collapse')){
+  $(event.target).parent().removeClass(`border-${$(event.target).parent().data('bs-type')}`)
+  $(event.target).parent().find('.card-header').css({
+    "border-top-left-radius": "0.312rem",
+    "border-top-right-radius": "0.312rem",
+    "border-bottom-left-radius": "0.312rem",
+    "border-bottom-right-radius": "0.312rem",
+  })
+  if(event.target.classList.contains('object')){
+    $(event.target).parent().find('#icon').attr('xlink:href', '#caret-right-solid')
+  }else{
+  $(event.target).parent().find('#action#icon').attr('xlink:href', '#caret-down-solid')
+  }
+}
+})
+document.addEventListener('show.bs.collapse', event => {
+  if(event.target.classList.contains('collapse')){
+  $(event.target).parent().addClass(`border-${$(event.target).parent().data('bs-type')}`)
+  $(event.target).parent().find('.card-header').css({
+    "border-top-left-radius": "0.312rem",
+    "border-top-right-radius": "0.312rem",
+    "border-bottom-left-radius": "0",
+    "border-bottom-right-radius": "0",
+  })
+
+  if(event.target.classList.contains('object')){
+    $(event.target).parent().find('#icon').attr('xlink:href', '#caret-down-solid')
+  }else{
+  $(event.target).parent().find('#action#icon').attr('xlink:href', '#caret-up-solid')
+  }
+}
+})
+</script>
+</html>

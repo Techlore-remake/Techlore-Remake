@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Vidul">
+    <title>Statatics | Admin Panel</title>
+
+    <%- include('../partials/links') %>   
+
+<style>
+       html, body {
+        height: 100%;
+        font-family: cursive;
+        overflow: hidden;
+      }
+      .card-tools{
+        display: none;
+      }
+      .card-tool{
+        display: none;
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+      }
+      .card:hover .card-tools .card-tool{
+        display: block;
+      }
+      
+/* ::-webkit-scrollbar {
+  width: 5px;
+} */
+</style>
+
+  </head>
+  <body>
+
+    <!-- Icons -->
+    <%- include('../partials/icons') %>
+
+<main class="d-flex">
+
+  <!-- Sidebar -->
+  <%- include('../partials/admin-sidebar', {page: "stats"}) %>
+
+  <!-- Body -->
+  <div class="container" style="max-height: 100%;">
+
+    <div class="d-flex gap-2" style="padding-top: 20px; padding-left: 20px; padding-right: 20px; margin-bottom: -15px;">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-traffic-tab" data-bs-toggle="pill" data-bs-target="#pills-traffic" type="button" role="tab" aria-controls="pills-traffic" aria-selected="true">Traffic</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-apireq-tab" data-bs-toggle="pill" data-bs-target="#pills-apireq" type="button" role="tab" aria-controls="pills-apireq" aria-selected="false">API Requests</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-DBactivity-tab" data-bs-toggle="pill" data-bs-target="#pills-DBactivity" type="button" role="tab" aria-controls="pills-DBactivity" aria-selected="false">Database Activity</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false" disabled>Disabled</button>
+            </li>
+          </ul>
+</div>
+
+  <div class="b-divider" style="height: 5px; border-radius: 10px; margin-top: 20px; margin-bottom: 20px;"></div>
+
+  <div style="height: 86.5%; width: 70%; overflow: hidden; overflow-x: hidden; position: fixed;">
+  <div class="d-flex gap-3 flex-wrap">
+    <div class="card" style="background-color: #1a1d20; border: none; box-shadow: 7.5px 7.5px 2.5px #2c3236; padding: 20px;">
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-traffic" role="tabpanel" aria-labelledby="pills-traffic-tab" tabindex="0">
+            <canvas id="traffic" style="display: block; box-sizing: border-box; height: 600px; width: 900px;"></canvas>
+        </div>
+        <div class="tab-pane fade" id="pills-apireq" role="tabpanel" aria-labelledby="pills-apireq-tab" tabindex="0">
+          <canvas id="apireq" style="display: block; box-sizing: border-box; height: 600px; width: 900px;"></canvas>
+        </div>
+        <div class="tab-pane fade" id="pills-DBactivity" role="tabpanel" aria-labelledby="pills-DBactivity-tab" tabindex="0">
+          <canvas id="dbactivity" style="display: block; box-sizing: border-box; height: 600px; width: 900px;"></canvas>
+        </div>
+        <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">...</div>
+      </div>
+      </div>
+      </div>
+  </div>
+</div>
+</main>
+<script>
+  const tab1 = document.getElementById('traffic');
+  const tab2 = document.getElementById('apireq');
+  const tab3 = document.getElementById('dbactivity');
+  Chart.defaults.backgroundColor = 'rgba(13, 110, 253, 1)';
+Chart.defaults.borderColor = 'rgba(164, 167, 169, 0.75)';
+Chart.defaults.color = '#ffffff';
+
+
+let traffic;
+let apireqs; 
+let dbactions; 
+let data_length = 0
+
+axios.get(`/api/system/traffic`)
+        .then(function(res) {
+          data_length = res.data.traffic.length
+          traffic = res.data.traffic
+          apireqs = res.data.apireqs
+          dbactions = res.data.dbactions
+          entire()
+  })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+
+function entire() {
+  let dates = []
+const today = new Date()
+
+for (let i=0;i<data_length;i++) {
+  let str = new Date(new Date().setDate(today.getDate() - i))
+  let words = str.toString().split(' ');
+var firstFourWords = words.slice(0, 4);
+var date = firstFourWords.join(' ');
+
+    dates.push(date)
+}
+date = dates.reverse()
+
+  new Chart(tab1, {
+    type: 'line',
+    data: {
+        labels: dates,
+  datasets: [{
+    label: 'Website Traffic',
+    data: traffic,
+    fill: false,
+  }]
+    }
+  });
+
+  function apireq() {
+    try {
+    new Chart(tab2, {
+    type: 'line',
+    data: {
+        labels: dates,
+  datasets: [{
+    label: 'API Requests',
+    data: apireqs,
+    fill: false,
+  }]
+    }
+  })
+} catch (error){
+console.log(error)
+}
+  }
+
+  $("#pills-apireq-tab").click(function(){
+    if($("#pills-apireq-tab").data('bs-loaded') !== 'true'){
+      setTimeout(apireq, 200);
+      $("#pills-apireq-tab").data('bs-loaded', 'true')
+    }
+  })
+
+  function dbactivity() {
+    try {
+    new Chart(tab3, {
+    type: 'line',
+    data: {
+        labels: dates,
+  datasets: [{
+    label: 'Database Activity',
+    data: dbactions,
+    fill: false,
+  }]
+    }
+  })
+} catch (error){
+  console.log(error)
+}
+  }
+
+  $("#pills-DBactivity-tab").click(function(){
+    if($("#pills-DBactivity-tab").data('bs-loaded') !== 'true'){
+      setTimeout(dbactivity, 200);
+      $("#pills-DBactivity-tab").data('bs-loaded', 'true')
+    }
+}) 
+}
+</script>
+</html>

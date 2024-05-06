@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Vidul">
+    <title>Admin Panel</title>
+
+    <%- include('../partials/links') %>   
+
+<style>
+  body {
+ font-family: cursive;
+}
+</style>
+
+  </head>
+  <body>
+
+    <!-- Icons -->
+    <%- include('../partials/icons') %>
+
+<main class="d-flex flex-nowrap">
+
+  <!-- Sidebar -->
+    <%- include('../partials/admin-sidebar', {page: "home"}) %>
+
+  <!-- Body -->
+
+  <div class="px-4 py-5 my-5 text-center">
+    <svg class="d-block mx-auto mb-4" width="72" height="57" style="fill: currentColor;"><use xlink:href="#screwdriver-wrench-solid"/></svg>
+    <h1 class="display-5 fw-bold text-body-emphasis">Welcome</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Welcome to the Admin Panel, your hub for database management, statistical insights, and more. This centralized platform empowers you to efficiently edit database entries, analyze statistics, and perform various administrative tasks. With its user-friendly interface, you can navigate seamlessly to streamline your workflow and optimize system functionality.</p>
+      <p class="lead mb-4 text-danger"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#circle-exclamation-solid"/></svg>Admin Panel Is Not Mobile Friendly</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="database" class="btn btn-primary btn-lg px-4 gap-3"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#database-solid"/></svg>Database</a>
+        <a href="stats" class="btn btn-secondary btn-lg px-4"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#chart-simple-solid"/></svg>Statatics</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+</html>

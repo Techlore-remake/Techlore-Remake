@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Vidul">
+    <title>Server | Admin Panel</title>
+
+    <%- include('../partials/links') %>   
+
+<style>
+       html, body {
+        height: 100%;
+        font-family: cursive;
+        overflow: hidden;
+      }
+</style>
+
+  </head>
+  <body>
+
+    <!-- Icons -->
+    <%- include('../partials/icons') %>
+
+<main class="d-flex">
+
+  <!-- Sidebar -->
+  <%- include('../partials/admin-sidebar', {page: "server"}) %>
+
+  <!-- Body -->
+  <div class="container" style="max-height: 100%;">
+    <div class="d-flex gap-2" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
+      <div>
+            <button type="button" style="height: 40px; width: max-content;" id="restartbtn" onclick="restart(this)" class="btn btn-primary" aria-expanded="false"><span id="spinner" class="spinner-border" style="margin-left: -2.5px; margin-right: 10px; height: 20px; width: 20px; display: none;" aria-hidden="true"></span><svg id="icon" class="bi pe-none me-2" width="20" height="20" style="padding-right: -10px;"><use xlink:href="#rotate-right-solid"/></svg>Restart Server</button>
+          </div>
+    </div>
+
+  <div class="b-divider" style="height: 5px; border-radius: 10px; margin-top: 20px; margin-bottom: 20px;"></div>
+
+  <div style="height: 86.5%; overflow-y: scroll; overflow-x: hidden; position: fixed;">
+  <div class="d-flex row-gap-3 column-gap-3 flex-wrap align-items-stretch" style="max-width: 100%; padding: 0px;">
+    <div class="card" style="background-color: #1a1d20; border: none; box-shadow: 7.5px 7.5px 2.5px #2c3236; padding: 20px;">
+      <canvas id="cpuandram" style="display: block; box-sizing: border-box; height: 500px; width: 1000px;"></canvas>
+      </div>
+      <div class="card" style="background-color: #1a1d20; border: none; box-shadow: 7.5px 7.5px 2.5px #2c3236; padding: 20px;">
+        <canvas id="network" style="display: block; box-sizing: border-box; height: 500px; width: 1000px;"></canvas>
+        </div>
+    
+      </div>
+  </div>
+
+  <!-- Toasts, Modals, ect -->
+
+<%- include('../partials/toasts') %>
+
+</div>
+</main>
+<script>
+function restart(element) {
+  const id = Math.round(Math.random()*99999999)
+  $(element).prop('disabled', true)
+  $(element).find('#icon').hide()
+        $(element).find('#spinner').show()
+  toast(`Restarting... <div class="spinner-border spinner-border-sm float-end" role="status"></div> `, 'warning', 'no', id)
+ axios.get(`/api/system/restart`)
+  .then(function(response) {
+    setTimeout(() => {
+      const interval = setInterval(() => {
+      axios.get(`/api/system/ping`)
+  .then(function(response) {
+    $(`.id-${id}`)
+    .removeClass('text-bg-warning')
+    .addClass('text-bg-success')
+    .children().empty().append(`${icon('square-check-solid')}Server Restarted Successfully`)
+
+    clearInterval(interval)
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+    $(element).prop('disabled', false)
+    $(element).find('#icon').show()
+        $(element).find('#spinner').hide()
+  })
+  .catch(function(error) {
+        });
+    }, 100);
+    }, 10000);
+    setTimeout(() => {
+      $(`.id-${id}`)
+    .removeClass('text-bg-warning')
+    .addClass('text-bg-danger')
+    .children().empty().append('Server Restart Failed, Please Check Server Console')
+      clearInterval(interval)
+
+    }, 30000);
+
+  })
+  .catch(function(error) {
+            console.error('Error:', error);
+        });
+
+}
+
+
+const cpuandram = document.getElementById('cpuandram');
+const network = document.getElementById('network');
+
+Chart.defaults.backgroundColor = 'rgba(13, 110, 253, 1)';
+Chart.defaults.borderColor = 'rgba(164, 167, 169, 0.75)';
+Chart.defaults.color = '#ffffff';
+Chart.defaults.font.family = 'cursive'
+
+let numbers = []
+let rnumbers = []
+let rnumbers2 = []
+let rnumbers3 = []
+let rnumbers4 = []
+for (let i = 0; i < 60; i++) {
+  numbers.push(i+1)
+  rnumbers.push(0)
+  rnumbers2.push(0)
+  rnumbers3.push(0)
+  rnumbers4.push(0)
+}
+
+let CpuAndRamChart = new Chart(cpuandram, {
+    type: 'line',
+    data: {
+        labels: numbers,
+  datasets: [{
+    label: 'CPU Usage (%)',
+    data: rnumbers,
+    borderColor: 'rgba(104, 169, 222, 1)',
+    pointBackgroundColor: 'rgba(104, 169, 222, 1)',
+    fill: false,
+  },
+  {
+    label: 'RAM Usage (%)',
+    data: rnumbers2,
+    borderColor: 'rgba(222, 145, 104, 1)',
+    pointBackgroundColor: 'rgba(222, 145, 104, 1)',
+    fill: false,
+  }]
+    },
+    options: {
+      animation: {
+        duration: 0
+      },
+        scales: {
+            y: {
+              title: {
+              display: true,
+              text: "Percentage (%)"
+              },
+              max: 100,
+              min: 0
+            },
+            x: {
+              title: {
+              display: true,
+              text: "Time (s)"
+              }
+            }
+          }
+        }
+  });
+
+
+  let NetworkChart = new Chart(network, {
+    type: 'line',
+    data: {
+        labels: numbers,
+  datasets: [{
+    label: 'Network Recieved (Kb)',
+    data: rnumbers3,
+    borderColor: 'rgba(104, 169, 222, 1)',
+    pointBackgroundColor: 'rgba(104, 169, 222, 1)',
+    fill: false,
+  },
+  {
+    label: 'Network Transmited (Kb)',
+    data: rnumbers4,
+    borderColor: 'rgba(222, 145, 104, 1)',
+    pointBackgroundColor: 'rgba(222, 145, 104, 1)',
+    fill: false,
+  }]
+    },
+    options: {
+      animation: {
+        duration: 0
+      },
+        scales: {
+            y: {
+              title: {
+              display: true,
+              text: "Load (Kb)"
+              }
+            },
+            x: {
+              title: {
+              display: true,
+              text: "Time (s)"
+              }
+            }
+          }
+        }
+  });
+
+
+  let i = rnumbers.length
+  function updateCpuandRam(CpuUsage, RAMUsage) {
+    i++
+    CpuAndRamChart.data.labels.reverse().pop();
+    CpuAndRamChart.data.labels.reverse().push(i)
+
+    CpuAndRamChart.data.datasets[0].data.reverse().pop()
+    CpuAndRamChart.data.datasets[0].data.reverse().push(CpuUsage)
+    CpuAndRamChart.data.datasets[1].data.reverse().pop()
+    CpuAndRamChart.data.datasets[1].data.reverse().push(RAMUsage)
+    CpuAndRamChart.update()
+  }
+
+  function updateNetworkChart(NetIn, NetOut) {
+    i++
+    NetworkChart.data.labels.reverse().pop();
+    NetworkChart.data.labels.reverse().push(i)
+
+    NetworkChart.data.datasets[0].data.reverse().pop()
+    NetworkChart.data.datasets[0].data.reverse().push(NetIn)
+    NetworkChart.data.datasets[1].data.reverse().pop()
+    NetworkChart.data.datasets[1].data.reverse().push(NetOut)
+    NetworkChart.update()
+  }
+
+
+  const eventSource = new EventSource('/api/system/usage');
+
+eventSource.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  updateCpuandRam(data.CpuUsage, data.MemUsage)
+  updateNetworkChart(data.NetIn, data.NetOut)
+};
+
+eventSource.onerror = (error) => {
+ console.error('Error occurred:', error);
+ eventSource.close();
+};
+</script>
+</html>

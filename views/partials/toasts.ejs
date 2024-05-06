@@ -1,0 +1,38 @@
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div id="Toasts" class="position-fixed bottom-0 end-0 p-3">
+        <div id="Toast" style="margin-top: 10px;" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="10000">
+            <div class="toast-body">
+              
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function toast(text, type, delay, id2) {
+        let id = id2
+        if(!id2){
+            id = Math.round(Math.random()*99999999)
+        }
+        if(delay === 'no'){
+            $('#Toast').clone(true).appendTo('#Toasts')
+                  .addClass(`text-bg-${type}`)
+                  .addClass(`id-${id}`)
+                  .attr('data-bs-delay', 199999000000000000000000)
+                  .children().append(`${text}`)
+                    const bstoast = bootstrap.Toast.getOrCreateInstance($(`.id-${id}`))
+        bstoast.show()
+        }else{
+            $('#Toast').clone(true).appendTo('#Toasts')
+                  .addClass(`text-bg-${type}`)
+                  .addClass(`id-${id}`)
+                  .attr('data-bs-delay', delay)
+                  .children().append(`${text}`)
+                    const bstoast = bootstrap.Toast.getOrCreateInstance($(`.id-${id}`))
+        bstoast.show()
+        setTimeout(() => {
+          $(`.id-${id}`).remove()
+        }, (delay + 300));
+        }
+    }
+
+</script>
