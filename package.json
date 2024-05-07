@@ -4,7 +4,7 @@
   "description": "**This is the official ejs template made by Vidul**",
   "main": "index.js",
   "scripts": {
-    "update": "npm config set user 0 && npm config set unsafe-perm true && npm i && npm install pm2 --save",
+    "update": "npm i && npm install pm2 --save",
     "start": "pm2 start index.js && pm2 monit",
     "reload": "pm2 reload default",
     "stop": "pm2 stop default"
