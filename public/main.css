@@ -30,7 +30,8 @@ body {
 }
 
 .topnav a:hover {
-  color: black;
+  color: white;
+  font-weight: bolder;
 }
 
 .topnav a.active {
