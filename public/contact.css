@@ -1,9 +1,12 @@
 .container{
   text-align: center;
   padding:30px;
-  padding-top:0px;
+  padding-top:20px;*-px;
   color: white;
   position:relative;
+  margin: 20px;
+  border-radius: 20px;
+   background: rgb(30, 31, 30, 0.7)
 }
 .card{
   padding-top: 15px;
@@ -20,18 +23,18 @@
   font-weight:bolder;
 }
 .card h1{
-  color:#2478ff;
+  color:#0057ad;
   font-weight:bolder;
   animation: glow 1s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0055ff, 0 0 35px #0055ff, 0 0 50px #0055ff;
+    text-shadow: 0 0 5px #988686, 0 0 5px #bdb7b7, 0 0 5px #c9cdd4, 0 0 5px #b2b9c7, 0 0 5px #bdc2cc;
   }
 
   to {
-    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 35px #a3edff, 0 0 50px #a3edff;
+    text-shadow: 0 0 5px #8a8585, 0 0 5px #766f6f, 0 0 5px #8a9193, 0 0 5px #778183;
   }
 }
 

@@ -8,19 +8,22 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='home.css'>
     <script src='main.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
+    
 
-    <div class="navi">
+    <div class="topnav" id="myTopnav">
         <a class="navi_title">TECHLORE</a>
-        <div class="navi_bar">
-          <a href="index.ejs">Home</a>
-          <a href="/about">About</a>
-          <a href="contact.ejs">Contacts</a>
-            <a href="/signin">Sign In</a>
-            <a href="/signup">Sign Up</a>
-                 <a href="/profile">Profile</a>  
-        </div>
+      <a href="/" class="active">Home</a>
+      <a href="/about">About us</a>
+      <a href="/contact">Contact</a>
+      <a href="/signup">Sign in</a>
+        <a href="/login">Login</a>
+      <a href="javascript:void(0);" class="icon" onclick="Navbar()">
+        <i class="fa fa-bars"></i>
+      </a>
     </div>
     <div class="main">
     <h1 class="title">TECHLORE</h1>
@@ -39,4 +42,5 @@
         
     </div>
 </body>
+    
 </html>
