@@ -1,0 +1,20 @@
+*{
+  text-align: center;
+}
+
+h1{
+  color: white;
+  animation: glow 1s ease-in-out infinite alternate;
+  font-size: 100px;
+  margin-top: 20%;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 30px #0055ff, 0 0 8px #0055ff, 0 0 10px #0055ff;
+  }
+
+  to {
+    text-shadow: 0 0 3px #ffffff, 0 0 4px #ffffff, 0 0 5px #a3edff, 0 0 10px #a3edff;
+  }
+}

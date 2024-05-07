@@ -1,0 +1,57 @@
+.container{
+  text-align: center;
+  padding:30px;
+  padding-top:0px;
+  color: white;
+  position:relative;
+}
+.card{
+  padding-top: 15px;
+  padding: 20px;
+  paddin-left:30px;
+  padding-right:30px;
+  background-color: #3b3b3b;
+  border-radius: 20px;
+  box-shadow: 0 5px 10px 0 rgb(255, 255, 255, 0.2), 0 7px 30px 0 rgb(66, 129, 255, 0.19);
+}
+
+.card h5{
+  color:#85c4ff;
+  font-weight:bolder;
+}
+.card h1{
+  color:#2478ff;
+  font-weight:bolder;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0055ff, 0 0 35px #0055ff, 0 0 50px #0055ff;
+  }
+
+  to {
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 35px #a3edff, 0 0 50px #a3edff;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 800px) {
+.card{
+  margin-bottom: 30px;
+  margin-right:30%;
+  margin-left:30%;
+}
+}
+
+.title{
+  margin-bottom: 80px;
+}
+@media screen and (max-width: 800px) {
+.card{
+  margin-bottom:30px;
+}
+}
