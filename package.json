@@ -6,6 +6,7 @@
   "scripts": {
     "update": "npm i && npm install pm2 --save",
     "start": "pm2 start index.js && pm2 monit",
+    "start2": "node .",
     "reload": "pm2 reload default",
     "stop": "pm2 stop default"
   },
