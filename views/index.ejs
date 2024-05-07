@@ -5,11 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title> TECHLORE | HOME </title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='home.css'>
-    <script src='main.js'></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <%- include('./partials/links2', {page: "home"}) %>
 </head>
 <body>
     
@@ -34,7 +30,14 @@
         <p>TECHLORE is a leading software designing designing company in Sri Lanka. Which is made by 4 Web developers in Sri Lanka.Now we introducing our site with three softwares.<br><br><span class="hero">1) Quiz app<br>2) Calculator<br> 3) Language translator.</span><br><br> Also we hope to add many softwares in the future. if you want some special softwares please use the contact form to contact techlore customers care.</p>
     </div>
     <div class="contact">
-        <form>
+        <form class="contact_title">
+            <h2>Let us Know</h2>
+            <hr>
+    </div>
+    <input type="text" name="name" placeholder="Your Name" class="contact_input" required>
+    <input type="text" name="email" placeholder="Your Email" class="contact_input" required>
+    <input type="text" name="message" placeholder="Your Message" class="contact_input" required>
+    <button type="submit">Submit</button>
             
         </form>
     </div>

@@ -246,25 +246,65 @@ api.post('/database/create', async (req, res, next) => {
   });
 })
 
-// api.post('/login', async (req, res, next) => {
-//   const info = req.body
-//   const user = require('../models/user')
-//   user.findOne({ username: info.username }, async (err, data) => {
-//     if (data) {
-//       user.findOne({ password: info.password }, async (err, data) => {
-//         if (data) {
-//           const logins = await dbb.get("logins")
-//   dbb.add("logins", 1)
-//           req.session.user = data.username;
-//           res.redirect('/')
-//         } else {
-//           res.status(401).json({ "message": "password incorrect" })
-//         }
-//       })
-//     } else {
-//       res.status(401).json({ "message": "username incorrect" })
-//     }
-//   })
-// })
+//login system
+
+api.post('/signup', async (req, res, next) => {
+  const info = req.body
+  const users = require('../models/users')
+  await users.findOne({ $or: [{ username: info.username }, { name: info.name }, { email: info.email }] }).exec()
+  .then((data) => {
+    if(data.username === info.username){
+      return res.status(401).json({ "messsage": "username taken"})
+    }
+    if(data.name === info.name){
+      return res.status(401).json({ "messsage": "name taken"})
+    }
+    if(data.email === info.email){
+      return res.status(401).json({ "messsage": "email taken"})
+    }
+  })
+  .catch((error) => {
+    await users.create({
+      name: info.name,
+      username: info.username,
+      email: user.email,
+      password: user.password,
+      admin: {
+        status: false,
+        level: 0
+      }
+    }).exec()
+    .then((Document) => {
+      res.status(200).json({ "messsage": "success"})
+    })
+    .catch((error) => {
+      res.status(401).json({ "message": "error"})
+      console.error('Error creating document:', error);
+    });
+  });
+})
+
+api.post('/login', async (req, res, next) => {
+  const info = req.body
+  const users = require('../models/users')
+  await users.findOne({ username: info.username }).exec()
+  .then((data) => {
+    if(data.password !== info.password){
+      res.status(401).json({ "message": "password is incorrect"})
+    }else{
+      if(data.admin.status === true){
+        req.session.admin = true;
+        req.session.adminlvl = data.admin.level;
+      }else{
+        req.session.admin = false;
+      }
+      req.session.user = data.username;
+      res.redirect('/')
+    }
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "user doesnt exist"})
+  });
+})
 
 module.exports = api;

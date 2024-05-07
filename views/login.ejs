@@ -5,15 +5,14 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>login Page</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-  <script src='main.js'></script>
+  <%- include('./partials/links2', {page: "login"}) %>
 </head>
 <body>
 <div class="login_form">
   <h1>Login Form</h1>
   <form id="login-form">
  <div class="imgcontainer">
-  <img src="" alt="Avatar" class="avatar">
+  <img src="user.png" alt="Avatar" class="avatar">
  </div>
     <div style="margin-left: 2%; margin-right: 68%; background-color: rgba(252, 40, 40, 0.137254902);
 color: #ce4747;
@@ -60,9 +59,9 @@ width: max-content;
 })
 .catch(function (error) {
   if(error.response.status == 401){
-      if(error.response.data.message === 'password incorrect'){
+      if(error.response.data.message === 'password is incorrect'){
         errMsg("pswIN")
-      } else if(error.response.data.message === 'username incorrect'){
+      } else if(error.response.data.message === 'user doesnt exist'){
         errMsg("UsrIN")
       }
   }
