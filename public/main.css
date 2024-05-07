@@ -75,7 +75,11 @@ float: left;
   .navi_title{
     font-size:30px;
     font-weight: bold;
+<<<<<<< HEAD
     color:#2478ff;
+=======
+    color:#042e71;
+>>>>>>> 67bd0bb (1)
     animation: glow 3s ease-in-out infinite alternate;
     float: left;
     margin-right: 50%;
@@ -84,7 +88,11 @@ float: left;
 .navi_title{
   font-size:30px;
   font-weight: bold;
+<<<<<<< HEAD
   color:#2478ff;
+=======
+  color:#042a67;
+>>>>>>> 67bd0bb (1)
   animation: glow 3s ease-in-out infinite alternate;
   float: left;
 }

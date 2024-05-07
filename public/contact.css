@@ -23,7 +23,11 @@
   font-weight:bolder;
 }
 .card h1{
+<<<<<<< HEAD
   color:#0057ad;
+=======
+  color:#00264d;
+>>>>>>> 67bd0bb (1)
   font-weight:bolder;
   animation: glow 1s ease-in-out infinite alternate;
 }
