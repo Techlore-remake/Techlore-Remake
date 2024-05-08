@@ -9,7 +9,17 @@
 </head>
 <body>
     <%- include('./partials/navbar', {page: "profile", user: session.user}) %>
-        <button><a href="/logout">Sign out</a></button>
+            <div class="container4">
+                <h1>Welcome <span class="w-name"><%-userdata.name%></span></h1>
+                <h5> <%-userdata.username%> <span style="color: #303030;">|</span> <%-userdata.email%></h5>
+                    <a href="/logout"><button>Sign out</button></a>
+
+                  <% if(userdata.admin.status === true){ %>
+                      <a href="/admin/"><button>Admin Dashboard</button></a>
+                         <%}%>
+                </div>
         <%- include('./partials/footer') %>
 </body>
 </html>
+
+         

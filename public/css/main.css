@@ -21,20 +21,16 @@ body{
   cursor: pointer;
   float: right;
   margin: auto;
-  height:40px;
+  height: 40px;
   width: 40px;
   border-radius: 100px;
 }
-.nav_img_active .active{
-  border: 4.5px;
-  border-color: #3ca2e6;
-  border-style: solid;
-}
-.nav_img_active{
-  padding: 0.5px 10px !important;
+.nav_img_a .active{
+  box-shadow: 0 0 20px #3ca2e6;
 }
 .nav_img_a{
   padding: 6px 10px !important;
+  float: left;
 }
 
 @-webkit-keyframes title_glow {
@@ -80,6 +76,7 @@ body{
 .topnav a.active {
   font-weight: bolder;
   color: #3ca2e6;
+  text-shadow: 0 0 25px #3ca2e6;
 }
 
 .topnav .icon {
@@ -135,7 +132,7 @@ float: left;
   padding-bottom: 20px;
   background-color:#1a1c1f;
   color:#ffffff;
-  margin: 40px !important;
+  margin: 40px;
   border-radius: 20px;
   text-align: center;
 }
@@ -236,3 +233,19 @@ float: left;
 *, ::after, ::before {
     box-sizing: border-box;
 }
+@-webkit-keyframes glow {
+  from {
+    color: #3c7de6;
+    text-shadow: 0 0 60px #3c7de6;
+  }
+  to {
+    color: #7cc6f7;
+    text-shadow: 0 0 60px #7cc6f7;
+  }
+}
+@media screen and (max-width: 350px) {
+.footer-clean{
+  margin:10px;
+}
+}
+/*@vidul how to change the margin of a footer*/

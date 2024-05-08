@@ -21,29 +21,29 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-admin.get('/', async (req, res, next) => {
+admin.get('/', isAdmin, async (req, res, next) => {
         res.render('admin/index.ejs', {
           user: req.session.user
         });
 });
 
-admin.get('/database', async (req, res, next) => {
+admin.get('/database', isAdmin, async (req, res, next) => {
   res.render('admin/database.ejs', {
     user: req.session.user
   });
 });
 
-admin.get('/stats', async (req, res, next) => {
+admin.get('/stats', isAdmin, async (req, res, next) => {
   res.render('admin/stats.ejs', {
     user: req.session.user
   });
 });
-admin.get('/audits', async (req, res, next) => {
+admin.get('/audits', isAdmin, async (req, res, next) => {
   res.render('admin/auditlogs.ejs', {
     user: req.session.user
   });
 });
-admin.get('/server', async (req, res, next) => {
+admin.get('/server', isAdmin, async (req, res, next) => {
   res.render('admin/server.ejs', {
     user: req.session.user
   });

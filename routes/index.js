@@ -10,7 +10,7 @@ function log() {
 
 setTimeout(log, 1000);
 
-index.use(async (req, res, next) => {
+const counttraffic = async (req, res, next) => {
   let date = new Date();
   let formateddate = new Date(
     date.getFullYear() +
@@ -36,9 +36,9 @@ index.use(async (req, res, next) => {
     });
   }
   next();
-});
+}
 
-index.get("/", async (req, res, next) => {
+index.get("/", counttraffic, async (req, res, next) => {
   let visits = await traffic.find({}).sort({ _id: 'asc' }).lean().exec()
   let total_visits = 0;
   visits.forEach(async (data) =>{
@@ -50,19 +50,19 @@ index.get("/", async (req, res, next) => {
     logins: await users.countDocuments({}).exec()
   });
 });
-index.get("/contact", async (req, res, next) => {
+index.get("/contact", counttraffic, async (req, res, next) => {
   res.render("contact.ejs", { session: req.session });
 });
 
-index.get("/news", async (req, res, next) => {
+index.get("/news", counttraffic, async (req, res, next) => {
   res.render("news.ejs", { session: req.session });
 });
 
-index.get("/quizzes", async (req, res, next) => {
+index.get("/quizzes", counttraffic, async (req, res, next) => {
   res.render("quizzes.ejs", { session: req.session });
 });
 
-index.get("/profile", async (req, res, next) => {
+index.get("/profile", counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
   res.render("profile.ejs", { 
@@ -74,7 +74,7 @@ index.get("/profile", async (req, res, next) => {
   }
 });
 
-index.get("/logout", async (req, res, next) => {
+index.get("/logout", counttraffic, async (req, res, next) => {
   req.session.destroy(function (err) {
     if (err) {
       console.log(err);
@@ -85,7 +85,7 @@ index.get("/logout", async (req, res, next) => {
   });
 });
 
-index.get("/login", async (req, res, next) => {
+index.get("/login", counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.redirect("/");
@@ -93,7 +93,7 @@ index.get("/login", async (req, res, next) => {
     res.render("login.ejs");
   }
 });
-index.get("/signup", async (req, res, next) => {
+index.get("/signup", counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.redirect("/");
