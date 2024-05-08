@@ -3,47 +3,37 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title> TECHLORE | Contact </title>
+    <title>Contact | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <%- include('./partials/links2', {page: "contact"}) %>
+         <%- include('./partials/links2', {page: "home"}) %>
 </head>
 <body>
-          <div class="topnav" id="myTopnav">
-              <a class="navi_title">TECHLORE</a>
-            <a href="/">Home</a>
-            <a href="/about">About us</a>
-            <a href="/contact" class="active">Contact</a>
-            <a href="/signup">Sign in</a>
-              <a href="/login">Login</a>
-            <a href="javascript:void(0);" class="icon" onclick="Navbar()">
-              <i class="fa fa-bars"></i>
-            </a>
-          </div>
-    <div class="container">
+    <%- include('./partials/navbar', {page: "contact", user: session.user}) %>
+    <div class="container1">
         <h1 class="title">Our Team members</h1>
-    <div class="card">
+    <div class="card1">
     <h1>Senura Perera</h1>
         <h4>Front end & Backend Designer and developer</h4>
         <h5>CEO</h5>
     </div>
-    <div class="card">
+    <div class="card1">
     <h1>Vidul Batawala</h1>
         <h4>Backend Developer and Logic tester</h4>
           <h5>CTO</h5>
     </div>
-    <div class="card">
+    <div class="card1">
     <h1>Gaviru Ferando</h1>
         <h4>Front end Designer</h4>
           <h5>Senior member</h5>
     </div>
-    <div class="card">
+    <div class="card1">
     <h1>Dasith Perera</h1>
         <h4>Front end Designer </h4>
           <h5>Senior member</h5>
     </div>
 </div>
-    <div class="footer">
-       
-    </div>
+         
 </body>
+     <%- include('./partials/footer') %>
 </html>

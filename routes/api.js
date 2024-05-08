@@ -51,7 +51,7 @@ api.get("/system/traffic", async (req, res, next) => {
   let date = new Date()
   let formateddate = new Date(date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
   formateddate.setDate(formateddate.getDate() - 30)
-  let data = await traffic.find({ Day: { $gte: formateddate } }).lean().exec()
+  let data = await traffic.find({ Day: { $gte: formateddate }}).lean().exec()
   let traffics = []
   let dbactivity = []
   let apireqs = []
@@ -251,30 +251,32 @@ api.post('/database/create', async (req, res, next) => {
 api.post('/signup', async (req, res, next) => {
   const info = req.body
   const users = require('../models/users')
-  await users.findOne({ $or: [{ username: info.username }, { name: info.name }, { email: info.email }] }).exec()
+  await users.findOne({ username: info.username }).exec()
   .then((data) => {
     if(data.username === info.username){
-      return res.status(401).json({ "messsage": "username taken"})
+      return res.status(401).json({ "messsage": "user exists"})
     }
-    if(data.name === info.name){
-      return res.status(401).json({ "messsage": "name taken"})
-    }
-    if(data.email === info.email){
-      return res.status(401).json({ "messsage": "email taken"})
-    }
+    // if(data.name === info.name){
+    //   return res.status(401).json({ "messsage": "name taken"})
+    // }
+    // if(data.email === info.email){
+    //   return res.status(401).json({ "messsage": "email taken"})
+    // }
   })
-  .catch((error) => {
+  .catch(async (error) => {
     await users.create({
       name: info.name,
       username: info.username,
-      email: user.email,
-      password: user.password,
+      email: info.email,
+      password: info.password,
       admin: {
         status: false,
         level: 0
       }
-    }).exec()
-    .then((Document) => {
+    })
+    .then((data) => {
+      req.session.admin = false;
+      req.session.user = data.username;
       res.status(200).json({ "messsage": "success"})
     })
     .catch((error) => {

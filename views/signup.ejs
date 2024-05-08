@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>SignUp | Techlore</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <%- include('./partials/links2', {page: "home"}) %>
+  <%- include('./partials/links2', {page: "signup"}) %>
+</head>
+<body>
+  <%- include('./partials/navbar', {page: "signup", user: "no"}) %>
+<div class="login_form">
+  <h1>Sign-up Form</h1>
+  <form id="login-form">
+ <div class="imgcontainer">
+  <img src="imgs/profile.png" alt="Avatar" class="avatar">
+ </div>
+<div class="err-message" id="error">
+  <p>Error messsage here</p>
+</div>
+    <label for="name"><b>Name</b></label><br>
+    <input type="text" placeholder="Enter Name" name="name" required><br>
+    
+    <label for="username"><b>Username</b></label><br>
+    <input type="text" placeholder="Enter Username" name="username" required><br>
+    
+    <label for="username"><b>Email</b></label><br>
+    <input type="text" placeholder="Enter Email" name="email" required><br>
+
+  <label for="password"><b>Password</b></label><br>
+  <input type="password" placeholder="Enter Password" name="password" required><br>
+
+  <button type="submit">Sign up</button><br>
+    <p style="color: white;">Already Have An Account? <a href="/login" style="text-decoration: none; color: #3ca2e6; font-weight: bolder;">Login</a></p>
+</form>
+</div>
+    <%- include('./partials/footer') %>
+<script>
+    const errordiv = document.getElementById('error')
+
+    const errMsg = (msg = "") => {
+      if (msg == "user") {
+        errordiv.innerHTML = '<p>A User With That Username Already Exists</p>';
+        errordiv.style.display = "block";
+      } else if(msg == "none"){
+        errordiv.style.display = "none";
+    }
+      }
+
+    const signup = (data) => {
+    axios.post('/api/signup', {
+      name: `${data.name}`,
+      username: `${data.username}`,
+      email: `${data.email}`,
+      password: `${data.password}`,
+  })
+  .then(function (res) {
+    errMsg('none')
+    window.location.href = "/"
+  })
+  .catch(function (error) {
+    if(error.response.status == 401){
+        if(error.response.data.message === 'user exists'){
+          errMsg("user")
+        }
+    }
+    })
+   }
+    document.querySelector("#login-form").addEventListener("submit", (e) => {
+      e.preventDefault()
+      const data = Object.fromEntries(new FormData(e.target).entries())
+      signup(data)
+    })
+</script>
+  </body>
+  </html>

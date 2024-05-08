@@ -14,7 +14,7 @@ const isAdmin = (req, res, next) => {
   if(!req.session.user){
     res.redirect('/login')
   }
-  if (req.session.admin === true) {
+  if (req.session.admin === false) {
     res.redirect('/')
   } else {
     next();

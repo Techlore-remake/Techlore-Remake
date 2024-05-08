@@ -2,6 +2,7 @@ const express = require("express");
 const index = express.Router();
 const chalk = require("chalk");
 const traffic = require("../PrivateModels/traffic");
+const users = require("../models/users");
 
 function log() {
   console.log(chalk.bgCyanBright.bold(" [Router] Index Successfully Booted "));
@@ -38,15 +39,39 @@ index.use(async (req, res, next) => {
 });
 
 index.get("/", async (req, res, next) => {
-  const user = req.session.user;
-  const session = req.session;
+  let visits = await traffic.find({}).sort({ _id: 'asc' }).lean().exec()
+  let total_visits = 0;
+  visits.forEach(async (data) =>{
+    total_visits += data.Visits;
+  })
   res.render("index.ejs", {
-    user: user,
-    session: session,
+    session: req.session,
+    visits: total_visits,
+    logins: await users.countDocuments({}).exec()
   });
 });
 index.get("/contact", async (req, res, next) => {
-  res.render("contact.ejs");
+  res.render("contact.ejs", { session: req.session });
+});
+
+index.get("/news", async (req, res, next) => {
+  res.render("news.ejs", { session: req.session });
+});
+
+index.get("/quizzes", async (req, res, next) => {
+  res.render("quizzes.ejs", { session: req.session });
+});
+
+index.get("/profile", async (req, res, next) => {
+  const user = req.session.user;
+  if (user) {
+  res.render("profile.ejs", { 
+    session: req.session,
+    userdata: await users.findOne({ username: req.session.user }).exec()
+  });
+  }else{
+    res.redirect('/login')
+  }
 });
 
 index.get("/logout", async (req, res, next) => {
@@ -65,8 +90,15 @@ index.get("/login", async (req, res, next) => {
   if (user) {
     res.redirect("/");
   } else {
-    res.render("login.ejs", { user: user });
+    res.render("login.ejs");
   }
 });
-
+index.get("/signup", async (req, res, next) => {
+  const user = req.session.user;
+  if (user) {
+    res.redirect("/");
+  } else {
+    res.render("signup.ejs");
+  }
+});
 module.exports = index;

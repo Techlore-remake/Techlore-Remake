@@ -3,47 +3,81 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title> TECHLORE | HOME </title>
+    <title>Home | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <%- include('./partials/links2', {page: "home"}) %>
 </head>
 <body>
-    
-
-    <div class="topnav" id="myTopnav">
-        <a class="navi_title">TECHLORE</a>
-      <a href="/" class="active">Home</a>
-      <a href="/about">About us</a>
-      <a href="/contact">Contact</a>
-      <a href="/signup">Sign in</a>
-        <a href="/login">Login</a>
-      <a href="javascript:void(0);" class="icon" onclick="Navbar()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
+    <%- include('./partials/navbar', {page: "home", user: session.user}) %>
     <div class="main">
     <h1 class="title">TECHLORE</h1>
         <h3> Welcome to TECHLORE | Project by <span>GSVD Programmers </span></h3>
     </div>
-    <div class="about">
+    <div class="about" id="about">
         <h1>About us</h1><br>
-        <p>TECHLORE is a leading software designing designing company in Sri Lanka. Which is made by 4 Web developers in Sri Lanka.Now we introducing our site with three softwares.<br><br><span class="hero">1) Quiz app<br>2) Calculator<br> 3) Language translator.</span><br><br> Also we hope to add many softwares in the future. if you want some special softwares please use the contact form to contact techlore customers care.</p>
+        <p>TECHLORE is a leading software designing designing company in Sri Lanka. Which is made by 4 Web developers in Sri Lanka.Now we introducing our site with three softwares.<br><br><span class="hero">1) Quiz app<br>2) Calculator<br>3) Language translator.</span><br><br> Also we hope to add many softwares in the future. if you want some special softwares please use the contact form to contact techlore customers care.</p>
+    </div>
+    <div class="analytics">
+        <h1>Our analytics</h1>
+     <div class="view_count">
+        <h2>Total Traffic</h2>
+        <p><%-visits%></p>
+     </div>
+     <div class="view_count">
+            <h2>Total Logged People</h2>
+            <p><%-logins%></p>
+        </div>
     </div>
     <div class="contact">
-        <form class="contact_title">
-            <h2>Let us Know</h2>
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact_title">
+            <h1>Techlore Customer Care</h1>
             <hr>
-    </div>
+            <div class="contact_1">
+    <input type="hidden" name="access_key" value="71e5d38c-614d-4169-9486-b27a655483da">
     <input type="text" name="name" placeholder="Your Name" class="contact_input" required>
     <input type="text" name="email" placeholder="Your Email" class="contact_input" required>
-    <input type="text" name="message" placeholder="Your Message" class="contact_input" required>
+    <textarea name="message" placeholder="Your Message" class="contact_input" required></textarea>
     <button type="submit">Submit</button>
-            
+            </div>
+    </div>
         </form>
     </div>
-    <div class="footer">
-        
-    </div>
+        <%- include('./partials/footer') %>
+        <!-- <div class="footer-clean m-bg-dark m-5">
+            <footer>
+                <div class="container text-center d-flex justify-content-center">
+                    <div class="row justify-content-center">
+                        <div class="col-4  item">
+                            <h3 class=>Services</h3>
+                            <ul class="text-white">
+                                <li><a  class="text-white" href="#" >Quiz</a></li>
+                                <li><a  class="text-white" href="#">Calculator</a></li>
+                                <li><a href="#"  class="text-white">Language Translator</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 item">
+                            <h3>About</h3>
+                            <ul>
+                                <li><a href="#"  class="text-white">Company</a></li>
+                                <li><a href="#"  class="text-white">Team</a></li>
+                                <li><a href="#"  class="text-white">Legacy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 item">
+                            <h3>Careers</h3>
+                            <ul>
+                                <li><a href="#"  class="text-white">Job openings</a></li>
+                                <li><a href="#"  class="text-white">Employee success</a></li>
+                                <li><a href="#"  class="text-white">Benefits</a></li>
+                            </ul>
+                        </div>
+                        <div class="social item social m-text-centerr m-d-flex m-justify-content-center"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
+                            <p class="copyright">TECHLROE © 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div> -->
 </body>
     
 </html>

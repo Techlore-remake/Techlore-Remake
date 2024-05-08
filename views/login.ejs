@@ -3,36 +3,33 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>login Page</title>
+  <title>Login | Techlore</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <%- include('./partials/links2', {page: "login"}) %>
+     <%- include('./partials/links2', {page: "home"}) %>
 </head>
 <body>
+  <%- include('./partials/navbar', {page: "login", user: "no"}) %>
 <div class="login_form">
   <h1>Login Form</h1>
   <form id="login-form">
  <div class="imgcontainer">
-  <img src="user.png" alt="Avatar" class="avatar">
+  <img src="imgs/profile.png" alt="Avatar" class="avatar">
  </div>
-    <div style="margin-left: 2%; margin-right: 68%; background-color: rgba(252, 40, 40, 0.137254902);
-color: #ce4747;
-text-align: center;
-padding: 0.0002em 1em;
-border-radius: 8px;
-width: max-content;
-      font-size: 18px; display: none;" id="error">
+    <div class="err-message" id="error">
       <p>Incorrect Password</p>
     </div>
-  <label for="username" style="color: white;"><b>Username</b></label><br>
+  <label for="username"><b>Username</b></label><br>
   <input type="text" placeholder="Enter Username" name="username" required><br>
 
-  <label for="password" style="color: white;"><b>Password</b></label><br>
+  <label for="password"><b>Password</b></label><br>
   <input type="password" placeholder="Enter Password" name="password" required><br>
 
   <button type="submit2">Login</button><br>
-
+<p style="color: white;">Don't Have a Account? <a href="/signup" style="text-decoration: none; color: #3ca2e6; font-weight: bolder;">Sign-Up</a></p>
 </form>
 </div>
+    <%- include('./partials/footer') %>
 <script> 
   const errordiv = document.getElementById('error')
 

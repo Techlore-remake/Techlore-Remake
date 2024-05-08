@@ -15,7 +15,7 @@ const MongoStore = require("connect-mongo")(session);
 mongoose.connect(MongoDBURI);
 const Database = mongoose.connection;
 Database.watch().on("change", async (data) => {
-  if (data.ns.coll !== "audits" && data.ns.coll !== "traffics") {
+  if (data.ns.coll !== "audits" && data.ns.coll !== "traffics" && data.ns.coll !== "sessions") {
     const traffic = require("./PrivateModels/traffic");
     let date = new Date();
     let formateddate = new Date(
@@ -81,8 +81,7 @@ Database.once("open", () => {
 app.use(express.static(__dirname + "/public"));
 app.use(
   session({
-    secret:
-      "LHDIDH$#%@$^#$^oq$#@%FSDFDSF@$ihvVSFIVHISHI41$#@^#%&#$$@#$JBVVLJSV",
+    secret: "LHDIDH$#%@$^#$^oq$#@%FSDFDSF@$ihvVSFIVHISHI41$#@^#%&#$$@#$JBVVLJSV",
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
@@ -133,5 +132,5 @@ app.use("/Upload", upload);
 
 //404 page
 app.use((req, res, next) => {
-  res.render("404.ejs");
+  res.render("404.ejs", {session: req.session});
 });

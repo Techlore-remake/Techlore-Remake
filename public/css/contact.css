@@ -1,44 +1,37 @@
-.container{
+.container1{
   text-align: center;
   padding:30px;
   padding-top:20px;*-px;
   color: white;
-  position:relative;
-  margin: 20px;
+  margin: 40px;
   border-radius: 20px;
-   background: rgb(30, 31, 30, 0.7)
+   background: #1a1d20;
+  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
 }
-.card{
+.card1{
   padding-top: 15px;
   padding: 20px;
   paddin-left:30px;
   padding-right:30px;
-  background-color: #3b3b3b;
+  background-color: #212529;
   border-radius: 20px;
-  box-shadow: 0 5px 10px 0 rgb(255, 255, 255, 0.2), 0 7px 30px 0 rgb(66, 129, 255, 0.19);
+  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
 }
-
-.card h5{
+.card1 h5{
   color:#85c4ff;
   font-weight:bolder;
 }
-.card h1{
-<<<<<<< HEAD
-  color:#0057ad;
-=======
-  color:#00264d;
->>>>>>> 67bd0bb (1)
+.card1 h1{
   font-weight:bolder;
   animation: glow 1s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 5px #988686, 0 0 5px #bdb7b7, 0 0 5px #c9cdd4, 0 0 5px #b2b9c7, 0 0 5px #bdc2cc;
+    color: #3c7de6;
   }
-
   to {
-    text-shadow: 0 0 5px #8a8585, 0 0 5px #766f6f, 0 0 5px #8a9193, 0 0 5px #778183;
+    color: #7cc6f7;
   }
 }
 
@@ -47,7 +40,7 @@
 }
 
 @media screen and (min-width: 800px) {
-.card{
+.card1{
   margin-bottom: 30px;
   margin-right:30%;
   margin-left:30%;
@@ -55,10 +48,17 @@
 }
 
 .title{
+  color: #dbc548;
   margin-bottom: 80px;
 }
 @media screen and (max-width: 800px) {
-.card{
+.card1{
   margin-bottom:30px;
 }
 }
+/* @media screen and (min-width: 1000px) {
+.container{
+  margin-left: 25%;
+  margin-right:25%;
+}
+} */
