@@ -68,7 +68,7 @@ index.get("/quiz", counttraffic, async (req, res, next) => {
 });
 
 index.get("/uptime", async (req, res, next) => {
-  res.render("index.ejs", { session: req.session });
+  res.render("404.ejs", { session: req.session });
 });
 
 index.get("/profile", counttraffic, async (req, res, next) => {
