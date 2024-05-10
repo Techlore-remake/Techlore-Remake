@@ -24,7 +24,7 @@
   <label for="password"><b>Password</b></label><br>
   <input type="password" placeholder="Enter Password" name="password" required><br>
 
-  <button type="submit2">Login</button><br>
+  <button type="submit2" id="sbutton">Login</button><br>
 <p style="color: white;">Don't Have a Account? <a href="/signup" style="text-decoration: none; color: #3ca2e6; font-weight: bolder;">Sign-Up</a></p>
 </form>
 </div>
@@ -36,9 +36,17 @@
     if (msg == "pswIN") {
       errordiv.innerHTML = '<p>Password Incorrect</p>';
       errordiv.style.display = "block";
+      $('#sbutton').css({
+        "opacity": 1,
+        "pointer-events": "auto"
+      })
     } else if (msg == "UsrIN") {
         errordiv.innerHTML = '<p>Username Is Not Registered</p>';
       errordiv.style.display = "block";
+      $('#sbutton').css({
+        "opacity": 1,
+        "pointer-events": "auto"
+      })
   }else if(msg == "none"){
       errordiv.style.display = "none";
   }
@@ -51,7 +59,7 @@
 })
 .then(function (res) {
   errMsg('none')
-  window.location.href = "/"
+  window.location.href = "/profile"
 })
 .catch(function (error) {
   if(error.response.status == 401){
@@ -66,6 +74,11 @@
   document.querySelector("#login-form").addEventListener("submit", (e) => {
     e.preventDefault()
     const data = Object.fromEntries(new FormData(e.target).entries())
+    $('#sbutton').css({
+      "opacity": 0.65,
+      "pointer-events": "none"
+    })
+    errordiv.style.display = "none";
     login(data)
   })
 </script>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Quiz | Techlore</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <%- include('./partials/links2', {page: "quiz"}) %>
+</head>
+<body>
+    
+    <%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
+        <div class="container">
+        <div class="create">
+            <h1>Create a Quiz</h1>
+            <div class= "image">
+            <img src="imgs/createquiz.png" alt="quiz"></div>
+            <p>Create quizes and Play with friends or learn students</p>
+            
+            <button>Create</button>
+        </div>
+        <div class="join">
+                <h1>Join a Quiz</h1>
+            <div class= "image">
+                <img src="imgs/joinquiz.jpg" alt="quiz"></div>
+                <p>Join and Learn</p>
+                <button>Join</button>
+        </div>
+        </div>
+        <%- include('./partials/footer') %>
+</body>
+</html>

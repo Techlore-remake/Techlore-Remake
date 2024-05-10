@@ -30,7 +30,7 @@
   <label for="password"><b>Password</b></label><br>
   <input type="password" placeholder="Enter Password" name="password" required><br>
 
-  <button type="submit2">Sign up</button><br>
+  <button type="submit2" id="sbutton">Sign up</button><br>
     <p style="color: white;">Already Have An Account? <a href="/login" style="text-decoration: none; color: #3ca2e6; font-weight: bolder;">Login</a></p>
 </form>
 </div>
@@ -42,6 +42,10 @@
       if (msg == "user") {
         errordiv.innerHTML = '<p>A User With That Username Already Exists</p>';
         errordiv.style.display = "block";
+        $('#sbutton').css({
+          "opacity": 1,
+          "pointer-events": "auto"
+        })
       } else if(msg == "none"){
         errordiv.style.display = "none";
     }
@@ -56,7 +60,7 @@
   })
   .then(function (res) {
     errMsg('none')
-    window.location.href = "/"
+    window.location.href = "/profile"
   })
   .catch(function (error) {
     if(error.response.status == 401){
@@ -69,6 +73,11 @@
     document.querySelector("#login-form").addEventListener("submit", (e) => {
       e.preventDefault()
       const data = Object.fromEntries(new FormData(e.target).entries())
+      $('#sbutton').css({
+        "opacity": 0.65,
+        "pointer-events": "none"
+      })
+      errordiv.style.display = "none";
       signup(data)
     })
 </script>

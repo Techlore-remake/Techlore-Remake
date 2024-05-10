@@ -50,6 +50,7 @@ index.get("/", counttraffic, async (req, res, next) => {
     logins: await users.countDocuments({}).exec(),
   });
 });
+
 index.get("/contact", counttraffic, async (req, res, next) => {
   res.render("contact.ejs", { session: req.session });
 });
@@ -57,11 +58,17 @@ index.get("/contact", counttraffic, async (req, res, next) => {
 index.get("/news", counttraffic, async (req, res, next) => {
   res.render("news.ejs", { session: req.session });
 });
+
 index.get("/maintain", counttraffic, async (req, res, next) => {
   res.render("maintain.ejs", { session: req.session });
 });
-index.get("/quizzes", counttraffic, async (req, res, next) => {
-  res.render("quizzes.ejs", { session: req.session });
+
+index.get("/quiz", counttraffic, async (req, res, next) => {
+  res.render("quiz.ejs", { session: req.session });
+});
+
+index.get("/uptime", async (req, res, next) => {
+  res.render("index.ejs", { session: req.session });
 });
 
 index.get("/profile", counttraffic, async (req, res, next) => {
@@ -95,6 +102,7 @@ index.get("/login", counttraffic, async (req, res, next) => {
     res.render("login.ejs");
   }
 });
+
 index.get("/signup", counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
@@ -103,4 +111,5 @@ index.get("/signup", counttraffic, async (req, res, next) => {
     res.render("signup.ejs");
   }
 });
+
 module.exports = index;

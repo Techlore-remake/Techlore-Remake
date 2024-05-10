@@ -1,6 +1,9 @@
 .news_tittle{
   text-align:center;
-  color:white;
+  color: #3c7de6;
+  font-weight:bolder;
+  font-size:40px;
+  margin: 20px;
 }
 .news_container{
   background-color: #1a1d20;
@@ -64,13 +67,13 @@
 }
 
 .news_card .time{
-  color: #3c7de6;
+  color: #4d4c4b;
 }
 
 .news_card time{
-  color: #7cc6f7;;
+  color: #6e6d6d;
 }
 
 .news_card span{
-  color: white;
+  color: #1c1c1c;
 }

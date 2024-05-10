@@ -28,6 +28,9 @@ body{
 .nav_img_a .active{
   box-shadow: 0 0 20px #3ca2e6;
 }
+.nav_img:hover{
+  box-shadow: 0 0 20px #7cc6f7;;
+}
 .nav_img_a{
   padding: 6px 10px !important;
   float: left;
@@ -70,6 +73,7 @@ body{
 
 .topnav a:hover {
   color: #7cc6f7;
+  text-shadow: 0 0 20px #7cc6f7;
   font-weight: bolder;
 }
 
