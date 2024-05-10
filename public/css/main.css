@@ -192,6 +192,7 @@ float: left;
   margin-bottom:0;
   font-size:13px;
   opacity:0.6;
+  margin: 20px;
 }
 
 .footer-container{
@@ -246,6 +247,6 @@ float: left;
 @media screen and (max-width: 350px) {
 .footer-clean{
   margin:10px;
+  padding:10px;
 }
 }
-/*@vidul how to change the margin of a footer*/

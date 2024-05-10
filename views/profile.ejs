@@ -10,6 +10,7 @@
 <body>
     <%- include('./partials/navbar', {page: "profile", user: session.user}) %>
             <div class="container4">
+                <i class="fa-solid fa-newspaper" style="color: #74C0FC;"></i>
                 <h1>Welcome <span class="w-name"><%-userdata.name%></span></h1>
                 <h5> <%-userdata.username%> <span style="color: #303030;">|</span> <%-userdata.email%></h5>
                     <a href="/logout"><button>Sign out</button></a>

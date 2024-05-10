@@ -31,7 +31,7 @@
   margin: 10px;
   border-radius: 50px;
   background-color: #0f7ae6;
-  color: #303030;
+  color: white;
   font-weight:bolder;
   align-items:center;
   padding: 15px 30px;
@@ -39,7 +39,13 @@
   border:none;
   cursor:pointer;
 }
-
+.container4 i{
+  color:white;
+  font-weight: bolder;
+  font-size: 100px;
+  margin-bottom: 40px;
+  animation: glow1 4s ease-in-out infinite alternate;
+}
 .w-name{
   animation: glow 3s ease-in-out infinite alternate;
   font-weight: bolder;
@@ -55,8 +61,23 @@
     text-shadow: 0 0 60px #7cc6f7;
   }
 }
+
+@-webkit-keyframes glow1 {
+  from {
+    color: #dee0e3;
+    text-shadow: 0 0 60px #d5d8dd;
+  }
+  to {
+    color: #7cc6f7;
+    text-shadow: 0 0 60px #7cc6f7;
+  }
+}
 @media screen and (max-width: 350px) {
 .container4{
   margin:10px;
 }
+}
+
+.container3{
+  
 }

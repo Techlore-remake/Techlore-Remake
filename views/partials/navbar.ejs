@@ -1,24 +1,40 @@
 <div class="topnav" id="myTopnav">
-    <a class="navi_title" href="/">TECHLORE</a>
-    <span class="topnav_links">
-  <a href="/" <%if(page === "home"){%> class="active" <%}%>>Home</a>
-  <a href="/contact"<%if(page === "contact"){%> class="active" <%}%>>Contact</a>
-      <a href="/news"<%if(page === "news"){%> class="active" <%}%>>News</a>
-      <a href="/quizzes"<%if(page === "quizzes"){%> class="active" <%}%>>Quizzes</a>
-      <% if(!user) {%>
-     <% if(page !== "signup"){ %>
-    <a href="/login"<%if(page === "login"){%> class="active" <%}%>>Login</a>
-      <% }else{ %>
-        <a href="/signup"class="active" >Signup</a>
-      <% } %>
-        <%}else{%>
-          <%if(page==="profile"){%>
-            <a class="nav_img_a" href="/profile"><img src="imgs/profile.png" alt="PFP" class="nav_img active"></a>
-            <%}else{%>
-          <a class="nav_img_a" href="/profile"><img src="imgs/profile.png" alt="PFP" class="nav_img"></a>
-              <%}%>
-          <%}%>
-    </span>
+<a class="navi_title" href="/">TECHLORE</a>
+<span class="topnav_links">
+<a href="/" <%if(page === "home"){%> class="active" <%}%>>
+<i class="fa fa-home" aria-hidden="true"></i> Home
+</a>
+  
+<a href="/contact"<%if(page === "contact"){%> class="active" <%}%>>
+<i class="fa fa-phone" aria-hidden="true"></i> Contact
+</a>
+  
+<a href="/news"<%if(page === "news"){%> class="active" <%}%>>
+<i class="fa-solid fa-newspaper"></i> News
+</a>
+  
+<a href="/quizzes"<%if(page === "quizzes"){%> class="active" <%}%>>
+<i class="fa-solid fa-rectangle-list"></i> Quiz
+</a>
+  
+<% if(!user) {%>
+<% if(page !== "signup"){ %>
+<a href="/login"<%if(page === "login"){%> class="active" <%}%>>
+  <i class="fa-solid fa-right-to-bracket"></i> Login
+</a>
+<% }else{ %>
+<a href="/signup"class="active" >
+  <i class="fa-solid fa-address-card"></i> Signup
+</a>
+<% } %>
+<%}else{%>
+<%if(page==="profile"){%>
+<a class="nav_img_a" href="/profile"><img src="imgs/profile.png" alt="PFP" class="nav_img active"></a>
+<%}else{%>
+<a class="nav_img_a" href="/profile"><img src="imgs/profile.png" alt="PFP" class="nav_img"></a>
+<%}%>
+<%}%>
+</span>
   <a href="javascript:void(0);" class="icon" onclick="Navbar()">
     <i class="fa fa-bars"></i>
   </a>

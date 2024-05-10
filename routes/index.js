@@ -36,18 +36,18 @@ const counttraffic = async (req, res, next) => {
     });
   }
   next();
-}
+};
 
 index.get("/", counttraffic, async (req, res, next) => {
-  let visits = await traffic.find({}).sort({ _id: 'asc' }).lean().exec()
+  let visits = await traffic.find({}).sort({ _id: "asc" }).lean().exec();
   let total_visits = 0;
-  visits.forEach(async (data) =>{
+  visits.forEach(async (data) => {
     total_visits += data.Visits;
-  })
+  });
   res.render("index.ejs", {
     session: req.session,
     visits: total_visits,
-    logins: await users.countDocuments({}).exec()
+    logins: await users.countDocuments({}).exec(),
   });
 });
 index.get("/contact", counttraffic, async (req, res, next) => {
@@ -57,7 +57,9 @@ index.get("/contact", counttraffic, async (req, res, next) => {
 index.get("/news", counttraffic, async (req, res, next) => {
   res.render("news.ejs", { session: req.session });
 });
-
+index.get("/maintain", counttraffic, async (req, res, next) => {
+  res.render("maintain.ejs", { session: req.session });
+});
 index.get("/quizzes", counttraffic, async (req, res, next) => {
   res.render("quizzes.ejs", { session: req.session });
 });
@@ -65,12 +67,12 @@ index.get("/quizzes", counttraffic, async (req, res, next) => {
 index.get("/profile", counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
-  res.render("profile.ejs", { 
-    session: req.session,
-    userdata: await users.findOne({ username: req.session.user }).exec()
-  });
-  }else{
-    res.redirect('/login')
+    res.render("profile.ejs", {
+      session: req.session,
+      userdata: await users.findOne({ username: req.session.user }).exec(),
+    });
+  } else {
+    res.redirect("/login");
   }
 });
 

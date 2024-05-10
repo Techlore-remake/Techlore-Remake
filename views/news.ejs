@@ -11,24 +11,14 @@
     <%- include('./partials/navbar', {page: "news", user: session.user}) %>
         <div class="news_container">
             <h1 class="news_tittle">News</h1>
-            <div class="slideshow_container">
-                <div class="slideshow_fade">
-                    <img class="slideshow" src="imgs/testing.jpeg" style="width:100%">
-                </div>
-                <div class="slideshow_fade">
-                    <img class="slideshow" src="imgs/testing1.jpg" style="width:100%">
-                </div>
-                <div class="slideshow_fade">
-                    <img class="slideshow" src="imgs/testing.jpeg" style="width:100%">
-                </div>
+            <div class="news_card">
+                <h2>News Title</h2>
+                <img src="imgs/news_example.png" alt="News_img"><!-- add news image to this tag @vidul -->
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium facilis illum voluptates, vitae, sequi nam dolores consectetur similique omnis deleniti reiciendis neque modi voluptatem porro eos ullam quasi provident iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium facilis illum voluptates, vitae, sequi nam dolores consectetur similique omnis deleniti reiciendis neque modi voluptatem porro eos ullam quasi provident iste!</p>
+                <p class="time"> <span>-</span> Published at <time>08:35</time> on <time>10/05/10</time> <span>-</span> </p>
+            </div>
         </div>
-        </div>
-        <br>
-        <div style="text-align:center">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-        </div>
+       
         <script>
         let slideIndex = 0;
         showSlides();

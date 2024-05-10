@@ -18,7 +18,22 @@
   box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
   text-align:center;
 }
-.card1 i{
+.card1 button{
+  margin-top:30px;
+  width: 60px;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: #0f7ae6;
+  color: white;
+  font-weight: bolder;
+  align-items:center;
+  font-size: 30px;
+  padding: 5px;
+  gap:10px;
+  border:none;
+  cursor:pointer;
+}
+/* .card1 i{
   color: white;
   font-weight: bolder;
   font-size: 30px;
@@ -30,7 +45,7 @@
   width:200px;
   margin-bottom: 20px;
   box-shadow: 0 5px 5px 0 #4f8eb0, 0 5px 5px 0 #c0dcf2;
-}
+} */
 .card1 h5{
   color:#85c4ff;
   font-weight:bolder;
@@ -82,7 +97,7 @@
 }
 }
 @media screen and (max-width: 650px) {
-.card1 i{
+/* .card1 i{
   width: 100px;
-}
+} */
 }
