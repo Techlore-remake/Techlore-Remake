@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Language Translator | Techlore</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <%- include('./partials/links2', {page: "translator"}) %>
+</head>
+<body>
+    
+<%- include('./partials/navbar', {page: "translator", user: session.user}) %>
+<div class="main">
+    <div class="lang-lang">
+       <h1></h1>
+    </div>
+            <div class="text">
+                 <textarea name="text" placeholder="Enter text to translate" id="text"></textarea>
+            </div>
+                <div class="translated-text">
+                    <textarea name="translated-text" placeholder="Translated-text" id="trans-text" disabled></textarea>
+                </div>
+                <button id="tbutton">Translate</button>
+</div>
+                <%- include('./partials/footer') %>
+<script>
+$('#tbutton').click(function(){
+if($('#text').val() !== ''){
+    $('#tbutton').css({
+        "pointer-events": "none",
+        "opacity": 0.8,
+        "cursor": "none"
+    })
+    axios.post('https://google-translate113.p.rapidapi.com/api/v1/translator/text', 
+        {
+        from: 'en',
+        to: 'si',
+        text: `${$('#text').val()}`
+        },{
+            headers: {
+                'x-rapidapi-key': '47f40a006bmshed110c814d73106p1dbf8ajsn59a8b0d417b9',
+                'x-rapidapi-host': 'google-translate113.p.rapidapi.com',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function (res) {
+            $('#trans-text').val(res.data.trans)
+            $('#tbutton').css({
+                "pointer-events": "auto",
+                "opacity": 1,
+                "cursor": "pointer"
+            })
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+}
+})
+</script>
+</body>
+</html>

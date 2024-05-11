@@ -254,3 +254,126 @@ float: left;
   padding:10px;
 }
 }
+
+.placeholder h1{
+  color: #fadc57;
+  text-shadow: 0 0 50px #fadc57;
+  animation: glow_3 3s ease-in-out infinite alternate;
+  font-size: 100px;
+  margin-top: 10px;
+}
+.placeholder p{
+  color: #7cc6f7;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.placeholder a{
+  text-decoration: none;
+  color: #3ca2e6;
+  font-weight: bolder;
+}
+.placeholder i{
+  font-weight: bolder;
+  font-size: 60px;
+  color: #fadc57;
+  text-shadow: 0 0 50px #fadc57;
+  animation: glow_3 3s ease-in-out infinite alternate;
+  margin-top: 30px;
+}
+.placeholder{
+  text-align: center;
+  background-color: #1a1c1f;
+  padding: 40px;
+  margin: 40px;
+  border-radius: 20px;
+}
+@-webkit-keyframes glow_3 {
+  from {
+    text-shadow: 0 0 50px #fadc57;
+  }
+
+  to {
+    text-shadow: 0 0 50px #fbeba2;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background: #1a1d20;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a1c1f;
+}
+
+
+/* navbar dropdown */
+
+/* .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+} */
+
+/* .dropdown {
+  float: left;
+}  */
+
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(26, 28, 31, 0.8);
+  min-width: min-content;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.navbar-dropdown-content .a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  text-shadow: none;
+  cursor: pointer;
+}
+
+.navbar-dropdown-content .a:hover {
+  color: #7cc6f7;
+  text-shadow: 0 0 20px #7cc6f7;
+  font-weight: bolder;
+}  
+
+.navbar-dropdown-content .a.active {
+  font-weight: bolder;
+  color: #3ca2e6;
+  text-shadow: 0 0 25px #3ca2e6;
+}
+.navbar-dropdown .active {
+  font-weight: bolder;
+  color: #3ca2e6;
+  text-shadow: 0 0 25px #3ca2e6;
+}
+
+.navbar-dropdown:hover .navbar-dropdown-content {
+  display: grid;
+}
+
+@media screen and (max-width: 1024px) {
+  .navbar-dropdown-content {
+    position: relative;
+    background-color: transparent;
+  }
+  .navbar-dropdown-content .a {
+    margin-top: 0px !important;
+  }
+}

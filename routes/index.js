@@ -3,12 +3,21 @@ const index = express.Router();
 const chalk = require("chalk");
 const traffic = require("../PrivateModels/traffic");
 const users = require("../models/users");
+const maintenance_status = false;
+// true = under maintenance
 
 function log() {
   console.log(chalk.bgCyanBright.bold(" [Router] Index Successfully Booted "));
 }
-
 setTimeout(log, 1000);
+
+const maintenance = async (req, res, next) => {
+  if (maintenance_status === false) {
+    next();
+  } else {
+    res.render("maintain.ejs", { session: req.session });
+  }
+};
 
 const counttraffic = async (req, res, next) => {
   let date = new Date();
@@ -38,7 +47,7 @@ const counttraffic = async (req, res, next) => {
   next();
 };
 
-index.get("/", counttraffic, async (req, res, next) => {
+index.get("/", maintenance, counttraffic, async (req, res, next) => {
   let visits = await traffic.find({}).sort({ _id: "asc" }).lean().exec();
   let total_visits = 0;
   visits.forEach(async (data) => {
@@ -51,27 +60,42 @@ index.get("/", counttraffic, async (req, res, next) => {
   });
 });
 
-index.get("/contact", counttraffic, async (req, res, next) => {
+index.get("/contact", maintenance, counttraffic, async (req, res, next) => {
   res.render("contact.ejs", { session: req.session });
 });
 
-index.get("/news", counttraffic, async (req, res, next) => {
+index.get("/news", maintenance, counttraffic, async (req, res, next) => {
   res.render("news.ejs", { session: req.session });
 });
 
-index.get("/maintain", counttraffic, async (req, res, next) => {
+index.get("/maintain", maintenance, counttraffic, async (req, res, next) => {
   res.render("maintain.ejs", { session: req.session });
 });
 
-index.get("/quiz", counttraffic, async (req, res, next) => {
-  res.render("quiz.ejs", { session: req.session });
+index.get("/quiz", maintenance, counttraffic, async (req, res, next) => {
+  const params = req.query
+  if(params.id){
+    return res.render("quizform.ejs", { session: req.session });
+  }
+  if(params.create){
+    return res.render("createquiz.ejs", { session: req.session });
+  }
+    res.render("quiz.ejs", { session: req.session });
 });
 
-index.get("/uptime", async (req, res, next) => {
+index.get("/calculator", maintenance, counttraffic, async (req, res, next) => {
+  res.render("calculator.ejs", { session: req.session });
+});
+
+index.get("/translator", maintenance, counttraffic, async (req, res, next) => {
+  res.render("translator.ejs", { session: req.session });
+});
+
+index.get("/uptime", maintenance, async (req, res, next) => {
   res.render("404.ejs", { session: req.session });
 });
 
-index.get("/profile", counttraffic, async (req, res, next) => {
+index.get("/profile", maintenance, counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.render("profile.ejs", {
@@ -83,7 +107,7 @@ index.get("/profile", counttraffic, async (req, res, next) => {
   }
 });
 
-index.get("/logout", counttraffic, async (req, res, next) => {
+index.get("/logout", maintenance, counttraffic, async (req, res, next) => {
   req.session.destroy(function (err) {
     if (err) {
       console.log(err);
@@ -94,7 +118,7 @@ index.get("/logout", counttraffic, async (req, res, next) => {
   });
 });
 
-index.get("/login", counttraffic, async (req, res, next) => {
+index.get("/login", maintenance, counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.redirect("/");
@@ -103,7 +127,7 @@ index.get("/login", counttraffic, async (req, res, next) => {
   }
 });
 
-index.get("/signup", counttraffic, async (req, res, next) => {
+index.get("/signup", maintenance, counttraffic, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.redirect("/");

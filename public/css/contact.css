@@ -41,6 +41,7 @@
 .card1 h5{
   color:#85c4ff;
   font-weight:bolder;
+  animation: glow 3s ease-in-out infinite alternate;
 }
 .card1 h1{
   font-weight:bolder;
@@ -50,9 +51,11 @@
 @-webkit-keyframes glow {
   from {
     color: #3c7de6;
+    text-shadow: 0 0 50px #3c7de6;
   }
   to {
     color: #7cc6f7;
+    text-shadow: 0 0 50px #7cc6f7;
   }
 }
 

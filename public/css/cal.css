@@ -1,0 +1,168 @@
+.container {
+  align-items: center;
+  background-color: #1a1d20;
+  margin: 40px;
+  min-width: 200px;
+  min-height: 300px;
+  padding: 40px 30px 30px;
+  border-radius: 20px;
+}
+.container span {
+  color: #fff;
+  display: grid;
+  width: 80px;
+  place-items: center;
+  margin: 8px;
+  height: 80px;
+  background: #212529;
+  cursor: pointer;
+  font-weight: 400;
+  border-radius: 10px;
+  position: relative;
+}
+
+.container .clear:hover{
+  opacity: 0.9 !important;
+}
+
+.container .equal:hover{
+  opacity: 0.9 !important;
+}
+
+.container span:hover{
+  opacity: 0.7;
+}
+
+.calfunctions span:active {
+  filter: brightness(1.5);
+}
+.calfunctions span::before {
+  content: "";
+  top: 3px;
+  left: 4px;
+  bottom: 14px;
+  right: 12px;
+  border-radius: 10px;
+  background: #212529;
+}
+.calfunctions span i {
+  font-style: normal;
+  font-size: 36px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.calculator {
+  margin: auto;
+  display: grid;
+  justify-items: center;
+}
+.calfunctions {
+  margin: auto;
+  display: grid;
+  justify-items: center;
+  width: min-content;
+}
+.grid-man{
+  grid-column: span 4;
+  height: 1px !important;
+  gap: 0px;
+  background: transparent !important;
+}
+.calculator .value {
+  font-size: 2em;
+  font-weight: bolder;
+  text-align: right;
+  grid-column: span 4;
+  left: 10px;
+  width: calc(100% - 20px);
+  margin: auto;
+  height:100px;
+  border:none;
+  outline:none;
+  margin-bottom: 10px;
+  padding-left:25px;
+  padding-right: 15px;
+  color: white;
+  background-color: #212529;
+  border-radius:10px;
+}
+.calfunctions .clear {
+  grid-column: span 2;
+  width: 180px;
+  background: #cf1919;
+}
+.calfunctions .clear::before {
+  background: linear-gradient(90deg, #cf1919, #ffffff5c);
+}
+.calfunctions .plus {
+  grid-row: span 2;
+  height: 180px;
+}
+.calfunctions .equal {
+  background: #0f7ae6;
+}
+.calfunctions .equal::before{
+  background: #0f7ae6;
+}
+
+@media screen and (max-width: 550px){
+  .container span {
+    height: 60px;
+    width: 60px;
+  }
+  .container span i{
+    font-size: 27px;
+  }
+  .calfunctions .clear {
+    width: 140px;
+  }
+  .calfunctions .plus {
+    height: 140px;
+  }
+}
+
+@media screen and (max-width: 460px){
+  .container span {
+    height: 50px;
+    width: 50px;
+  }
+  .container span i{
+    font-size: 18px;
+  }
+  .calfunctions .clear {
+    width: 120px;
+  }
+  .calfunctions .plus {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 420px){
+  .container span {
+    height: 40px;
+    width: 40px;
+  }
+  .container span i{
+    font-size: 15px;
+  }
+  .calfunctions .clear {
+    width: 100px;
+  }
+  .calfunctions .plus {
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 430px){
+  .container{
+    margin: 10px;
+  }
+  .calculator {
+    font-size: 10px;
+  }
+}

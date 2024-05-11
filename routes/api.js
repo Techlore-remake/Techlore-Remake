@@ -122,11 +122,11 @@ function build_json(data) {
   function handleArr(array) {
     let objects = '';
     for (let i2 = 0; i2 < array.length; i2++) {
-      let object_children = '';
+      let objects_children = '';
       Object.keys(array[i2]).forEach(key => {
         objects_children += `"${key}" : ${array[i2][key].toString()},`
       })
-  objects += `{ ${object_children} },`
+  objects += `{ ${objects_children} },`
     }
     return objects;
   }
@@ -308,5 +308,22 @@ api.post('/login', async (req, res, next) => {
     res.status(401).json({ "message": "user doesnt exist"})
   });
 })
+
+// Quiz
+
+api.post('/quiz/checkcode', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require('../models/quizzes')
+  console.log(typeof post_data.code)
+  await quiz.findOne({ code: post_data.code }).exec()
+  .then((data) => {
+    console.log(data)
+    res.status(200).json({ "messsage": "success"})
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+  });
+})
+
 
 module.exports = api;
