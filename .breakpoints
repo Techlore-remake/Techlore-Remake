@@ -4,8 +4,16 @@
       {
         "id": "f84849bf-a522-48f6-aa22-fc4fd7ba7468",
         "line": 74,
-        "version": 1266,
-        "index": 1207
+        "version": 1386,
+        "index": 1236
+      }
+    ],
+    "views/signup.ejs": [
+      {
+        "id": "7c5ac7e3-c16d-43ae-8d83-602b8bda9ddf",
+        "line": 85,
+        "version": 678,
+        "index": 2653
       }
     ]
   }

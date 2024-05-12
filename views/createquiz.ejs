@@ -10,12 +10,39 @@
 <body>
     
 <%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
-    <!-- please dont use the below "placeholder" element. remove it when making the page -->
-        <div class="placeholder">
-        <i class="fa-solid fa-image"></i>
-        <h1>204</h1>
-         <p>This page is empty and is just a placeholder.</p>
-        </div>
+<div class="q-make-con">
+  <h1>Create your Quiz</h1>
+  <span id="questions-con">
+  <div class="q-1-container">
+    <textarea class="question" placeholder="Write your question here" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 1" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 2" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 3" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 4" required></textarea><br>
+    <input type="number" min="1" max="4" class="c-answer"placeholder="Correct Answer" required><br><br>
+  </div><br>
+    </span>
+  <button class="add-q" id="addq"><i class="fa-solid fa-square-plus"></i> Add Question</button>
+  <button class="add-quiz">Submit your quiz</button><br>
+  </div>
 <%- include('./partials/footer') %>
+  <script>
+   //What are you doing    
+    $('#addq').click(function() {
+      $('#questions-con').append(`<div class="q-1-container">
+    <textarea class="question" placeholder="Write your question here" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 1" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 2" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 3" required></textarea><br>
+    <textarea class="answer" placeholder="Answer 4" required></textarea><br>
+    <input type="number" min="1" max="4" class="c-answer"placeholder="Correct Answer" required><br>
+    <button class="remove-q" onclick="deleteq(this)"><i class="fa-solid fa-trash"></i> Remove Question</button><br><br>
+  </div><br>`)
+    })
+    function deleteq(element) {
+      console.log('e')
+      $(element).parent().remove()
+    }
+  </script>
 </body>
 </html>

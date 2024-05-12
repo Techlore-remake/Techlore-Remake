@@ -16,9 +16,7 @@
             <div class= "image">
             <img src="imgs/createquiz.png" alt="quiz"></div>
             <p>Invite your friends and craft a quiz together to challenge each other's knowledge!</p>
-            <p class="error" id="cerror"><i class="fa-solid fa-circle-exclamation"></i> Enter a Number</p>
-            <input type="number" placeholder="No. of Questions" id="qnum"></input><br>
-            <button id="cbutton">Create</button>
+            <a href="/quiz?create=true"><button>Create</button></a>
         </div>
         <div class="join">
                 <h1>Join a Quiz <i class="fa-solid fa-right-to-bracket"></i></h1>
@@ -33,50 +31,50 @@
         <%- include('./partials/footer') %>
 <script>
 
-    $('#cbutton').click(function(){
-        $('#cbutton').css({
-            "opacity": 0.65,
-            "pointer-events": "none"
-        })
-        $('#qnum').css({
-            "margin-top": "30px",
-            "border-radius": "10px",
-            "border-bottom-left-radius": "10px",
-            "border-bottom-right-radius": "10px"
-        })
-        $('#cerror').hide()
-        $('#qnum').prop('readonly', true)
-        if($('#qnum').val() === ''){
-            $('#cbutton').css({
-                "opacity": 1,
-                "pointer-events": "auto"
-            })
-            $('#qnum').css({
-                "margin-top": 0,
-                "border-radius": 0,
-                "border-bottom-left-radius": "10px",
-                "border-bottom-right-radius": "10px"
-            })
-            $('#cerror').show()
-            $('#qnum').prop('readonly', false)
-        }else{
-            $('#qnum').css({
-                "margin-top": 0,
-                "border-radius": 0,
-                "border-bottom-left-radius": "10px",
-                "border-bottom-right-radius": "10px"
-            })
-            $('#cerror').css({
-                "background-color": "rgb(39, 252, 113, 0.137254902)",
-                "color": "#46ce81"
-            })
-            $('#cerror').html(`<i class="fa-solid fa-spinner fa-spin-pulse"></i>  Creating Quiz`)
-            $('#cerror').show()
-            setTimeout(function(){
-                window.location.href = `/quiz?create=true&qnum=${$('#qnum').val()}`
-            }, 1000)
-        }
-    })
+    // $('#cbutton').click(function(){
+    //     $('#cbutton').css({
+    //         "opacity": 0.65,
+    //         "pointer-events": "none"
+    //     })
+    //     $('#qnum').css({
+    //         "margin-top": "30px",
+    //         "border-radius": "10px",
+    //         "border-bottom-left-radius": "10px",
+    //         "border-bottom-right-radius": "10px"
+    //     })
+    //     $('#cerror').hide()
+    //     $('#qnum').prop('readonly', true)
+    //     if($('#qnum').val() === ''){
+    //         $('#cbutton').css({
+    //             "opacity": 1,
+    //             "pointer-events": "auto"
+    //         })
+    //         $('#qnum').css({
+    //             "margin-top": 0,
+    //             "border-radius": 0,
+    //             "border-bottom-left-radius": "10px",
+    //             "border-bottom-right-radius": "10px"
+    //         })
+    //         $('#cerror').show()
+    //         $('#qnum').prop('readonly', false)
+    //     }else{
+    //         $('#qnum').css({
+    //             "margin-top": 0,
+    //             "border-radius": 0,
+    //             "border-bottom-left-radius": "10px",
+    //             "border-bottom-right-radius": "10px"
+    //         })
+    //         $('#cerror').css({
+    //             "background-color": "rgb(39, 252, 113, 0.137254902)",
+    //             "color": "#46ce81"
+    //         })
+    //         $('#cerror').html(`<i class="fa-solid fa-spinner fa-spin-pulse"></i>  Creating Quiz`)
+    //         $('#cerror').show()
+    //         setTimeout(function(){
+    //             window.location.href = `/quiz?create=true&qnum=${$('#qnum').val()}`
+    //         }, 1000)
+    //     }
+    // })
     
 $('#jbutton').click(function(){
     $('#jbutton').css({

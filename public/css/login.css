@@ -1,6 +1,6 @@
 .login_form{
-  background-color: #1a1d20;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+  background-color: var(--bg-con);
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   margin: 40px;
   border-radius:20px;
   text-align: center;
@@ -10,14 +10,14 @@
   padding-bottom:2.5%;
 }
 .login_form h1{
-  color:white;
+  color: var(--color);
   font-weight: bolder;
 }
 .login_form button{
   margin-top:30px;
   border-radius: 50px;
-  background-color: #7cc6f7;
-  color: black;
+  background-color: var(--primary-2);
+  color: var(--color);
   font-weight:bolder;
   align-items:center;
   padding: 15px 30px;
@@ -32,7 +32,7 @@
 }
 
 .login_form label{
-  color: #7cc6f7;
+  color: var(--primary-2);
   margin-bottom:20px;
 }
 
@@ -41,8 +41,8 @@
   padding: 10px;
   margin-top: 15px;
   border-radius: 10px;
-  color: white;
-  background-color: #212529;
+  color: var(--color);
+  background-color: var(--bg);
   outline: none;
   border: 0px;
   margin-bottom:20px;

@@ -4,7 +4,6 @@ const chalk = require("chalk");
 const mongoose = require('mongoose');
 const fs = require('fs')
 const traffic = require('../PrivateModels/traffic');
-
 function log() {
   console.log(chalk.bgCyanBright.bold(" [Router] API Successfully Booted "));
 }
@@ -314,10 +313,11 @@ api.post('/login', async (req, res, next) => {
 api.post('/quiz/checkcode', async (req, res, next) => {
   const post_data = req.body
   const quiz = require('../models/quizzes')
-  console.log(typeof post_data.code)
   await quiz.findOne({ code: post_data.code }).exec()
   .then((data) => {
-    console.log(data)
+    if(!data){
+      return res.status(401).json({ "message": "error"})
+    }
     res.status(200).json({ "messsage": "success"})
   })
   .catch((error) => {

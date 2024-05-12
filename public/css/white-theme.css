@@ -1,0 +1,40 @@
+/* :root {
+  --color: black;
+  --bg: #ffffff;
+  --bg-nav: #e3e3e3;
+  --bg-nav-dropdown: rgb(227, 227, 227, 0.8);
+  --bg-con: #d1d1d1;
+  --bg-con-shadow: #a3a3a3;
+  --primary-1: #3c7de6;
+  --primary-2: #7cc6f7;
+  --primary-3: #0f7ae6;
+  --primary-4: #85c4ff;
+  --primary-5: #3ca2e6;
+  --err-page-c1: #fadc57;
+  --err-page-c2: #fbeba2;
+  --news-bg: #27292b;
+  --news-title: #f5db67;
+  --news-time-1: #6e6d6d;
+  --news-time-2: #4d4c4b;
+  --news-time-3: #1c1c1c;
+} */
+:root {
+  --color: black; /* Change text color to black */
+  --bg: white; /* Change background color to white */
+  --bg-nav: #e8e8e8; /* Darken navigation background */
+  --bg-nav-dropdown: rgba(220, 220, 220, 0.8); /* Darken dropdown background */
+  --bg-con: #e0e0e0; /* Darken content background */
+  --bg-con-shadow: #d0d0d0; /* Darken content shadow */
+  --primary-1: #4d85ff; /* Darken primary color 1 */
+  --primary-2: #99bfff; /* Darken primary color 2 */
+  --primary-3: #007acc; /* Darken primary color 3 */
+  --primary-4: #b3daff; /* Darken primary color 4 */
+  --primary-5: #4d99e6; /* Darken primary color 5 */
+  --err-page-c1: #ffd700; /* Darken error page color 1 */
+  --err-page-c2: #fff17f; /* Darken error page color 2 */
+  --news-bg: #e8e8e8; /* Darken news background */
+  --news-title: #333; /* Darken news title color for better contrast */
+  --news-time-1: #666; /* Darken news time color for better contrast */
+  --news-time-2: #999; /* Darken news time color for better contrast */
+  --news-time-3: #ccc; /* Darken news time color */
+}

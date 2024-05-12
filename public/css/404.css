@@ -3,42 +3,42 @@
 }
 
 .con h1{
-  color: #fadc57;
-  text-shadow: 0 0 50px #fadc57;
-  animation: glow_3 3s ease-in-out infinite alternate;
+  color: var(--err-page-c1);
+  text-shadow: 0 0 50px var(--err-page-c1);
+  animation: err_glow 3s ease-in-out infinite alternate;
   font-size: 100px;
   margin-top: 10px;
 }
 .con p{
-  color: #7cc6f7;
+  color: var(--primary-2);
   font-size: 20px;
   font-weight: bolder;
 }
 .con a{
   text-decoration: none;
-  color: #3ca2e6;
+  color: var(--primary-5);
   font-weight: bolder;
 }
 .con i{
   font-weight: bolder;
   font-size: 60px;
-  color: #fadc57;
-  text-shadow: 0 0 50px #fadc57;
-  animation: glow_3 3s ease-in-out infinite alternate;
+  color: var(--err-page-c1);
+  text-shadow: 0 0 50px var(--err-page-c1);
+  animation: err_glow 3s ease-in-out infinite alternate;
   margin-top: 30px;
 }
 .con{
-  background-color: #1a1c1f;
+  background-color: var(--bg-con);
   padding: 40px;
   margin: 40px;
   border-radius: 20px;
 }
-@-webkit-keyframes glow_3 {
+@-webkit-keyframes err_glow {
   from {
-    text-shadow: 0 0 50px #fadc57;
+    text-shadow: 0 0 50px var(--err-page-c1);
   }
 
   to {
-    text-shadow: 0 0 50px #fbeba2;
+    text-shadow: 0 0 50px var(--err-page-c2);
   }
 }

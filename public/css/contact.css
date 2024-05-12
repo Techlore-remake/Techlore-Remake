@@ -2,20 +2,20 @@
   text-align: center;
   padding:30px;
   padding-top:20px;
-  color: white;
+  color: var(--color);
   margin: 40px;
   border-radius: 20px;
-   background: #1a1d20;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+   background: var(--bg-con);
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
 }
 .card1{
   padding-top: 15px;
   padding: 20px;
   paddin-left:30px;
   padding-right:30px;
-  background-color: #212529;
+  background-color: var(--bg);
   border-radius: 20px;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   text-align:center;
 }
 .card1 button{
@@ -23,8 +23,8 @@
   width: 60px;
   margin: 5px;
   border-radius: 10px;
-  background-color: #0f7ae6;
-  color: white;
+  background-color: var(--primary-3);
+  color: var(--color);
   font-weight: bolder;
   align-items:center;
   font-size: 30px;
@@ -39,7 +39,7 @@
 }
 
 .card1 h5{
-  color:#85c4ff;
+  color: var(--primary-4);
   font-weight:bolder;
   animation: glow 3s ease-in-out infinite alternate;
 }
@@ -50,12 +50,12 @@
 
 @-webkit-keyframes glow {
   from {
-    color: #3c7de6;
-    text-shadow: 0 0 50px #3c7de6;
+    color: var(--primary-1);
+    text-shadow: 0 0 50px var(--primary-1);
   }
   to {
-    color: #7cc6f7;
-    text-shadow: 0 0 50px #7cc6f7;
+    color: var(--primary-2);
+    text-shadow: 0 0 50px var(--primary-2);
   }
 }
 
@@ -73,7 +73,7 @@
 
 .title{
   text-align:center;
-  color: #3c7de6;
+  color: var(--primary-1);
   font-weight:bolder;
   font-size:40px;
   margin-bottom: 30px;

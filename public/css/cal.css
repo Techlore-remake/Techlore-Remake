@@ -1,6 +1,6 @@
 .container {
   align-items: center;
-  background-color: #1a1d20;
+  background-color: var(--bg-con);
   margin: 40px;
   min-width: 200px;
   min-height: 300px;
@@ -8,13 +8,13 @@
   border-radius: 20px;
 }
 .container span {
-  color: #fff;
+  color: var(--color);
   display: grid;
   width: 80px;
   place-items: center;
   margin: 8px;
   height: 80px;
-  background: #212529;
+  background: var(--bg);
   cursor: pointer;
   font-weight: 400;
   border-radius: 10px;
@@ -43,7 +43,7 @@
   bottom: 14px;
   right: 12px;
   border-radius: 10px;
-  background: #212529;
+  background: var(--bg);
 }
 .calfunctions span i {
   font-style: normal;
@@ -87,8 +87,8 @@
   margin-bottom: 10px;
   padding-left:25px;
   padding-right: 15px;
-  color: white;
-  background-color: #212529;
+  color: var(--color);
+  background-color: var(--bg);
   border-radius:10px;
 }
 .calfunctions .clear {
@@ -96,18 +96,16 @@
   width: 180px;
   background: #cf1919;
 }
-.calfunctions .clear::before {
-  background: linear-gradient(90deg, #cf1919, #ffffff5c);
-}
+
 .calfunctions .plus {
   grid-row: span 2;
   height: 180px;
 }
 .calfunctions .equal {
-  background: #0f7ae6;
+  background: var(--primary-3);
 }
 .calfunctions .equal::before{
-  background: #0f7ae6;
+  background: var(--primary-3);
 }
 
 @media screen and (max-width: 550px){

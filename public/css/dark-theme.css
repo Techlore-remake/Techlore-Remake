@@ -1,0 +1,20 @@
+:root {
+  --color: white;
+  --bg: #212529;
+  --bg-nav: #1a1c1f;
+  --bg-nav-dropdown: rgba(26, 28, 31, 0.8);
+  --bg-con: #1a1d20;
+  --bg-con-shadow: #15181a;
+  --primary-1: #3c7de6;
+  --primary-2: #7cc6f7;
+  --primary-3: #0f7ae6;
+  --primary-4: #85c4ff;
+  --primary-5: #3ca2e6;
+  --err-page-c1: #fadc57;
+  --err-page-c2: #fbeba2;
+  --news-bg: #27292b;
+  --news-title: #f5db67;
+  --news-time-1: #6e6d6d;
+  --news-time-2: #4d4c4b;
+  --news-time-3: #1c1c1c;
+}

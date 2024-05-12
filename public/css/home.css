@@ -1,19 +1,19 @@
 .main{
-  background-color: #1a1d20;
-  color: white;
+  background-color: var(--bg-con);
+  color: var(--color);
   border-radius: 20px;
   padding: 20px;
   text-align: center;
   margin: 40px;
   margin-top: 5%;
   margin-bottom:5%;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   padding-top: 10%;
   padding-bottom: 10%;
   font-weight: bolder;
 }
 .main h1{
-  color: #3c7de6;
+  color: var(--primary-1);
   font-family: "Work Sans", sans-serif;
   font-weight: bolder;
   font-size: 48px;
@@ -26,25 +26,25 @@
 .main h3 span{
   font-size: 22px;
   font-weight: bold;
-  color: #3ca2e6;
+  color: var(--primary-5);
   animation: glow 3s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes glow {
   from {
-    color: #3c7de6;
-    text-shadow: 0 0 60px #3c7de6;
+    color: var(--primary-1);
+    text-shadow: 0 0 60px var(--primary-1);
   }
   to {
-    color: #7cc6f7;
-    text-shadow: 0 0 60px #7cc6f7;
+    color: var(--primary-2);
+    text-shadow: 0 0 60px var(--primary-2);
   }
 }
 
 /*About*/
 .about{
-  color:white;
-  background-color: #1a1d20;
+  color: var(--color);
+  background-color: var(--bg-con);
   border-radius: 20px;
   padding: 20px;
   padding-left:10%;
@@ -52,28 +52,27 @@
   margin-bottom:5%;
   text-align:justify;
  margin: 40px;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   font-weight:bolder;
 }
 .hero{
-  color: #ffffff;
+  color: var(--color);
   font-weight:bold;
   font-size:20px;
 }
 .about h1{
   text-align:center;
-  color: #3c7de6;
+  color: var(--primary-1);
   font-weight:bolder;
   font-size:40px;
 }
 @media screen and (max-width: 600px) {
 .main h1{
-  font-size:40px;
+  font-size:30px;
 }
   .main h3 span{
     font-size:20px;
     font-weight: bold;
-    color:blue;
     animation: glow 3s ease-in-out infinite alternate;
   }
   .topnav a {
@@ -82,20 +81,20 @@
   }
 }
 .contact{
-  color:white;
-  background-color:#1a1d20;
+  color: var(--color);
+  background-color: var(--bg-con);
   border-radius: 20px;
   height: max-content;
   padding: 20px;
   text-align:center;
   margin: 40px;
   margin-bottom:5%;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   padding-bottom: 30px;
   font-weight:bolder;
 }
 .contact h1{
-  color: #3c7de6;
+  color: var(--primary-1);
   font-weight:bolder;
   font-size:40px;
 }
@@ -113,8 +112,8 @@
   border:none;
   outline:none;
   padding-left:25px;
-  color: white;
-  background-color: #212529;
+  color: var(--color);
+  background-color: var(--bg);
   border-radius:10px;
 }
 .contact_1 textarea{
@@ -123,16 +122,13 @@
   border-radius:10px;
   min-height: 100px;
 }
-.contact_input:focus{
-  border:2px solid gray;
-}
 .contact_1 button{
   margin-top:30px;
   width: max-content;
   margin: 10px;
   border-radius: 50px;
-  background-color: #0f7ae6;
-  color: white;
+  background-color: var(--primary-3);
+  color: var(--color);
   font-weight:bolder;
   align-items:center;
   padding: 15px 30px;
@@ -145,8 +141,8 @@
 }
 
 .view_count{
-  background-color: #212529;
-  color: white;
+  background-color: var(--bg);
+  color: var(--color);
   border-radius: 20px;
   align-items:center;
   justify-content: center;
@@ -161,26 +157,26 @@
 }
 .analytics{
   text-align:center;
-  margin: 40px;
   margin-bottom:5%;
-  background-color: #1a1d20;
-  color: white;
+  margin: 40px;
+  background-color: var(--bg-con);
+  color: var(--color);
   border-radius:20px;
   padding: 20px;
-  box-shadow: 0 10px 10px 0 #15181a, 0 10px 30px 0 #15181a;
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
 }
 .analytics h1{
-  color: #3c7de6;
+  color: var(--primary-1);
   font-weight:bolder;
   font-size:40px;
 }
 .analytics h2{
-  color: #85c4ff;
+  color: var(--primary-4);
   font-weight:bolder;
   font-size:30px;
 }
 .analytics p{
-  color: #edf0cc;
+  color: var(--color);
   font-weight:bolder;
   font-size:25px;
 }
@@ -194,5 +190,5 @@
   margin: 40px;
   text-align:center;
   padding-bottom:40px;
-  color: white;
+  color: var(--color);
 }

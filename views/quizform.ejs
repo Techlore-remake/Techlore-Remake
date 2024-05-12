@@ -10,12 +10,27 @@
 <body>
     
     <%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
-<!-- please dont use the below "placeholder" element. remove it when making the page -->
-        <div class="placeholder">
-        <i class="fa-solid fa-image"></i>
-        <h1>204</h1>
-         <p>This page is empty and is just a placeholder.</p>
-        </div>
+        <div class="q-main">
+<div class="q-1">
+    <h1>Question 1<h1>
+        <label class="container">One
+          <input type="radio" checked="checked" name="radio">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Two
+          <input type="radio" name="radio">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Three
+          <input type="radio" name="radio">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Four
+          <input type="radio" name="radio">
+          <span class="checkmark"></span>
+        </label>
+</div>
+            </div>
         <%- include('./partials/footer') %>
 </body>
 </html>
