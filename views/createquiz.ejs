@@ -5,42 +5,111 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Create Quiz | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('./partials/links2', {page: "quiz"}) %>
+    <%- include('./partials/links2', {page: "cquiz"}) %>
 </head>
 <body>
     
 <%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
 <div class="q-make-con">
   <h1>Create your Quiz</h1>
-  <span id="questions-con">
-  <div class="q-1-container">
-    <textarea class="question" placeholder="Write your question here" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 1" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 2" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 3" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 4" required></textarea><br>
-    <input type="number" min="1" max="4" class="c-answer"placeholder="Correct Answer" required><br><br>
-  </div><br>
-    </span>
-  <button class="add-q" id="addq"><i class="fa-solid fa-square-plus"></i> Add Question</button>
-  <button class="add-quiz">Submit your quiz</button><br>
+  <div class="inputgroup">
+    <input type="text" placeholder="Quiz Title*" id="title" class="required" oninput="this.style.backgroundColor = ''">
+    <textarea type="text" placeholder="Quiz Description" id="desc"></textarea>
   </div>
+  
+<span id="questions-con">
+  <div class="q-container">
+    <textarea class="question required" id="q" placeholder="Write your question here*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a1" placeholder="Answer 1*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a2" placeholder="Answer 2*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a3" placeholder="Answer 3*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a4" placeholder="Answer 4*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <input type="number" min="1" max="4" id="ca" class="c-answer required" placeholder="Correct Answer*" oninput="this.style.backgroundColor = ''">
+    <br><br>
+  </div>
+    
+</span>
+  
+<div class="addq-con"><button class="add-q" id="addq">
+  <i class="fa-solid fa-square-plus"></i> Add Question</button>
+</div><br>
+  <div class="err-message" id="error">
+    <p>Error messsage here</p>
+  </div>
+<div class="addquiz-con">
+<button class="add-quiz" id="cquiz">
+  <i class="fa-solid fa-square-plus"></i> Create Quiz</button>
+</div>
+</div>
 <%- include('./partials/footer') %>
   <script>
-   //What are you doing    
+
+    $('#cquiz').click(function() {
+      $('#cquiz').addClass('disabled')
+      function validateForm() {
+        var isValid = true;
+        $('.required').each(function() {
+          if ($(this).val() === ''){
+            $(this).css({ "background-color": "rgba(252, 40, 40, 0.2)"})
+            isValid = false;
+          }
+        });
+        return isValid;
+      }
+      
+      if(validateForm() === false){
+        $('#error').children().text('Please fill all the required fields')
+        $('#error').show()
+        $('#cquiz').removeClass('disabled')
+      }else{
+        $('#error').hide()
+        let questions = [];
+        $('.q-container').each(function() {
+          questions.push({
+            question: $(this).find('#q').val(),
+            choices: {
+              a1: $(this).find('#a1').val(),
+              a2: $(this).find('#a2').val(),
+              a3: $(this).find('#a3').val(),
+              a4: $(this).find('#a4').val()
+            },
+            answer: $(this).find('#ca').val()
+          })
+        })
+        
+        axios.post('/api/quiz/create', {
+            title: $('#title').val(),
+            desc: $('#desc').val(),
+            user: "<%-session.user%>",
+            questions: questions
+        })
+        .then(function (res) {
+            window.location.href = `/quiz?id=${res.data.message}`
+        })
+        .catch(function (error) {
+          $('#error').children().text('An error occurred, Please contact an admin.')
+          $('#error').show()
+          $('#cquiz').removeClass('disabled')
+        })
+        
+      }
+    })
+    
     $('#addq').click(function() {
-      $('#questions-con').append(`<div class="q-1-container">
-    <textarea class="question" placeholder="Write your question here" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 1" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 2" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 3" required></textarea><br>
-    <textarea class="answer" placeholder="Answer 4" required></textarea><br>
-    <input type="number" min="1" max="4" class="c-answer"placeholder="Correct Answer" required><br>
-    <button class="remove-q" onclick="deleteq(this)"><i class="fa-solid fa-trash"></i> Remove Question</button><br><br>
-  </div><br>`)
+      $('#questions-con').append(`
+      <div class="q-container" style="margin-top:40px;">
+        <textarea class="question required" id="q" placeholder="Write your question here*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a1" placeholder="Answer 1*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a2" placeholder="Answer 2*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a3" placeholder="Answer 3*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a4" placeholder="Answer 4*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <input type="number" min="1" max="4" id="ca" class="c-answer required" placeholder="Correct Answer*" oninput="this.style.backgroundColor = ''">
+        <br><br>
+         <button class="remove-q" onclick="deleteq(this)"><i class="fa-solid fa-trash"></i> Remove Question</button><br><br>
+      </div>
+      `)
     })
     function deleteq(element) {
-      console.log('e')
       $(element).parent().remove()
     }
   </script>

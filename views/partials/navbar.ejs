@@ -13,12 +13,13 @@
 <i class="fa-solid fa-newspaper"></i> News
 </a>
 
-<a class="navbar-dropdown <%if(page === "translator" || page === "quiz" || page === "calculator"){%> active <%}%>">
-  <i class="fa-solid fa-toolbox"></i> Tools <i class="fa-solid fa-caret-down"></i>
+<a class="navbar-dropdown <%if(page === "translator" || page === "quiz" || page === "calculator" || page === "weather"){%> active <%}%>">
+  <i class="fa-solid fa-toolbox"></i> Softwares <i class="fa-solid fa-caret-down"></i>
   <div class="navbar-dropdown-content">
     <span class="a <%if(page === "translator"){%>active<%}%>" onclick="location='/translator'"><i class="fa-solid fa-language"></i> Translator</span>
     <span class="a <%if(page === "quiz"){%>active<%}%>" onclick="location='/quiz'"><i class="fa-solid fa-rectangle-list"></i> Quiz App</span>
     <span class="a <%if(page === "calculator"){%>active<%}%>" onclick="location='/calculator'"><i class="fa-solid fa-calculator"></i> Calculator</span>
+  <span class="a <%if(page === "weather"){%>active<%}%>" onclick="location='/weather'"><i class="fa-solid fa-cloud"></i> Weather app</span>
   </div>
 </a> 
   

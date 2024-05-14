@@ -5,32 +5,135 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Quiz Form | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('./partials/links2', {page: "quiz"}) %>
+    <%- include('./partials/links2', {page: "quizform"}) %>
 </head>
 <body>
-    
-    <%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
-        <div class="q-main">
-<div class="q-1">
-    <h1>Question 1<h1>
-        <label class="container">One
-          <input type="radio" checked="checked" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">Two
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">Three
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">Four
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
+<%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
+
+<div class="q-container">
+<h1>Quiz name</h1>
+    <% for (let i = 0; i < quiz.questions.length; i++) { %>
+        <%let q = quiz.questions[i]%>
+        <div class="q-con" onclick="this.style.backgroundColor = ''">
+            <h2 class="question"><%-i+1%>. <%-q.question%></h2>
+            <label class="ans" for="q<%-i+1%>a1">
+                <input type="radio" id="q<%-i+1%>a1" name="q<%-i+1%>" value="q<%-i+1%>a1">
+                <span><%-q.choices.a1%></span>
+            </label><br>
+            <label class="ans" for="q<%-i+1%>a2">
+                <input type="radio" id="q<%-i+1%>a2" name="q<%-i+1%>" value="q<%-i+1%>a2">
+                <span><%-q.choices.a2%></span>
+            </label><br>
+            <label class="ans" for="q<%-i+1%>a3">
+                <input type="radio" id="q<%-i+1%>a3" name="q<%-i+1%>" value="q<%-i+1%>a3">
+                <span><%-q.choices.a3%></span>
+            </label><br>
+            <label class="ans" for="q<%-i+1%>a4">
+                <input type="radio" id="q<%-i+1%>a4" name="q<%-i+1%>" value="q<%-i+1%>a4">
+                <span><%-q.choices.a4%></span>
+            </label><br>
+        </div>
+   <% } %>
+<!-- <div class="q-con" onclick="this.style.backgroundColor = ''">
+    <h2 class="question">1. Question should be in here</h2>
+    <label class="ans" for="q1a1">
+        <input type="radio" id="q1a1" name="q1" value="q1a1">
+        <span>Answer 1</span>
+    </label><br>
+    <label class="ans" for="q1a2">
+        <input type="radio" id="q1a2" name="q1" value="q1a2">
+        <span>Answer 2</span>
+    </label><br>
+    <label class="ans" for="q1a3">
+        <input type="radio" id="q1a3" name="q1" value="q1a3">
+        <span>Answer 3</span>
+    </label><br>
+    <label class="ans" for="q1a4">
+        <input type="radio" id="q1a4" name="q1" value="q1a4">
+        <span>Answer 4</span>
+    </label><br>
 </div>
-            </div>
-        <%- include('./partials/footer') %>
+    <div class="q-con" onclick="this.style.backgroundColor = ''">
+        <h2 class="question">2. Question should be in here</h2>
+        <label class="ans" for="q2a1">
+            <input type="radio" id="q2a1" name="q2" value="q2a1">
+            <span>Answer 1</span>
+        </label><br>
+        <label class="ans" for="q2a2">
+            <input type="radio" id="q2a2" name="q2" value="q2a2">
+            <span>Answer 2</span>
+        </label><br>
+        <label class="ans" for="q2a3">
+            <input type="radio" id="q2a3" name="q2" value="q2a3">
+            <span>Answer 3</span>
+        </label><br>
+        <label class="ans" for="q2a4">
+            <input type="radio" id="q2a4" name="q2" value="q2a4">
+            <span>Answer 4</span>
+        </label><br>
+    </div> -->
+      <br><br><br>
+        <div class="del-con">
+        <button class="delete"><i class="fa-solid fa-trash"></i> Clear Answers</button>
+        </div>
+      <div class="err-message" id="error">
+        <p>Error messsage here</p>
+      </div>
+    <div class="sub-con">
+        <button class="submit">Submit Answers</button>
+    </div>
+</div>
+<%- include('./partials/footer') %>
+    <script>
+        $('.delete').click(function() {
+            $('input:checked').prop('checked', false)
+        })
+        $('.submit').click(function() {
+            $('.submit').addClass('disabled')
+            $('#error').hide()
+
+            function validateForm() {
+                let filled = true
+                $('.q-con').each(function() {
+                    if($(this).find('input:checked').length === 0){
+                        $(this).css({
+                            "background-color": "rgba(252, 40, 40, 0.2)"
+                        })
+                        console.log('e')
+                        filled = false
+                    }
+                })
+                return filled
+            }
+            if(validateForm() === false){
+                $('#error').children().text('Please Answer All The Questions')
+                $('#error').show()
+                $('.submit').removeClass('disabled')
+            }else{
+                
+            let responses = []
+            $('.q-con').each(function() {
+                responses.push({
+                    answer: ($(this).find('input').index($(this).find('input:checked'))+1)
+                })
+            })
+            
+            axios.post('/api/quiz/submit', {
+                code: "<%-quiz.code%>",
+                user: "<%-session.user%>",
+                response: responses
+            })
+            .then(function (res) {
+                window.location.href = `/quiz?scode=${res.data.message}`
+            })
+            .catch(function (error) {
+                console.log(error)
+              $('#error').children().text('An error occurred, Please contact an admin.')
+              $('#error').show()
+              $('.submit').removeClass('disabled')
+            })
+            }
+        })
+    </script>
 </body>
 </html>

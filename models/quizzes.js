@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
     title: String,
     description: String,
     code: String,
+    author: String,
     questions: [{
       question: String,
       choices: {
@@ -14,7 +15,16 @@ const Schema = mongoose.Schema;
         a4: String
       },
       answer: Number
+    }],
+    responses: [{
+      user: String,
+      score: Number,
+      date: Date,
+      answers: [{
+        answer: Number
+      }]
     }]
+  
 })),
   (Quizzes = mongoose.model("quizzes", QuizSchema));
 

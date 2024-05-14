@@ -1,6 +1,18 @@
 .container{
   display: flex !important;
 }
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .create{
   background-color: var(--bg-con);
   color: var(--color);
@@ -142,178 +154,4 @@ input[type=number]::-webkit-inner-spin-button {
   color: var(--color);
   background-color: var(--bg);
   border-radius:10px;
-}
-.q-make-con{
-  background-color: var(--bg-con);
-  color: var(--color);
-  margin: 20px;
-  padding: 20px;
-  text-align:center; 
-  justify-content: center;
-  align-items: center;
-}
-.question{
-  width: 90%; 
-  max-width: 90%; 
-  min-width: 90%; 
-  height:50px;
-  border:none;
-  outline:none;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  padding-left:25px;
-  color: var(--color);
-  background-color: var(--bg-con);
-  border-radius:10px;
-  padding:10px;
-  max-height:80px;
-  min-height:40px;
-}
-.q-1-container{
-  background-color: var(--bg);
-  max-width: 700px;
-  margin: auto;
-  border-radius: 10px;
-}
-.answer{
-  width: 80%; 
-  max-width: 80%; 
-  min-width: 80%; 
-  height:50px;
-  border:none;
-  outline:none;
-  padding-left:25px;
-  margin: 10px;
-  color: var(--color);
-  background-color: var(--bg-con);
-  border-radius:10px;
-  padding:10px;
-  max-height:40px;
-  min-height:40px;
-  resize: none;
-}
-
-.c-answer{
-  width: 80%; 
-  max-width: 80%; 
-  min-width: 80%; 
-  height:50px;
-  margin: 10px;
-  margin-bottom: 20px;
-  border:none;
-  outline:none;
-  padding-left:25px;
-  color: var(--color);
-  font-weight:bolder;
-  background-color: var(--bg-con);
-  border-radius:10px;
-  padding:10px;
-  max-height:40px;
-  min-height:40px;
-  resize: none;
-}
-.add-q{
-  margin-top:30px;
-  width: max-content;
-  margin: 10px;
-  border-radius: 50px;
-  background-color: #c4ff45;
-  color: black;
-  font-weight:bolder;
-  align-items:center;
-  padding: 15px 30px;
-  gap:10px;
-  border:none;
-  cursor:pointer;
-}
-.remove-q{
-  margin-top:30px;
-  width: max-content;
-  margin: 10px;
-  border-radius: 50px;
-  background-color: #ff3333;
-  color: black;
-  font-weight:bolder;
-  align-items:center;
-  padding: 15px 30px;
-  gap:10px;
-  border:none;
-  cursor:pointer;
-}
-.add-quiz{
-  margin-top:30px;
-  width: max-content;
-  margin: 10px;
-  border-radius: 50px;
-  background-color: green;
-  color: white;
-  font-weight:bolder;
-  align-items:center;
-  padding: 15px 30px;
-  gap:10px;
-  border:none;
-  cursor:pointer;
-  width: 200px;
-}
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default radio button */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* Create a custom radio button */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container .checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
 }

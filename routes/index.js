@@ -47,6 +47,14 @@ const counttraffic = async (req, res, next) => {
   next();
 };
 
+const login_required = async (req, res, next) => {
+  if (!req.session.user) {
+    res.redirect("/login");
+  } else {
+    next();
+  }
+};
+
 index.get("/", maintenance, counttraffic, async (req, res, next) => {
   let visits = await traffic.find({}).sort({ _id: "asc" }).lean().exec();
   let total_visits = 0;
@@ -68,44 +76,62 @@ index.get("/news", maintenance, counttraffic, async (req, res, next) => {
   res.render("news.ejs", { session: req.session });
 });
 
-index.get("/maintain", maintenance, counttraffic, async (req, res, next) => {
-  res.render("maintain.ejs", { session: req.session });
-});
-
-index.get("/quiz", maintenance, counttraffic, async (req, res, next) => {
-  const params = req.query
-  if(params.id){
-    return res.render("quizform.ejs", { session: req.session });
-  }
-  if(params.create){
-    return res.render("createquiz.ejs", { session: req.session });
-  }
-    res.render("quiz.ejs", { session: req.session });
-});
+index.get("/quiz", login_required, maintenance, counttraffic, async (req, res, next) => {
+    const params = req.query;
+    if (params.id) {
+      const quiz = require("../models/quizzes");
+      await quiz.findOne({ code: params.id }).exec()
+        .then((data) => {
+          if (!data) {
+            return res.render("404.ejs", { session: req.session });
+          }
+          if(data.responses.user.includes(req.session.user)){
+            res.render("quizscore.ejs", { session: req.session, quiz: data });
+          }else{
+            res.render("quizform.ejs", { session: req.session, quiz: data });
+          }
+        })
+        .catch((error) => {
+          res.render("404.ejs", { session: req.session });
+        });
+    }
+    if (params.create) {
+      res.render("createquiz.ejs", { session: req.session });
+    }
+    if(params.scode){
+      res.render("quizscore.ejs", { session: req.session });
+    }
+    if (!params.id && !params.create && !params.scode) {
+      res.render("quiz.ejs", { session: req.session });
+    }
+  },
+);
 
 index.get("/calculator", maintenance, counttraffic, async (req, res, next) => {
   res.render("calculator.ejs", { session: req.session });
+});
+index.get("/weather", maintenance, counttraffic, async (req, res, next) => {
+  res.render("weather.ejs", { session: req.session });
 });
 
 index.get("/translator", maintenance, counttraffic, async (req, res, next) => {
   res.render("translator.ejs", { session: req.session });
 });
-
-index.get("/uptime", maintenance, async (req, res, next) => {
-  res.render("404.ejs", { session: req.session });
+index.get("/quiz3", maintenance, counttraffic, async (req, res, next) => {
+  res.render("quizform.ejs", { session: req.session });
 });
-
-index.get("/profile", maintenance, counttraffic, async (req, res, next) => {
-  const user = req.session.user;
-  if (user) {
+index.get(
+  "/profile",
+  login_required,
+  maintenance,
+  counttraffic,
+  async (req, res, next) => {
     res.render("profile.ejs", {
       session: req.session,
       userdata: await users.findOne({ username: req.session.user }).exec(),
     });
-  } else {
-    res.redirect("/login");
-  }
-});
+  },
+);
 
 index.get("/logout", maintenance, counttraffic, async (req, res, next) => {
   req.session.destroy(function (err) {
@@ -113,7 +139,7 @@ index.get("/logout", maintenance, counttraffic, async (req, res, next) => {
       console.log(err);
       res.send("Error");
     } else {
-      res.redirect("/");
+      res.redirect("/login");
     }
   });
 });

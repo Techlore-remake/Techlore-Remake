@@ -210,7 +210,7 @@ api.post('/database/delete', async (req, res, next) => {
   const data = await collection.find({}).exec()
   collection.findOneAndDelete({ _id : data[Number(`${post_data.object_no}`)]._id }).exec()
   .then((Document) => {
-    res.status(200).json({ "messsage": "success"})
+    res.status(200).json({ "message": "success"})
   })
   .catch((error) => {
     res.status(401).json({ "message": "error"})
@@ -224,7 +224,7 @@ api.post('/database/edit', async (req, res, next) => {
   const data = await collection.find({}).exec()
   collection.findOneAndUpdate({ _id : data[Number(`${post_data.object_no}`)]._id }, { $set: post_data.json}).exec()
   .then((Document) => {
-    res.status(200).json({ "messsage": "success"})
+    res.status(200).json({ "message": "success"})
   })
   .catch((error) => {
     res.status(401).json({ "message": "error"})
@@ -237,7 +237,7 @@ api.post('/database/create', async (req, res, next) => {
   const collection = require(`../models/${post_data.collection}`)
   collection.create(post_data.json)
   .then((Document) => {
-    res.status(200).json({ "messsage": "success"})
+    res.status(200).json({ "message": "success"})
   })
   .catch((error) => {
     res.status(401).json({ "message": "error"})
@@ -253,13 +253,13 @@ api.post('/signup', async (req, res, next) => {
   await users.findOne({ username: info.username }).exec()
   .then((data) => {
     if(data.username === info.username){
-      return res.status(401).json({ "messsage": "user exists"})
+      return res.status(401).json({ "message": "user exists"})
     }
     // if(data.name === info.name){
-    //   return res.status(401).json({ "messsage": "name taken"})
+    //   return res.status(401).json({ "message": "name taken"})
     // }
     // if(data.email === info.email){
-    //   return res.status(401).json({ "messsage": "email taken"})
+    //   return res.status(401).json({ "message": "email taken"})
     // }
   })
   .catch(async (error) => {
@@ -276,7 +276,7 @@ api.post('/signup', async (req, res, next) => {
     .then((data) => {
       req.session.admin = false;
       req.session.user = data.username;
-      res.status(200).json({ "messsage": "success"})
+      res.status(200).json({ "message": "success"})
     })
     .catch((error) => {
       res.status(401).json({ "message": "error"})
@@ -318,9 +318,77 @@ api.post('/quiz/checkcode', async (req, res, next) => {
     if(!data){
       return res.status(401).json({ "message": "error"})
     }
-    res.status(200).json({ "messsage": "success"})
+    res.status(200).json({ "message": "success"})
   })
   .catch((error) => {
+    res.status(401).json({ "message": "error"})
+  });
+})
+
+function generateRandomCode() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let code = '';
+  for (let i = 0; i < 5; i++) {
+      code += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return code;
+}
+
+api.post('/quiz/create', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require('../models/quizzes')
+  let code = generateRandomCode()
+
+  await quiz.create({
+    title: post_data.title,
+      description: post_data.desc,
+      code: code,
+      author: post_data.user,
+      questions: post_data.questions
+  })
+  .then((data) => {
+    res.status(200).json({ "message": `${data.code}`})
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+  });
+})
+
+api.post('/quiz/submit', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require('../models/quizzes')
+  await quiz.findOne({ code: post_data.code }).lean().exec()
+  .then(async (data) => {
+    if(!data){
+      return res.status(401).json({ "message": "error"})
+    }
+    let answers = [];
+    let score = 0;
+    post_data.response.forEach((response, index) => {
+      if(response.answer === data.questions[index].answer){
+        score++
+      }
+      answers.push({ answer: response.answer})
+    })
+    let responses = []
+    responses.push(data.responses)
+    responses.push({
+      user: post_data.user,
+      score: score,
+      date: new Date(),
+      answers: answers
+    })
+    await quiz.findOneAndUpdate({ code: post_data.code },{ responses: responses }).exec()
+    .then((data) => {
+      res.status(200).json({ "message": `${data.code}`})
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(401).json({ "message": "error"})
+    });
+  })
+  .catch((error) => {
+    console.log(error)
     res.status(401).json({ "message": "error"})
   });
 })
