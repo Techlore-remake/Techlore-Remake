@@ -33,7 +33,7 @@
                 <span class="num" onclick="calc.txt.value+='0'"><i>0</i></span>
                 <span class="num" onclick="calc.txt.value+='00'"><i>00</i></span>
 
-                <span class="num equal" onclick="document.calc.txt.value=eval(calc.txt.value)" ><i>=</i></span>
+                <span class="num equal" onclick="document.calc.txt.value=(Math.round(eval(calc.txt.value)* 10000000000000)/10000000000000)" ><i>=</i></span>
               </div>
             </div>
 <%- include('./partials/footer') %>

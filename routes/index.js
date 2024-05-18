@@ -73,21 +73,39 @@ index.get("/contact", maintenance, counttraffic, async (req, res, next) => {
 });
 
 index.get("/news", maintenance, counttraffic, async (req, res, next) => {
-  res.render("news.ejs", { session: req.session });
+  const news = require("../models/news");
+  await news
+    .find({})
+    .sort({ _id: "desc" })
+    .lean()
+    .exec()
+    .then((data) => {
+      res.render("news.ejs", { session: req.session, news: data });
+    })
+    .catch((error) => {
+      res.render("404.ejs", { session: req.session });
+    });
 });
 
-index.get("/quiz", login_required, maintenance, counttraffic, async (req, res, next) => {
+index.get(
+  "/quiz",
+  login_required,
+  maintenance,
+  counttraffic,
+  async (req, res, next) => {
     const params = req.query;
     if (params.id) {
       const quiz = require("../models/quizzes");
-      await quiz.findOne({ code: params.id }).exec()
+      await quiz
+        .findOne({ code: params.id })
+        .exec()
         .then((data) => {
           if (!data) {
             return res.render("404.ejs", { session: req.session });
           }
-          if(data.responses.user.includes(req.session.user)){
+          if (data.responses.user.includes(req.session.user)) {
             res.render("quizscore.ejs", { session: req.session, quiz: data });
-          }else{
+          } else {
             res.render("quizform.ejs", { session: req.session, quiz: data });
           }
         })
@@ -98,7 +116,7 @@ index.get("/quiz", login_required, maintenance, counttraffic, async (req, res, n
     if (params.create) {
       res.render("createquiz.ejs", { session: req.session });
     }
-    if(params.scode){
+    if (params.scode) {
       res.render("quizscore.ejs", { session: req.session });
     }
     if (!params.id && !params.create && !params.scode) {
@@ -106,12 +124,14 @@ index.get("/quiz", login_required, maintenance, counttraffic, async (req, res, n
     }
   },
 );
-
 index.get("/calculator", maintenance, counttraffic, async (req, res, next) => {
   res.render("calculator.ejs", { session: req.session });
 });
 index.get("/weather", maintenance, counttraffic, async (req, res, next) => {
   res.render("weather.ejs", { session: req.session });
+});
+index.get("/todo", maintenance, counttraffic, async (req, res, next) => {
+  res.render("todo.ejs", { session: req.session });
 });
 
 index.get("/translator", maintenance, counttraffic, async (req, res, next) => {

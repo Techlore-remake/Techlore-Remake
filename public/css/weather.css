@@ -13,13 +13,14 @@ h1 {
 .card {
   width: 90%;
   max-width: 470px;
-  background: linear-gradient(rgb(119, 107, 107),grey);
+  background: linear-gradient(var(--bg-con),var(--bg));
   color: #fff;
   margin: 100px auto;
   margin-bottom: 20px;
   border-radius: 30px;
   padding: 40px 35px;
   text-align: center;
+   box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
 }
 .search {
   width: 100%;

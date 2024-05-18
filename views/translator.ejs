@@ -11,19 +11,89 @@
     
 <%- include('./partials/navbar', {page: "translator", user: session.user}) %>
 <div class="main">
-    <div class="lang-lang">
-       <h1></h1>
-    </div>
+<div class="s-t">
+    <h1><div class="dropdown">
+        <button class="dropbtn"><span id="frombtn">English</span></button>
+          <div class="dropdown-content" id="from">
+            <a id="si" lang="Sinhala">Sinhala</a>
+            <a id="en" lang="English" class="active">English</a>
+            <a id="ta" lang="Tamil">Tamil</a>
+            <a id="hi" lang="Hindi">Hindi</a>
+            <a id="fr" lang="French">French</a>
+            <a id="es" lang="Spanish">Spanish</a>
+            <a id="zh" lang="Chinese">Chinese</a>
+            <a id="ja" lang="Japanese">Japanese</a>
+          </div>
+        </div> 
+        <br class="br">
+        <span id="i"><i class="fa-solid fa-right-left"></i></span>
+        <br class="br">
+        <div class="dropdown">
+    <button class="dropbtn"><span id="tobtn">Sinhala</span></button>
+      <div class="dropdown-content" id="to">
+          <a id="si" lang="Sinhala" class="active">Sinhala</a>
+          <a id="en" lang="English">English</a>
+          <a id="ta" lang="Tamil">Tamil</a>
+          <a id="hi" lang="Hindi">Hindi</a>
+          <a id="fr" lang="French">French</a>
+          <a id="es" lang="Spanish">Spanish</a>
+          <a id="zh" lang="Chinese">Chinese</a>
+          <a id="ja" lang="Japanese">Japanese</a>
+      </div>
+    </div><br></h1>
+    </div><br>
             <div class="text">
-                 <textarea name="text" placeholder="Enter text to translate" id="text"></textarea>
+                 <textarea name="text" placeholder="Text To Translate" id="text"></textarea>
             </div>
                 <div class="translated-text">
-                    <textarea name="translated-text" placeholder="Translated-text" id="trans-text" disabled></textarea>
+                    <textarea name="translated-text" placeholder="Translated Text" id="trans-text" disabled></textarea>
                 </div>
                 <button id="tbutton">Translate</button>
 </div>
                 <%- include('./partials/footer') %>
 <script>
+
+    $('#i').click(function() {
+        let from = '';
+        let to = '';
+        from = $('#from').find('.active').attr('id')
+        to = $('#to').find('.active').attr('id')
+        $('#from').find('.active').removeClass('active')
+        $('#to').find('.active').removeClass('active')
+        $('#from').find(`#${to}`).addClass('active')
+        $('#to').find(`#${from}`).addClass('active')
+        $('#frombtn').text(`${$('#from').find('.active').attr('lang')}`)
+        $('#tobtn').text(`${$('#to').find('.active').attr('lang')}`)
+    })
+
+$('#from > a').click(function() {
+    if($('#to').find('.active').length !== 0){
+        if($('#to').find('.active').attr('id') !== $(this).attr('id')){
+            $('#from').find('.active').removeClass('active')
+            $(this).addClass('active')
+            $('#frombtn').text(`${$('#from').find('.active').attr('lang')}`)
+        }
+    }else{
+        $('#from').find('.active').removeClass('active')
+        $(this).addClass('active')
+        $('#frombtn').text(`${$('#from').find('.active').attr('lang')}`)
+    }
+})
+    
+    $('#to > a').click(function() {
+        if($('#from').find('.active').length !== 0){
+            if($('#from').find('.active').attr('id') !== $(this).attr('id')){
+                $('#to').find('.active').removeClass('active')
+                $(this).addClass('active')
+                $('#tobtn').text(`${$('#to').find('.active').attr('lang')}`)
+            }
+        }else{
+            $('#to').find('.active').removeClass('active')
+            $(this).addClass('active')
+            $('#tobtn').text(`${$('#to').find('.active').attr('lang')}`)
+        }
+    })
+    
 $('#tbutton').click(function(){
 if($('#text').val() !== ''){
     $('#tbutton').css({
@@ -33,8 +103,8 @@ if($('#text').val() !== ''){
     })
     axios.post('https://google-translate113.p.rapidapi.com/api/v1/translator/text', 
         {
-        from: 'en',
-        to: 'si',
+        from: `${$('#from').find('.active').attr('id')}`,
+        to: `${$('#to').find('.active').attr('id')}`,
         text: `${$('#text').val()}`
         },{
             headers: {
@@ -52,6 +122,12 @@ if($('#text').val() !== ''){
             })
         })
         .catch(function (error) {
+            $('#trans-text').val('An Error Occurred, Please Contact An Admin')
+            $('#tbutton').css({
+                "pointer-events": "auto",
+                "opacity": 1,
+                "cursor": "pointer"
+            })
             console.log(error)
         })
 }

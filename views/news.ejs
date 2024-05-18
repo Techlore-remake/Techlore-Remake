@@ -11,12 +11,29 @@
     <%- include('./partials/navbar', {page: "news", user: session.user}) %>
          <div class="news_container">
             <h1 class="news_tittle">News</h1>
-            <div class="news_card">
-                <h2>News Title</h2>
-                <img src="imgs/news.png" alt="News_img">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium facilis illum voluptates, vitae, sequi nam dolores consectetur similique omnis deleniti reiciendis neque modi voluptatem porro eos ullam quasi provident iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium facilis illum voluptates, vitae, sequi nam dolores consectetur similique omnis deleniti reiciendis neque modi voluptatem porro eos ullam quasi provident iste!</p>
-                <p class="time"> <span>-</span> Published at <time>08:35</time> on <time>10/05/10</time> <span>-</span> </p>
-            </div>
+            <% for (let i = 0; i < news.length; i++) { %>
+                <%let thenews = news[i]%>
+                    <%let date = new Date(thenews.date)%>
+                    <%let month = `${date.getMonth()+1}`%>
+                    <%if(date.getMonth()+1 < 10){ %>
+                        <% month = `0${date.getMonth()+1}` %>
+                    <%}%>
+                    <%let minutes = `${date.getMinutes()}`%>
+                    <%if(date.getMinutes() < 10){%>
+                        <%minutes = `0${date.getMinutes()}`%>
+                    <%}%>
+                    <% let hours = ''%>
+                    <%if(date.getHours() > 12){%>
+                        <%hours = `${date.getHours()-12}:${minutes} PM`%>
+                    <%}else{%>
+                        <%hours = `${date.getHours()}:${date.getMinutes()} AM`%>
+                    <%}%>
+                    <div class="news_card">
+                        <h2><%-thenews.title%></h2>
+                        <p><%-thenews.description%></p>
+                        <p class="time"> <span>-</span> Published at <time><%-hours%></time> on <time><%-(date.getFullYear()).toString().slice(2)%>/<%-month%>/<%-date.getDate()%></time> By <time><%-thenews.author%></time> <span>-</span> </p>
+                    </div>
+            <%}%>
              </div>
         <%- include('./partials/footer') %>
 </body>
