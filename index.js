@@ -107,17 +107,6 @@ app.use(
     saveUninitialized: true,
   }),
 );
-app.locals.icon = function (name, size, style) {
-  let size2 = size;
-  if (!size) {
-    size2 = 16;
-  }
-  let style2 = style;
-  if (!style) {
-    style2 = "";
-  }
-  return `<svg class="bi pe-none me-2" width="${size2}" height="${size2}" style="margin-right: .5rem!important;vertical-align: -.125em; fill: currentColor;${style2}"><use xlink:href="#${name}"/></svg>`;
-};
 app.locals.Title = "Techlore";
 
 //Routes

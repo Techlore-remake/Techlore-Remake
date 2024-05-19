@@ -91,6 +91,10 @@ button:hover {
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 10px;
+  transition: transform 0.1s ease-in-out;
+}
+.s-t .r360{
+  transform: rotate(180deg);
 }
 .s-t i:hover{
   opacity: 0.8;
@@ -108,5 +112,8 @@ button:hover {
   }
   .s-t i{
     transform: rotate(90deg);
+  }
+  .s-t .r360{
+    transform: rotate(270deg) !important;
   }
 }

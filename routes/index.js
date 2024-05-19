@@ -71,7 +71,9 @@ index.get("/", maintenance, counttraffic, async (req, res, next) => {
 index.get("/contact", maintenance, counttraffic, async (req, res, next) => {
   res.render("contact.ejs", { session: req.session });
 });
-
+index.get("/score", maintenance, counttraffic, async (req, res, next) => {
+  res.render("quizscore.ejs", { session: req.session });
+});
 index.get("/news", maintenance, counttraffic, async (req, res, next) => {
   const news = require("../models/news");
   await news
@@ -103,6 +105,9 @@ index.get(
           if (!data) {
             return res.render("404.ejs", { session: req.session });
           }
+          if(data.author === req.session.user){
+            return res.render("quizdash.ejs", { session: req.session, quiz: data });
+          }
           if (data.responses.user.includes(req.session.user)) {
             res.render("quizscore.ejs", { session: req.session, quiz: data });
           } else {
@@ -114,7 +119,7 @@ index.get(
         });
     }
     if (params.create) {
-      res.render("createquiz.ejs", { session: req.session });
+      res.render("quizcreate.ejs", { session: req.session });
     }
     if (params.scode) {
       res.render("quizscore.ejs", { session: req.session });

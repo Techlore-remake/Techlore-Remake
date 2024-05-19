@@ -3,8 +3,9 @@
   font-family: 'orbitron', sans-serif;
 }
 body{
-  background: var(--bg) url("../imgs/bg_overlay.svg") no-repeat fixed center;
-  background-size: contain;
+  background: var(--bg);
+  /* background: var(--bg) url("../imgs/bg_overlay.svg") no-repeat fixed center;
+  background-size: contain; */
   /* we have to remove this if we are going to add themes */
    /* background-image: url("../imgs/bg.svg"); 
   background-size: cover; */
@@ -35,17 +36,6 @@ body{
 .nav_img_a{
   padding: 6px 10px !important;
   float: left;
-}
-
-@-webkit-keyframes logo_glow {
-  from {
-    color: #ebf0a3;
-    text-shadow: 0 0 25px #ebf0a3;
-  }
-  to {
-    color: #edf0cc;
-    text-shadow: 0 0 25px #edf0cc;
-  }
 }
 
 .topnav {
@@ -144,7 +134,7 @@ float: left;
 
 
 .footer-clean h3 {
-  animation: glow 3s ease-in-out infinite alternate;
+  animation: primary_glow 3s ease-in-out infinite alternate;
   margin-top:0;
   margin-bottom:12px;
   font-weight:bold;
@@ -237,16 +227,6 @@ float: left;
 *, ::after, ::before {
     box-sizing: border-box;
 }
-@-webkit-keyframes glow {
-  from {
-    color: var(--primary-1);
-    text-shadow: 0 0 60px var(--primary-1);
-  }
-  to {
-    color: var(--primary-2);
-    text-shadow: 0 0 60px var(--primary-2);
-  }
-}
 @media screen and (max-width: 350px) {
 .footer-clean{
   margin:10px;
@@ -257,7 +237,7 @@ float: left;
 .placeholder h1{
   color: var(--err-page-c1);
   text-shadow: 0 0 50px var(--err-page-c1);
-  animation: err_glow 3s ease-in-out infinite alternate;
+  animation: warning_glow 3s ease-in-out infinite alternate;
   font-size: 100px;
   margin-top: 10px;
 }
@@ -276,7 +256,7 @@ float: left;
   font-size: 60px;
   color: var(--err-page-c1);
   text-shadow: 0 0 50px var(--err-page-c1);
-  animation: err_glow 3s ease-in-out infinite alternate;
+  animation: warning_glow 3s ease-in-out infinite alternate;
   margin-top: 30px;
 }
 .placeholder{
@@ -285,15 +265,6 @@ float: left;
   padding: 40px;
   margin: 40px;
   border-radius: 20px;
-}
-@-webkit-keyframes err_glow {
-  from {
-    text-shadow: 0 0 50px var(--err-page-c1);
-  }
-
-  to {
-    text-shadow: 0 0 50px var(--err-page-c2);
-  }
 }
 
 ::-webkit-scrollbar {
@@ -357,6 +328,12 @@ float: left;
 .navbar-dropdown:hover .navbar-dropdown-content {
   display: grid;
 }
+.dicon{
+  transition: transform 0.2s ease-in-out;
+}
+.navbar-dropdown:hover .dicon{
+  transform: rotate(180deg);
+}
 
 @media screen and (max-width: 1024px) {
   .navbar-dropdown-content {
@@ -367,5 +344,50 @@ float: left;
   }
   .navbar-dropdown-content .a {
     margin-top: 0px !important;
+  }
+}
+
+/* animations */
+
+@-webkit-keyframes logo_glow {
+  from {
+    color: #ebf0a3;
+    text-shadow: 0 0 25px #ebf0a3;
+  }
+  to {
+    color: #edf0cc;
+    text-shadow: 0 0 25px #edf0cc;
+  }
+}
+
+@-webkit-keyframes warning_glow {
+  from {
+    text-shadow: 0 0 50px var(--err-page-c1);
+  }
+
+  to {
+    text-shadow: 0 0 50px var(--err-page-c2);
+  }
+}
+
+@-webkit-keyframes primary_glow {
+  from {
+    color: var(--primary-1);
+    text-shadow: 0 0 60px var(--primary-1);
+  }
+  to {
+    color: var(--primary-2);
+    text-shadow: 0 0 60px var(--primary-2);
+  }
+}
+
+@-webkit-keyframes primary_glow_2 {
+  from {
+    color: var(--primary-3);
+    text-shadow: 0 0 60px var(--primary-3);
+  }
+  to {
+    color: var(--primary-4);
+    text-shadow: 0 0 60px var(--primary-4);
   }
 }

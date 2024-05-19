@@ -64,6 +64,11 @@
         $('#to').find(`#${from}`).addClass('active')
         $('#frombtn').text(`${$('#from').find('.active').attr('lang')}`)
         $('#tobtn').text(`${$('#to').find('.active').attr('lang')}`)
+        if($('#i i').hasClass('r360')){
+            $('#i i').removeClass('r360')
+        }else{
+            $('#i i').addClass('r360')
+        }
     })
 
 $('#from > a').click(function() {
