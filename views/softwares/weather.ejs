@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Weather App</title>
-    <%- include('./partials/links2', {page: "weather"}) %>
+    <%- include('../partials/links2', {page: "weather"}) %>
   </head>
   <body>
-<%- include('./partials/navbar', {page: "weather", user: session.user}) %>
+<%- include('../partials/navbar', {page: "weather", user: session.user}) %>
 
     <div class="card">
         <h1>Weather App</h1><br><br>
@@ -44,7 +44,7 @@
         </div>
         </div>
     </div>
-<%- include('./partials/footer') %>
+<%- include('../partials/footer') %>
 <script>
 let apiKey = "f0fee14aabf92d0adb96846415cfa0da";
 let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=en";

@@ -5,11 +5,11 @@
     <title>Todo App</title>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <%- include('./partials/links2', {page: "todo"}) %>
+     <%- include('../partials/links2', {page: "todo"}) %>
   </head>
   <body>
 
-    <%- include('./partials/navbar', {page: "todo", user: session.user}) %>
+    <%- include('../partials/navbar', {page: "todo", user: session.user}) %>
     <div class="wrapper">
       <div class="task-input">
         <!-- <img src="image/bars-icon (1).svg"> -->
@@ -26,7 +26,7 @@
       </div>
       <ul class="task-box"></ul>
     </div>
-      <%- include('./partials/footer') %>
+      <%- include('../partials/footer') %>
     <script>
       const taskInput = document.querySelector(".task-input input"),
       filters = document.querySelectorAll(".filters span"),

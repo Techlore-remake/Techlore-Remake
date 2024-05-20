@@ -5,11 +5,11 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Create Quiz | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('./partials/links2', {page: "cquiz"}) %>
+    <%- include('../partials/links2', {page: "cquiz"}) %>
 </head>
 <body>
     
-<%- include('./partials/navbar', {page: "quiz", user: session.user}) %>
+<%- include('../partials/navbar', {page: "quiz", user: session.user}) %>
 <div class="q-make-con">
   <h1>Create your Quiz</h1>
   <div class="inputgroup">
@@ -41,7 +41,7 @@
   <i class="fa-solid fa-square-plus"></i> Create Quiz</button>
 </div>
 </div>
-<%- include('./partials/footer') %>
+<%- include('../partials/footer') %>
   <script>
 
     $('#cquiz').click(function() {

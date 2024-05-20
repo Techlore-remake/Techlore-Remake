@@ -5,10 +5,10 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Calculator | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('./partials/links2', {page: "calculator"}) %>
+    <%- include('../partials/links2', {page: "calculator"}) %>
 </head>
 <body>
-<%- include('./partials/navbar', {page: "calculator", user: session.user}) %>
+<%- include('../partials/navbar', {page: "calculator", user: session.user}) %>
             <div class="container">
               <form action="" name="calc" class="calculator">
               <input type="text" class="value" readonly name="txt"/>
@@ -36,6 +36,6 @@
                 <span class="num equal" onclick="document.calc.txt.value=(Math.round(eval(calc.txt.value)* 10000000000000)/10000000000000)" ><i>=</i></span>
               </div>
             </div>
-<%- include('./partials/footer') %>
+<%- include('../partials/footer') %>
 </body>
 </html>

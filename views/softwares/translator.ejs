@@ -5,11 +5,11 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Language Translator | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('./partials/links2', {page: "translator"}) %>
+    <%- include('../partials/links2', {page: "translator"}) %>
 </head>
 <body>
     
-<%- include('./partials/navbar', {page: "translator", user: session.user}) %>
+<%- include('../partials/navbar', {page: "translator", user: session.user}) %>
 <div class="main">
 <div class="s-t">
     <h1><div class="dropdown">
@@ -50,7 +50,7 @@
                 </div>
                 <button id="tbutton">Translate</button>
 </div>
-                <%- include('./partials/footer') %>
+                <%- include('../partials/footer') %>
 <script>
 
     $('#i').click(function() {

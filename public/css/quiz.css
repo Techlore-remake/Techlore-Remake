@@ -1,17 +1,8 @@
-.container{
-  display: flex !important;
+body{
+  text-align:center;
 }
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.container{
+  text-align:center;
 }
 .create{
   background-color: var(--bg-con);
@@ -22,7 +13,8 @@
   margin: 40px;
   box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   font-weight: bolder;
-  width: 50%;
+  text-align:center;
+
 }
 
 .join{
@@ -34,7 +26,8 @@
   margin: 40px;
   box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
   font-weight: bolder;
-  width: 50%;
+  text-align:center;
+
 }
 
 @media screen and (max-width: 850px){
@@ -46,9 +39,6 @@
     width: auto;
   }
 
-  .container{
-    display: block;
-  }
 }
 
 .container h1{
@@ -77,10 +67,6 @@
   cursor:pointer;
 }
 
-.create button{
-  margin-top: 110px !important;
-}
-
 .container button:hover{
   opacity: 0.9;
 }
@@ -95,7 +81,9 @@
   .create img{
     width: 200px;
   }
-
+  .join input{
+    width: 200px;
+  }
   .join img{
     width: 200px;
   }
@@ -114,8 +102,7 @@
 }
 
 .join input{
-  width: 50%; 
-  max-width: 50%; 
+  width: 50%;
   height:50px;
   border:none;
   outline:none;
@@ -136,22 +123,9 @@ input[type=number]::-webkit-inner-spin-button {
   color: #ce4747;
   width:50%;
   padding: 5px;
+  font-size: 17px !important;
   margin: auto;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   display: none;
-}
-
-.create input{
-  width: 50%; 
-  max-width: 50%; 
-  height:50px;
-  border:none;
-  outline:none;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  padding-left:25px;
-  color: var(--color);
-  background-color: var(--bg);
-  border-radius:10px;
 }

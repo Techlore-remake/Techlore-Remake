@@ -111,10 +111,14 @@ app.locals.Title = "Techlore";
 
 //Routes
 const index = require("./routes/index.js");
+const software = require("./routes/softwares.js");
+const games = require("./routes/games.js");
 const admin = require("./routes/admin.js");
 const API = require("./routes/api.js");
 const upload = require("./routes/upload.js");
 app.use("/", index);
+app.use("/softwares", software);
+app.use("/games", games);
 app.use("/admin", admin);
 app.use("/Api", API);
 app.use("/Upload", upload);

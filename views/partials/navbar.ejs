@@ -13,16 +13,25 @@
 <i class="fa-solid fa-newspaper"></i> News
 </a>
 
+  <a class="navbar-dropdown <%if(page === "ninja-game" || page === "matching-game" || page === "tic- tac-toe"){%> active <%}%>">
+    <i class="fa-solid fa-gamepad-modern"></i> Games <i class="fa-solid fa-caret-down dicon"></i>
+    <div class="navbar-dropdown-content">
+      <span class="a <%if(page === "ninja-game"){%>active<%}%>" onclick="location='/games/ninja'"><i class="fa-solid fa-user-ninja"></i> Ninja Game</span>
+      <span class="a <%if(page === "match-game"){%>active<%}%>" onclick="location='/games/match'"><i class="fa-solid fa-cards-blank"></i> Card Matching</span>
+      <span class="a <%if(page === "ttt-game"){%>active<%}%>" onclick="location='/games/tictactoe'"><i class="fa-solid fa-game-board"></i> Tic-Tac-Toe</span>
+    </div>
+  </a>
+
 <a class="navbar-dropdown <%if(page === "translator" || page === "quiz" || page === "calculator" || page === "weather" || page === "todo"){%> active <%}%>">
   <i class="fa-solid fa-browser"></i> Softwares <i class="fa-solid fa-caret-down dicon"></i>
   <div class="navbar-dropdown-content">
-    <span class="a <%if(page === "translator"){%>active<%}%>" onclick="location='/translator'"><i class="fa-duotone fa-language"></i> Translator</span>
-    <span class="a <%if(page === "quiz"){%>active<%}%>" onclick="location='/quiz'"><i class="fa-solid fa-clipboard-question"></i> Quiz App</span>
-    <span class="a <%if(page === "calculator"){%>active<%}%>" onclick="location='/calculator'"><i class="fa-solid fa-calculator-simple"></i> Calculator</span>
-    <span class="a <%if(page === "todo"){%>active<%}%>" onclick="location='/todo'"><i class="fa-duotone fa-list-dropdown"></i> To-Do App</span>
-  <span class="a <%if(page === "weather"){%>active<%}%>" onclick="location='/weather'"><i class="fa-duotone fa-clouds"></i> Weather App</span>
+    <span class="a <%if(page === "translator"){%>active<%}%>" onclick="location='/softwares/translator'"><i class="fa-solid fa-language"></i> Translator</span>
+    <span class="a <%if(page === "quiz"){%>active<%}%>" onclick="location='/softwares/quiz'"><i class="fa-solid fa-clipboard-question"></i> Quiz App</span>
+    <span class="a <%if(page === "calculator"){%>active<%}%>" onclick="location='/softwares/calculator'"><i class="fa-solid fa-calculator-simple"></i> Calculator</span>
+    <span class="a <%if(page === "todo"){%>active<%}%>" onclick="location='/softwares/todo'"><i class="fa-solid fa-list-dropdown"></i> To-Do App</span>
+  <span class="a <%if(page === "weather"){%>active<%}%>" onclick="location='/softwares/weather'"><i class="fa-solid fa-clouds"></i> Weather App</span>
   </div>
-</a> 
+</a>
   
 <% if(!user || user === "no") {%>
 <% if(page !== "signup"){ %>
@@ -36,9 +45,9 @@
 <% } %>
 <%}else{%>
 <%if(page==="profile"){%>
-<a class="nav_img_a" href="/profile"><img src="imgs/profile.png" alt="PFP" class="nav_img active"></a>
+<a class="nav_img_a" href="/profile"><img src="/imgs/profile.png" alt="PFP" class="nav_img active"></a>
 <%}else{%>
-<a class="nav_img_a" href="/profile"><img src="imgs/profile.png" alt="PFP" class="nav_img"></a>
+<a class="nav_img_a" href="/profile"><img src="/imgs/profile.png" alt="PFP" class="nav_img"></a>
 <%}%>
 <%}%>
 </span>
