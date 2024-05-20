@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ninja Champ</title>
+    <link rel="stylesheet" href="boy1.css">
+    <script src="https://kit.fontawesome.com/b3d8aa723c.js" crossorigin="anonymous"></script>
+</head>
+<body class="body" onload="idleAnimationStart(); createBoxes();" onkeyup="key(event);">
+    <div class="background" id="background">
+        <img src="boy ninja/Idle__000.png" class="boy" id="boy">
+        <a href="index.html"><img class="homebtn" src="resources/homebtn.png"></a>
+        <a href="controls.html"><img class="keysbtn" src="resources/keysbtn.png"></a>
+        <p id="score" class="score">Score  <span id="scorecount" class="scorecount">0</span></p>
+        <h1 class="guide" id="guide">Press Enter or <br> Space Key to start</h1>
+    </div>
+
+    <div class="lost" id="lost">
+        <div>Oops!</div>
+        <div class="lostendsub">You lost this level</div>
+        <div class="lostendsub">You Scored</div>
+        <p id="scoreend">0</p>
+        <p class="lostreject">Level 1 <i class="fa fa-check-circle" style="font-size:24px"></i></p>
+        <p class="lostsuccessful">Level 2 <i class="fa fa-check-circle" style="font-size:24px"></i></p>
+        <p class="lostreject">Level 3 <i class="fa fa-times-circle-o" style="font-size:24px"></i></p>
+        <div class="lostbuttonsend">
+        <button class="lostbtn" onclick="re();">Face Again <i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <a href="index.html"><button class="lostbtn">Home <i class="fa fa-home" style="font-size:24px"></i></button></a>
+     
+    </div>
+
+    <div class="end" id="end">
+        <div>Congratz!</div>
+        <div class="endsub">You Passed for the next Level</div>
+        <p class="successful">Level 1 <i class="fa fa-check-circle" style="font-size:24px"></i></p>
+        <p class="reject">Level 2 <i class="fa fa-times-circle-o" style="font-size:24px"></i></p>
+        <p class="reject">Level 3 <i class="fa fa-times-circle-o" style="font-size:24px"></i></p>
+        <div class="buttonsend">
+        <button class="btn" onclick="re();">Face Again <i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <a href="level2.html"><button class="btn">Next Level <i class='fas fa-angle-double-right' style='font-size: 20px'></i></button></a>
+    </div>
+    </div>
+
+    <script src="boy1.js"></script>
+</body>
+</html>

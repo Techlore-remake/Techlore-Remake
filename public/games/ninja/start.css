@@ -1,0 +1,119 @@
+head title{
+    background-color: brown;
+}
+
+
+body{
+    margin: 0px;
+}
+
+.b{
+    background-image: url(resources/background.jpg);
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: repeat-x;
+}
+
+.boy{
+    position: absolute;
+    margin-top: 400px;
+    width: 300px;
+    margin-left: 120px;
+}
+
+.form h1{
+    color: white;
+    opacity: 1.0;
+}
+
+.ninja1{
+    background-color: rgb(173, 10, 255);
+    font-weight: bolder;
+    width: 180px;
+    height: 40px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ninja2{
+    background-color: rgb(255, 28, 92);
+    font-weight: bolder;
+    width: 180px;
+    height: 40px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.form span{
+    color: rgb(255, 230, 0);
+    font-size: 50px;
+    margin: 0px;
+}
+
+
+.form{
+    position: absolute;
+    text-align: center;
+    background-color: #333;
+    padding: 20px;
+    margin-top: 240px;
+    margin-left: 530px;
+    width: 500px;
+    height: 300px;
+    border-radius: 20px;
+    opacity: 0.8;
+}
+
+.girl{
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    position: absolute;
+    margin-top: 360px;
+    width: 300px;
+    margin-left: 1200px;
+}
+
+p{
+    color: #2b96f3;
+    font-size: 20px;
+}
+
+.homebtn{
+    width: 60px;
+    position: absolute;
+    margin-top: 600px;
+    margin-left: 847px;
+}
+
+.homebtn:hover{
+    cursor: pointer;
+}
+
+.keysbtn{
+    width: 59px;
+    position: absolute;
+    margin-top: 600px;
+    margin-left: 760px;
+}
+
+.keysbtn:hover{
+    cursor: pointer;
+}
+
+.soundbtn{
+    width: 63px;
+    position: absolute;
+    margin-top: 600px;
+    margin-left: 670px;
+}
+
+.soundbtn:hover{
+    cursor: pointer;
+}
