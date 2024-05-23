@@ -7,7 +7,7 @@
   padding: 40px 30px 30px;
   border-radius: 20px;
 }
-.container span {
+.calfunctions span {
   color: var(--color);
   display: grid;
   width: 80px;
@@ -163,4 +163,28 @@
   .calculator {
     font-size: 10px;
   }
+}
+
+.calculator-grid{
+  display: grid;
+  gap: 10px;
+  width: min-content;
+  grid-template-areas: 
+    "c c a1 a2"
+    "n7 n8 n9 a3"
+    "n4 n5 n6 a4"
+    "n1 n2 n3 a5"
+    "a6 n0 a7 a7";
+  margin: auto;
+}
+.calc-btn{
+  height: 40px;
+  width: 40px;
+  font-weight: bolder;
+  background: var(--bg);
+  color: var(--color);
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  border-radius: 10px;
 }

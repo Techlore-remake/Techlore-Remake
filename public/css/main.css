@@ -66,6 +66,7 @@ body{
   color: var(--primary-2);
   text-shadow: 0 0 20px var(--primary-2);
   font-weight: bolder;
+  cursor: pointer;
 }
 
 .topnav a.active {
@@ -362,10 +363,12 @@ float: left;
 
 @-webkit-keyframes warning_glow {
   from {
+    color: var(--err-page-c1);
     text-shadow: 0 0 50px var(--err-page-c1);
   }
 
   to {
+    color: var(--err-page-c2);
     text-shadow: 0 0 50px var(--err-page-c2);
   }
 }

@@ -13,10 +13,10 @@
 <i class="fa-solid fa-newspaper"></i> News
 </a>
 
-  <a class="navbar-dropdown <%if(page === "ninja-game" || page === "matching-game" || page === "tic- tac-toe"){%> active <%}%>">
+  <a class="navbar-dropdown <%if(page === "ninja-game" || page === "match-game" || page === "ttt-game"){%> active <%}%>">
     <i class="fa-solid fa-gamepad-modern"></i> Games <i class="fa-solid fa-caret-down dicon"></i>
     <div class="navbar-dropdown-content">
-      <span class="a <%if(page === "ninja-game"){%>active<%}%>" onclick="location='/games/ninja'"><i class="fa-solid fa-user-ninja"></i> Ninja Game</span>
+      <span class="a <%if(page === "ninja-game"){%>active<%}%>" onclick="location='/games/ninja'"><i class="fa-solid fa-user-ninja"></i> Ninja Champ</span>
       <span class="a <%if(page === "match-game"){%>active<%}%>" onclick="location='/games/match'"><i class="fa-solid fa-cards-blank"></i> Card Matching</span>
       <span class="a <%if(page === "ttt-game"){%>active<%}%>" onclick="location='/games/tictactoe'"><i class="fa-solid fa-game-board"></i> Tic-Tac-Toe</span>
     </div>
@@ -26,12 +26,21 @@
   <i class="fa-solid fa-browser"></i> Softwares <i class="fa-solid fa-caret-down dicon"></i>
   <div class="navbar-dropdown-content">
     <span class="a <%if(page === "translator"){%>active<%}%>" onclick="location='/softwares/translator'"><i class="fa-solid fa-language"></i> Translator</span>
-    <span class="a <%if(page === "quiz"){%>active<%}%>" onclick="location='/softwares/quiz'"><i class="fa-solid fa-clipboard-question"></i> Quiz App</span>
     <span class="a <%if(page === "calculator"){%>active<%}%>" onclick="location='/softwares/calculator'"><i class="fa-solid fa-calculator-simple"></i> Calculator</span>
     <span class="a <%if(page === "todo"){%>active<%}%>" onclick="location='/softwares/todo'"><i class="fa-solid fa-list-dropdown"></i> To-Do App</span>
   <span class="a <%if(page === "weather"){%>active<%}%>" onclick="location='/softwares/weather'"><i class="fa-solid fa-clouds"></i> Weather App</span>
   </div>
 </a>
+
+  <a class="navbar-dropdown <%if(page === "qcreate" || page === "qjoin" || page === "qlist" || page === "qdash"){%> active <%}%>">
+    <i class="fa-solid fa-clipboard-question"></i> Quiz App <i class="fa-solid fa-caret-down dicon"></i>
+    <div class="navbar-dropdown-content">
+      <span class="a <%if(page === "qjoin"){%>active<%}%>" onclick="location='/softwares/quiz/join'"><i class="fa-solid fa-right-to-bracket"></i> Join</span>
+      <span class="a <%if(page === "qcreate"){%>active<%}%>" onclick="location='/softwares/quiz/create'"><i class="fa-solid fa-file-plus"></i> Create</span>
+      <span class="a <%if(page === "qlist"){%>active<%}%>" onclick="location='/softwares/quiz/list'"><i class="fa-solid fa-list-check"></i> Quizzes</span>
+      <span class="a <%if(page === "qdash"){%>active<%}%>" onclick="location='/softwares/quiz/dash'"><i class="fa-solid fa-gauge"></i> Dashboard</span>
+    </div>
+  </a>
   
 <% if(!user || user === "no") {%>
 <% if(page !== "signup"){ %>

@@ -3,16 +3,14 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Ninja Game | Techlore</title>
+    <title>Ninja Champ | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <%- include('../partials/links2', {page: "ninja-game"}) %>
 </head>
 <body>
     <%- include('../partials/navbar', {page: "ninja-game", user: session.user}) %>
-        <div class="placeholder">
-            <i class="fa-solid fa-image"></i>
-            <h1>204</h1>
-             <p>This page is empty and is just a placeholder.</p>
+        <div class="container">
+            <iframe class="i-frame" allowfullscreen="true" src="/games2/ninja/index.html" title="Ninja Champ"></iframe>
             </div>
         <%- include('../partials/footer') %>
 </body>

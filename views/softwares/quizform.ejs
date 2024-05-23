@@ -8,7 +8,7 @@
     <%- include('../partials/links2', {page: "quizform"}) %>
 </head>
 <body>
-<%- include('../partials/navbar', {page: "quiz", user: session.user}) %>
+<%- include('../partials/navbar', {page: "qjoin", user: session.user}) %>
 
 <div class="q-container">
 <h1>Quiz name</h1>
@@ -87,7 +87,7 @@
                 response: responses
             })
             .then(function (res) {
-                window.location.href = `/quiz?scode=${res.data.message}`
+                window.location.href = `/softwares/quiz/list?id=${res.data.message}`
             })
             .catch(function (error) {
                 console.log(error)

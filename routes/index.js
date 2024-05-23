@@ -72,13 +72,13 @@ index.get("/contact", maintenance, counttraffic, async (req, res, next) => {
   res.render("contact.ejs", { session: req.session });
 });
 
+index.get("/test", maintenance, counttraffic, async (req, res, next) => {
+  res.render("test.ejs", { session: req.session });
+});
+
 index.get("/news", maintenance, counttraffic, async (req, res, next) => {
   const news = require("../models/news");
-  await news
-    .find({})
-    .sort({ _id: "desc" })
-    .lean()
-    .exec()
+  await news.find({}).sort({ _id: "desc" }).lean().exec()
     .then((data) => {
       res.render("news.ejs", { session: req.session, news: data });
     })
@@ -87,12 +87,7 @@ index.get("/news", maintenance, counttraffic, async (req, res, next) => {
     });
 });
 
-index.get(
-  "/profile",
-  login_required,
-  maintenance,
-  counttraffic,
-  async (req, res, next) => {
+index.get("/profile", login_required, maintenance, counttraffic, async (req, res, next) => {
     res.render("profile.ejs", {
       session: req.session,
       userdata: await users.findOne({ username: req.session.user }).exec(),

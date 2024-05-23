@@ -325,6 +325,54 @@ api.post('/quiz/checkcode', async (req, res, next) => {
   });
 })
 
+api.post('/quiz/delete', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require(`../models/quizzes`)
+  quiz.findOneAndDelete({ code : post_data.id }).exec()
+  .then((Document) => {
+    res.status(200).json({ "message": "success"})
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+    console.error('Error creating document:', error);
+  });
+})
+
+api.post('/quiz/visibility', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require(`../models/quizzes`)
+  quiz.findOneAndUpdate({ code: post_data.id }, { $set: { active: post_data.status}}).exec()
+  .then((Document) => {
+    res.status(200).json({ "message": "success"})
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+    console.error('Error creating document:', error);
+  });
+})
+
+api.post('/quiz/deleteres', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require(`../models/quizzes`)
+  quiz.findOne({ code : post_data.id }).exec()
+  .then((data) => {
+    let responses = data.responses
+    responses.splice(post_data.index, 1)
+    quiz.findOneAndUpdate({ code: post_data.id }, { $set: { responses: responses }}).exec()
+  .then((Document) => {
+    res.status(200).json({ "message": "success"})
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+    console.error('Error creating document:', error);
+  })
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+    console.error('Error creating document:', error);
+  });
+})
+
 function generateRandomCode() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let code = '';

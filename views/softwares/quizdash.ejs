@@ -5,16 +5,98 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Quiz Dashboard | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('../partials/links2', {page: "quiz"}) %>
+    <%- include('../partials/links2', {page: "qdash"}) %>
 </head>
 <body>
 
-    <%- include('../partials/navbar', {page: "quiz", user: session.user}) %>
-        <div class="placeholder">
-        <i class="fa-solid fa-image"></i>
-        <h1>204</h1>
-         <p>This page is empty and is just a placeholder.</p>
+    <%- include('../partials/navbar', {page: "qdash", user: session.user}) %>
+        <div class="container">
+            <h1 class="title">Your Quizzes</h1>
+            <div class="small-grid">
+                <div style="grid-area: b1;"><span>
+                    <h2 class="sm-g-title"><i class="fa-solid fa-clipboard-question"></i> Quizzes</h2>
+                     <h1 class="sm-g-num"><%-quizzes.length%></h1>
+                </span></div>
+                <div style="grid-area: b2;"><span>
+                    <h2 class="sm-g-title"><i class="fa-solid fa-eye"></i> Enabled</h2>
+                     <h1 class="sm-g-num"><%-quizzes.filter(obj => obj.active === true).length%></h1>
+                </span></div>
+                <div style="grid-area: b3;"><span>
+                    <h2 class="sm-g-title"><i class="fa-solid fa-eye-slash"></i> Disabled</h2>
+                     <h1 class="sm-g-num"><%-quizzes.filter(obj => obj.active !== true).length%></h1>
+                </span></div>
+            </div>
+            <div class="list-grid">
+                <%if(quizzes.length === 0){%>
+                    <h3 class="nres">No Quizzes</h3>
+                <%}else{%>
+                <% for (let i = 0; i < quizzes.length; i++) { %>
+                    <% let quiz = quizzes[i] %>
+                <div class="li">
+                    <div class="q-info">
+                        <h2 class="q-title"><%-quiz.title%></h2>
+                        <p class="q-desc"><%-quiz.description%></p>
+                    </div>
+                    <div class="q-actions">
+                        <div class="action list" id="<%-quiz.code%>"><i class="fa-solid fa-square-list"></i></div>
+                        <div class="action visibility" id="<%-quiz.code%>">
+                            <%if(quiz.active === true){%>
+                            <i class="fa-solid fa-eye-slash"></i>
+                            <%}else{%>
+                            <i class="fa-solid fa-eye" style="color: #46ce81;"></i>
+                            <%}%>
+                        </div>
+                        <div class="action delete" id="<%-quiz.code%>"><i class="fa-solid fa-trash"></i></div>
+                    </div>
+                </div>
+                <%}%>
+                <%}%>
+            </div>
         </div>
         <%- include('../partials/footer') %>
+<script>
+    $('.list').click(function() {
+        window.location.href = `/softwares/quiz/dash?id=${$(this).attr('id')}`
+    })
+
+    $('.visibility').click(function() {
+         $(this).css({
+                 "pointer-events": "none",
+                 "opacity": 0.8,
+                 "cursor": "none"
+             })
+        let status = true
+        if($(this).find('i').hasClass('fa-eye-slash')){
+            status = false
+        }
+         axios.post('/api/quiz/visibility', {
+             id: $(this).attr('id'),
+             status: status
+         })
+        .then(function (res) {
+            location.reload();
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+     })
+
+     $('.delete').click(function() {
+         $(this).css({
+                 "pointer-events": "none",
+                 "opacity": 0.8,
+                 "cursor": "none"
+             })
+         axios.post('/api/quiz/delete', {
+             id: $(this).attr('id')
+         })
+        .then(function (res) {
+            location.reload();
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+     })
+</script>
 </body>
 </html>

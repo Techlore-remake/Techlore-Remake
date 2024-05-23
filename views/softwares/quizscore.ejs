@@ -1,23 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Quiz Score | Techlore</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('../partials/links2', {page: "quizscore"}) %>
-</head>
-<body>
-<%- include('../partials/navbar', {page: "quiz", user: session.user}) %>
-    <!--What Are You Doing @Vidul-->
-        <div class="main">
-<div class="score">
-    <h1>Username</h1>
-</div>
- <div class="ans">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Quiz Score | Techlore</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <%- include('../partials/links2', {page: "qscore"}) %>
+    </head>
+    <body>
 
-</div>
-        </div>
-<%- include('../partials/footer') %>
-</body>
-</html>
+    <%- include('../partials/navbar', {page: "qlist", user: session.user}) %>
+          <div class="container">
+              <h1 class="title"><%-quiz.title%></h1>
+              <div class="small-grid">
+                  <%let totalm = []%>
+                        <% for (let i = 0; i < quiz.responses.length; i++) { %>
+                        <%totalm.push((quiz.responses[i].score/quiz.questions.length)*100)%>
+                        <%}%>
+                  <div style="grid-area: b1;"><span>
+                      <h2 class="sm-g-title"><i class="fa-solid fa-gauge-min"></i> Min</h2>
+                       <h1 class="sm-g-num"><%-Math.min(...totalm)%>%</h1>
+                  </span></div>
+                  <div style="grid-area: b2;"><span>
+                      <h2 class="sm-g-title"><i class="fa-solid fa-star"></i> Score</h2>
+                       <h1 class="sm-g-num"><%-(response.score/quiz.questions.length)*100%>%</h1>
+                  </span></div>
+                  <div style="grid-area: b3;"><span>
+                      <h2 class="sm-g-title"><i class="fa-solid fa-gauge-max"></i> Max</h2>
+                       <h1 class="sm-g-num"><%-Math.max(...totalm)%>%</h1>
+                  </span></div>
+              </div>
+              <div class="list-grid">
+                  <% for (let i = 0; i < response.answers.length; i++) { %>
+                    <%let choice = response.answers[i]%>
+                    <%let status = 'correct'%>
+                    <%if(choice.answer !== quiz.questions[i].answer){%>
+                        <%status = 'incorrect'%>
+                    <%}%>
+                        <div class="li <%-status%>">
+                              <div class="q-info">
+                                  <h3 class="q-title"><%-i+1%>. <%-quiz.questions[i].question%></h3>
+                                  <p class="q-ans u-ans"><i class="fa-solid fa-user"></i> - <%-choice.answer%></p>
+                                  <p class="q-ans c-ans"><i class="fa-solid fa-circle-check"></i> - <%-quiz.questions[i].answer%></p>
+                              </div>
+                          </div>
+                  <%}%>
+              </div>
+          </div>
+    <%- include('../partials/footer') %>
+    </body>
+    </html>

@@ -1,0 +1,14 @@
+.container{
+  text-align: center;
+  background-color: var(--bg-con);
+  margin: 40px;
+  border-radius: 20px;
+  height: 800px;
+}
+.i-frame{
+  outline: none;
+  border: none;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+}

@@ -60,7 +60,7 @@ index.get("/ninja", maintenance, counttraffic, async (req, res, next) => {
 });
 
 index.get("/tictactoe", maintenance, counttraffic, async (req, res, next) => {
-  res.render("games/ninja.ejs", { session: req.session });
+  res.render("games/tictactoe.ejs", { session: req.session });
 });
 
 index.get("/match", maintenance, counttraffic, async (req, res, next) => {

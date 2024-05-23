@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
     title: String,
     description: String,
     code: String,
+    active: Boolean,
     author: String,
     questions: [{
       question: String,

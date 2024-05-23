@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Quiz Dashboard | Techlore</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <%- include('../partials/links2', {page: "qres"}) %>
+</head>
+<body>
+<%- include('../partials/navbar', {page: "qdash", user: session.user}) %>
+        <div class="container">
+            <h1 class="title"><%-quiz.title%></h1>
+            <div class="small-grid">
+                <div style="grid-area: b1;"><span>
+                    <h2 class="sm-g-title"><i class="fa-solid fa-square-code"></i> Code</h2>
+                    <h1 class="sm-g-num"><%-quiz.code%></h1>
+                </span></div>
+                <div style="grid-area: b2;"><span>
+                    <h2 class="sm-g-title"><i class="fa-solid fa-square-list"></i> Users</h2>
+                     <h1 class="sm-g-num"><%-quiz.responses.length%></h1>
+                </span></div>
+                <div style="grid-area: b3;"><span>
+                    <h2 class="sm-g-title"><i class="fa-solid fa-star-half-stroke"></i> Average</h2>
+                    <%let total = 0%>
+                    <% for (let i = 0; i < quiz.responses.length; i++) { %>
+                        <%total += quiz.responses[i].score%>
+                    <%}%>
+                     <h1 class="sm-g-num"><%-(((total / quiz.responses.length) / quiz.questions.length) * 100).toString().replace("NaN", "0")%>%</h1>
+                </span></div>
+            </div>
+            <div class="list-grid">
+                <%if(quiz.responses.length === 0){%>
+                    <h3 class="nres">No Responses Yet</h3>
+                <%}else{%>
+                <% for (let i = 0; i < quiz.responses.length; i++) { %>
+                    <% let res = quiz.responses[i] %>
+                    <div class="li">
+                        <div class="q-info">
+                            <h2 class="q-title"><%-res.user%></h2>
+                            <p class="q-desc"><%-res.score%>/<%-quiz.questions.length%></p>
+                        </div>
+                        <div class="q-actions">
+                            <div class="action delete" id="<%-quiz.code%>" index="<%-i%>"><i class="fa-solid fa-trash"></i></div>
+                        </div>
+                    </div>
+                <%}%>
+                <%}%>
+            </div>
+        </div>
+<%- include('../partials/footer') %>
+<script>
+    $('.delete').click(function() {
+         $(this).css({
+                 "pointer-events": "none",
+                 "opacity": 0.8,
+                 "cursor": "none"
+             })
+         axios.post('/api/quiz/deleteres', {
+             id: $(this).attr('id'),
+             index: $(this).attr('index')
+         })
+        .then(function (res) {
+            location.reload();
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+     })
+</script>
+</body>
+</html>

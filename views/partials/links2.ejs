@@ -1,15 +1,15 @@
+<!-- Common Links -->
+
 <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
 <link rel='stylesheet' type='text/css' media='screen' href='/css/dark-theme.css'>
 <link rel='stylesheet' type='text/css' media='screen' href='/font-awesome/css/all.min.css'>
 <script src='/js/main.js'></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+<!-- Index Links -->
+
 <% if(page === "home"){ %>
 <link rel='stylesheet' type='text/css' media='screen' href='/css/home.css'>
-<% } %>
-  
-<% if(page === "translator"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/translator.css'>
 <% } %>
   
 <% if(page === "contact"){ %>
@@ -20,44 +20,8 @@
 <link rel='stylesheet' type='text/css' media='screen' href='/css/news.css'>
 <% } %>
   
-<% if(page === "quiz"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/quiz.css'>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<% } %>
-
-<% if(page === "cquiz"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/createquiz.css'>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<% } %>
-
-<% if(page === "quizform"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/quizform.css'>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<% } %>
-
-<% if(page === "quizscore"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/quizscore.css'>
-<% } %>
-
-<% if(page === "weather"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/weather.css'>
-<% } %>
-  
-<% if(page === "todo"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/todo.css'>
-<% } %>
-  
 <% if(page === "profile"){ %>
 <link rel='stylesheet' type='text/css' media='screen' href='/css/profile.css'>
-<% } %>
-  
-<% if(page === "calculator"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/cal.css'>
-<% } %>
-  
-<% if(page === "translator"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/translator.css'>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <% } %>
   
 <% if(page === "signup"){ %>
@@ -78,15 +42,78 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <% } %>
 
+<!-- Game Links -->
+
 <% if(page === "ninja-game"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/ninja.css'>
+<link rel='stylesheet' type='text/css' media='screen' href='/css/games/ninja.css'>
 <% } %>
 
 <% if(page === "match-game"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/match.css'>
+<link rel='stylesheet' type='text/css' media='screen' href='/css/games/match.css'>
 <% } %>
 
 <% if(page === "ttt-game"){ %>
-<link rel='stylesheet' type='text/css' media='screen' href='/css/tictactoe.css'>
+<link rel='stylesheet' type='text/css' media='screen' href='/css/games/tictactoe.css'>
 <% } %>
-    
+
+<!-- Software Links -->
+
+  <% if(page === "calculator"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/softwares/cal.css'>
+  <% } %>
+
+  <% if(page === "translator"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/softwares/translator.css'>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <% } %>
+
+  <% if(page === "translator"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/softwares/translator.css'>
+  <% } %>
+
+  <% if(page === "weather"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/softwares/weather.css'>
+  <% } %>
+
+  <% if(page === "todo"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/softwares/todo.css'>
+  <% } %>
+
+<!-- Quiz Links -->
+  
+  <% if(page === "quiz"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quiz.css'>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <% } %>
+
+  <% if(page === "cquiz"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/createquiz.css'>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <% } %>
+
+  <% if(page === "quizform"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quizform.css'>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <% } %>
+
+  <% if(page === "quizscore"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quizscore.css'>
+  <% } %>
+
+  <% if(page === "qdash"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quizdash.css'>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <% } %>
+
+  <% if(page === "qres"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quizres.css'>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <% } %>
+
+  <% if(page === "qlist"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quizlist.css'>
+  <% } %>
+
+  <% if(page === "qscore"){ %>
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/quiz/quizscore.css'>
+  <% } %>
