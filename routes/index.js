@@ -11,15 +11,19 @@ function log() {
 }
 setTimeout(log, 1000);
 
-const maintenance = async (req, res, next) => {
-  if (maintenance_status === false) {
-    next();
-  } else {
-    res.render("maintain.ejs", { session: req.session });
+const options = async (req, res, next) => {
+  // Maintenance
+  if (maintenance_status !== false) {
+    return res.render("maintain.ejs", { session: req.session });
   }
-};
 
-const counttraffic = async (req, res, next) => {
+  // Login Requirement
+  let RQ_Pages = ["/profile"];
+  if(RQ_Pages.some(e => e === req.path) && !req.session.user){
+    return res.redirect("/login");
+  }
+
+  // Traffic Counting
   let date = new Date();
   let formateddate = new Date(
     date.getFullYear() +
@@ -44,18 +48,12 @@ const counttraffic = async (req, res, next) => {
       Database_Changes: 0,
     });
   }
+
+  // Next
   next();
-};
+}
 
-const login_required = async (req, res, next) => {
-  if (!req.session.user) {
-    res.redirect("/login");
-  } else {
-    next();
-  }
-};
-
-index.get("/", maintenance, counttraffic, async (req, res, next) => {
+index.get("/", options, async (req, res, next) => {
   let visits = await traffic.find({}).sort({ _id: "asc" }).lean().exec();
   let total_visits = 0;  
   visits.forEach(async (data) => {
@@ -68,15 +66,15 @@ index.get("/", maintenance, counttraffic, async (req, res, next) => {
   });
 });
 
-index.get("/contact", maintenance, counttraffic, async (req, res, next) => {
+index.get("/contact", options, async (req, res, next) => {
   res.render("contact.ejs", { session: req.session });
 });
 
-index.get("/test", maintenance, counttraffic, async (req, res, next) => {
+index.get("/test", options, async (req, res, next) => {
   res.render("test.ejs", { session: req.session });
 });
 
-index.get("/news", maintenance, counttraffic, async (req, res, next) => {
+index.get("/news", options, async (req, res, next) => {
   const news = require("../models/news");
   await news.find({}).sort({ _id: "desc" }).lean().exec()
     .then((data) => {
@@ -87,7 +85,7 @@ index.get("/news", maintenance, counttraffic, async (req, res, next) => {
     });
 });
 
-index.get("/profile", login_required, maintenance, counttraffic, async (req, res, next) => {
+index.get("/profile", options, async (req, res, next) => {
     res.render("profile.ejs", {
       session: req.session,
       userdata: await users.findOne({ username: req.session.user }).exec(),
@@ -95,7 +93,7 @@ index.get("/profile", login_required, maintenance, counttraffic, async (req, res
   },
 );
 
-index.get("/logout", maintenance, counttraffic, async (req, res, next) => {
+index.get("/logout", options, async (req, res, next) => {
   req.session.destroy(function (err) {
     if (err) {
       console.log(err);
@@ -106,7 +104,7 @@ index.get("/logout", maintenance, counttraffic, async (req, res, next) => {
   });
 });
 
-index.get("/login", maintenance, counttraffic, async (req, res, next) => {
+index.get("/login", options, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.redirect("/");
@@ -115,7 +113,7 @@ index.get("/login", maintenance, counttraffic, async (req, res, next) => {
   }
 });
 
-index.get("/signup", maintenance, counttraffic, async (req, res, next) => {
+index.get("/signup", options, async (req, res, next) => {
   const user = req.session.user;
   if (user) {
     res.redirect("/");

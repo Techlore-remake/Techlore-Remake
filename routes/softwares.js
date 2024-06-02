@@ -11,15 +11,19 @@ function log() {
 }
 setTimeout(log, 1000);
 
-const maintenance = async (req, res, next) => {
-  if (maintenance_status === false) {
-    next();
-  } else {
-    res.render("maintain.ejs", { session: req.session });
+const options = async (req, res, next) => {
+  // Maintenance
+  if (maintenance_status !== false) {
+    return res.render("maintain.ejs", { session: req.session });
   }
-};
 
-const counttraffic = async (req, res, next) => {
+  // Login Requirement
+  let RQ_Pages = ["/quiz/join","/quiz/create", "/quiz/list", "/quiz/dash"];
+  if(RQ_Pages.some(e => e === req.path) && !req.session.user){
+    return res.redirect("/login");
+  }
+
+  // Traffic Counting
   let date = new Date();
   let formateddate = new Date(
     date.getFullYear() +
@@ -44,18 +48,12 @@ const counttraffic = async (req, res, next) => {
       Database_Changes: 0,
     });
   }
+
+  // Next
   next();
-};
+}
 
-const login_required = async (req, res, next) => {
-  if (!req.session.user) {
-    res.redirect("/login");
-  } else {
-    next();
-  }
-};
-
-software.get("/quiz/join", login_required, maintenance, counttraffic, async (req, res, next) => {
+software.get("/quiz/join", options, async (req, res, next) => {
   const quiz = require("../models/quizzes");
   const params = req.query;
   if(!params.id){
@@ -85,12 +83,12 @@ software.get("/quiz/join", login_required, maintenance, counttraffic, async (req
   }
 })
 
-software.get("/quiz/create", login_required, maintenance, counttraffic, async (req, res, next) => {
+software.get("/quiz/create", options, async (req, res, next) => {
   const params = req.query;
   res.render("softwares/quizcreate.ejs", { session: req.session });
 })
 
-software.get("/quiz/list", login_required, maintenance, counttraffic, async (req, res, next) => {
+software.get("/quiz/list", options, async (req, res, next) => {
   const quiz = require("../models/quizzes");
   const params = req.query;
   if(!params.id){
@@ -123,7 +121,7 @@ software.get("/quiz/list", login_required, maintenance, counttraffic, async (req
   }
 })
 
-software.get("/quiz/dash", login_required, maintenance, counttraffic, async (req, res, next) => {
+software.get("/quiz/dash", options, async (req, res, next) => {
   const quiz = require("../models/quizzes");
   const params = req.query;
   if(!params.id){
@@ -154,19 +152,19 @@ software.get("/quiz/dash", login_required, maintenance, counttraffic, async (req
   }
 })
 
-software.get("/calculator", maintenance, counttraffic, async (req, res, next) => {
+software.get("/calculator",  options, async (req, res, next) => {
   res.render("softwares/calculator.ejs", { session: req.session });
 });
 
-software.get("/weather", maintenance, counttraffic, async (req, res, next) => {
+software.get("/weather",  options, async (req, res, next) => {
   res.render("softwares/weather.ejs", { session: req.session });
 });
 
-software.get("/todo", maintenance, counttraffic, async (req, res, next) => {
+software.get("/todo",  options, async (req, res, next) => {
   res.render("softwares/todo.ejs", { session: req.session });
 });
 
-software.get("/translator", maintenance, counttraffic, async (req, res, next) => {
+software.get("/translator",  options, async (req, res, next) => {
   res.render("softwares/translator.ejs", { session: req.session });
 });
 

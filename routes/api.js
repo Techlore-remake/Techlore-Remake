@@ -186,11 +186,12 @@ api.get("/database/collections", async (req, res, next) => {
         for (let i = 0; i < data.length; i++) {
           const element = data[i];
           try {
-            const collection = require(`../models/${element.name}.js`);
+            let collection = require(`../models/${element.name}.js`);
             let collection_schema = mongoose.model(`${element.name}`).schema.obj;
             data[i].json = `${build_json(collection_schema)}`;
             resolve(); 
           } catch (error) {
+            console.log(error)
             reject(error); 
           }
         }
@@ -255,12 +256,6 @@ api.post('/signup', async (req, res, next) => {
     if(data.username === info.username){
       return res.status(401).json({ "message": "user exists"})
     }
-    // if(data.name === info.name){
-    //   return res.status(401).json({ "message": "name taken"})
-    // }
-    // if(data.email === info.email){
-    //   return res.status(401).json({ "message": "email taken"})
-    // }
   })
   .catch(async (error) => {
     await users.create({

@@ -17,8 +17,10 @@
   background: var(--bg);
   cursor: pointer;
   font-weight: 400;
-  border-radius: 10px;
+  border-radius: 1000px;
+  box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 10px 0 var(--bg-con-shadow);
   position: relative;
+  transition: filter 0.1s ease;
 }
 
 .container .clear:hover{
@@ -31,6 +33,10 @@
 
 .container span:hover{
   opacity: 0.7;
+}
+
+.container .hover{
+  filter: brightness(1.5);
 }
 
 .calfunctions span:active {
@@ -72,6 +78,7 @@
   height: 1px !important;
   gap: 0px;
   background: transparent !important;
+  box-shadow: none !important;
 }
 .calculator .value {
   font-size: 2em;
@@ -94,12 +101,6 @@
 .calfunctions .clear {
   grid-column: span 2;
   width: 180px;
-  background: #cf1919;
-}
-
-.calfunctions .plus {
-  grid-row: span 2;
-  height: 180px;
 }
 .calfunctions .equal {
   background: var(--primary-3);

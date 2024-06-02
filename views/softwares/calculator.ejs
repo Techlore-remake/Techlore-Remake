@@ -15,25 +15,26 @@
                 </form>
               <div class="calfunctions">
                 <span class="grid-man"></span>
-                <span class="num clear" onclick="calc.txt.value=''"><i>C</i></span>
-                <span class="num" onclick="calc.txt.value+='/'"><i>/</i></span>
-                <span class="num" onclick="calc.txt.value+='*'"><i>*</i></span>
-                <span class="num" onclick="calc.txt.value+='7'"><i>7</i></span>
-                <span class="num" onclick="calc.txt.value+='8'"><i>8</i></span>
-                <span class="num" onclick="calc.txt.value+='9'"><i>9</i></span>
-                <span class="num" onclick="calc.txt.value+='-'"><i>-</i></span>
-                <span class="num" onclick="calc.txt.value+='4'"><i>4</i></span>
-                <span class="num" onclick="calc.txt.value+='5'"><i>5</i></span>
-                <span class="num" onclick="calc.txt.value+='6'"><i>6</i></span>
-                <span class="num plus" onclick="calc.txt.value+='+'"><i>+</i></span>
-                <span class="num" onclick="calc.txt.value+='1'"><i>1</i></span>
-                <span class="num" onclick="calc.txt.value+='2'"><i>2</i></span>
-                <span class="num" onclick="calc.txt.value+='3'"><i>3</i></span>
-                <span class="num" onclick="calc.txt.value+='.'"><i>.</i></span>
-                <span class="num" onclick="calc.txt.value+='0'"><i>0</i></span>
-                <span class="num" onclick="calc.txt.value+='00'"><i>00</i></span>
+                <span class="num clear 1" onclick="calc.txt.value=''"><i>C</i></span>
+                <span class="num 2" onclick="calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)"><i class="fa-solid fa-delete-left"></i></span>
+                <span class="num 3" onclick="calc.txt.value+='/'"><i>÷</i></span>
+                <span class="num 4" onclick="calc.txt.value+='7'"><i>7</i></span>
+                <span class="num 5" onclick="calc.txt.value+='8'"><i>8</i></span>
+                <span class="num 6" onclick="calc.txt.value+='9'"><i>9</i></span>
+                <span class="num 7" onclick="calc.txt.value+='*'"><i>×</i></span>
+                <span class="num 8" onclick="calc.txt.value+='4'"><i>4</i></span>
+                <span class="num 9" onclick="calc.txt.value+='5'"><i>5</i></span>
+                <span class="num 10" onclick="calc.txt.value+='6'"><i>6</i></span>
+                <span class="num 11" onclick="calc.txt.value+='-'"><i>-</i></span>
+                <span class="num 12" onclick="calc.txt.value+='1'"><i>1</i></span>
+                <span class="num 13" onclick="calc.txt.value+='2'"><i>2</i></span>
+                <span class="num 14" onclick="calc.txt.value+='3'"><i>3</i></span>
+                <span class="num 15" onclick="calc.txt.value+='+'"><i>+</i></span>
+                <span class="num 16" onclick="calc.txt.value+='0'"><i>0</i></span>
+                <span class="num 17" onclick="calc.txt.value+='.'"><i>.</i></span>
+                <span class="num 18" onclick="calc.txt.value+='%'"><i>%</i></span>
 
-                <span class="num equal" onclick="document.calc.txt.value=(Math.round(eval(calc.txt.value)* 10000000000000)/10000000000000)" ><i>=</i></span>
+                <span class="num equal 19" onclick="document.calc.txt.value=(Math.round(eval(calc.txt.value)* 10000000000000)/10000000000000)" ><i>=</i></span>
               </div>
               <!-- <div class="calculator-grid">
                 <span class="calc-btn" style="grid-area: c; width: 90px;">Clear</span>
@@ -57,5 +58,98 @@
               </div> -->
             </div>
 <%- include('../partials/footer') %>
+<script>
+  let key = 0;
+  $('body').on("keyup", function(event) {
+    const lastkey = key
+    key = event.which
+    function hover(id) {
+      let span = $(`.calfunctions .${id}`)
+      span.addClass("hover")
+      setTimeout(function() {
+        span.removeClass('hover')
+      }, 100)
+    }
+    if(event.which === 46){
+      calc.txt.value = ''
+      hover(1)
+    }
+    if(event.which === 8){
+      calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
+      hover(2)
+    }
+    if(event.which === 191){
+      calc.txt.value += '/'
+      hover(3)
+    }
+    if(event.which === 55 || event.which === 103){
+      calc.txt.value += '7'
+      hover(4)
+    }
+    if(event.which === 56 || event.which === 104){
+      calc.txt.value += '8'
+      hover(5)
+    }
+    if(event.which === 57 || event.which === 105){
+      calc.txt.value += '9'
+      hover(6)
+    }
+    if(event.which === 88 || (lastkey === 56 && event.which === 16)){
+      calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
+      calc.txt.value += '*'
+      hover(7)
+    }
+    if(event.which === 52 || event.which === 100){
+      calc.txt.value += '4'
+      hover(8)
+    }
+    if(event.which === 53 || event.which === 101){
+      calc.txt.value += '5'
+      hover(9)
+    }
+    if(event.which === 54 || event.which === 102){
+      calc.txt.value += '6'
+      hover(10)
+    }
+    if(event.which === 189){
+      calc.txt.value += '-'
+      hover(11)
+    }
+    if(event.which === 49 || event.which === 97){
+      calc.txt.value += '1'
+      hover(12)
+    }
+    if(event.which === 50 || event.which === 98){
+      calc.txt.value += '2'
+      hover(13)
+    }
+    if(event.which === 51 || event.which === 99){
+      calc.txt.value += '3'
+      hover(14)
+    }
+    if(event.which === 107 || (lastkey === 187 && event.which === 16)){
+      calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
+      calc.txt.value += ''
+      hover(15)
+    }
+    if(event.which === 48 || event.which === 96){
+      calc.txt.value += '0'
+      hover(16)
+    }
+    if(event.which === 190 || event.which === 110){
+      calc.txt.value += '.'
+      hover(17)
+    }
+    if(lastkey === 53 && event.which === 16){
+      calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
+      calc.txt.value += '/100'
+      hover(18)
+    }
+    if(event.which === 13){
+      document.calc.txt.value=(Math.round(eval(calc.txt.value)* 10000000000000)/10000000000000)
+      hover(19)
+    }
+  })
+</script>
 </body>
 </html>

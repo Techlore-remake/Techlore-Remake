@@ -7,8 +7,6 @@ const Schema = mongoose.Schema;
     date: Date,
     author: String,
 })),
-  (News = mongoose.model("News", NewsSchema));
+  (News = mongoose.model("news", NewsSchema));
 
 module.exports = News;
-//@Vidul if you can add image too
-//Also giv acess to enter news from admin panel
