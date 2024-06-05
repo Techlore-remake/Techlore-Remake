@@ -1,26 +1,30 @@
 const express = require("express");
 const software = express.Router();
+const app = express()
 const chalk = require("chalk");
 const traffic = require("../PrivateModels/traffic");
 const users = require("../models/users");
-const maintenance_status = false;
-// true = under maintenance
 
-function log() {
-  console.log(chalk.bgCyanBright.bold(" [Router] software Successfully Booted "));
-}
-setTimeout(log, 1000);
+setTimeout(function() {
+    console.log(chalk.bgCyanBright.bold(" [Router] software Successfully Booted "))
+}, 1000);
 
 const options = async (req, res, next) => {
   // Maintenance
-  if (maintenance_status !== false) {
-    return res.render("maintain.ejs", { session: req.session });
+  if (req.app.locals.Maintenance !== false) {
+    return res.render("error.ejs", {session: req.session, code: 502, message: `Site is under maintainence. Site will be back online soon.`, icon: "fa-screwdriver-wrench"});
   }
 
   // Login Requirement
   let RQ_Pages = ["/quiz/join","/quiz/create", "/quiz/list", "/quiz/dash"];
   if(RQ_Pages.some(e => e === req.path) && !req.session.user){
     return res.redirect("/login");
+  }
+
+  // Disabled Pages
+  let Dis_Pages = [];
+  if(Dis_Pages.some(e => e === req.path)){
+    return res.render("error.ejs", {session: req.session, code: 423, message: `This Page Is Currently Disabled.`, icon: "fa-eye-slash"});
   }
 
   // Traffic Counting
@@ -62,13 +66,13 @@ software.get("/quiz/join", options, async (req, res, next) => {
   await quiz.findOne({ code: params.id }).exec()
     .then((data) => {
       if (!data) {
-        return res.render("404.ejs", { session: req.session });
+        return res.render("error.ejs", {session: req.session, code: 204, message: `No Content Found. <a href="/">Home</a>`, icon: "fa-empty-set"});
       }
       if(data.author === req.session.user){
         return res.redirect(`/softwares/quiz/dash?id=${data.code}`);
       }
       if(data.active !== true){
-        return res.render("404.ejs", { session: req.session });
+        return res.render("error.ejs", {session: req.session, code: 423, message: `This Quiz Is Currently Disabled.`, icon: "fa-eye-slash"});
       }
       if (data.responses.some(obj => obj.user === req.session.user) === true) {
           return res.redirect(`/softwares/quiz/list?id=${data.code}`);
@@ -78,7 +82,7 @@ software.get("/quiz/join", options, async (req, res, next) => {
     })
     .catch((error) => {
       console.log(error)
-      res.render("404.ejs", { session: req.session });
+      res.render("error.ejs", {session: req.session, code: 500, message: `Something Went Wrong. <a href="/">Home</a>`, icon: "fa-triangle-exclamation"});
     });
   }
 })
@@ -97,13 +101,13 @@ software.get("/quiz/list", options, async (req, res, next) => {
       res.render("softwares/quizlist.ejs", { session: req.session, responses: data });
     })
     .catch((error) => {
-      res.render("404.ejs", { session: req.session });
+      res.render("error.ejs", {session: req.session, code: 500, message: `Something Went Wrong. <a href="/">Home</a>`, icon: "fa-triangle-exclamation"});
     });
   }else{
     await quiz.findOne({ code: params.id }).exec()
     .then((data) => {
       if (!data) {
-        return res.render("404.ejs", { session: req.session });
+        return res.render("error.ejs", {session: req.session, code: 204, message: `No Content Found. <a href="/">Home</a>`, icon: "fa-empty-set"});
       }
       if(data.author === req.session.user){
         return res.redirect(`/softwares/quiz/dash?id=${data.code}`);
@@ -116,7 +120,7 @@ software.get("/quiz/list", options, async (req, res, next) => {
       }
     })
     .catch((error) => {
-      res.render("404.ejs", { session: req.session });
+      res.render("error.ejs", {session: req.session, code: 500, message: `Something Went Wrong. <a href="/">Home</a>`, icon: "fa-triangle-exclamation"});
     });
   }
 })
@@ -128,26 +132,26 @@ software.get("/quiz/dash", options, async (req, res, next) => {
     await quiz.find({ author: req.session.user }).exec()
     .then((data) => {
       if (!data) {
-        return res.render("404.ejs", { session: req.session });
+        return res.render("error.ejs", {session: req.session, code: 204, message: `No Content Found. <a href="/">Home</a>`, icon: "fa-empty-set"});
       }
       res.render("softwares/quizdash.ejs", { session: req.session, quizzes: data });
     })
     .catch((error) => {
-      res.render("404.ejs", { session: req.session });
+      res.render("error.ejs", {session: req.session, code: 500, message: `Something Went Wrong. <a href="/">Home</a>`, icon: "fa-triangle-exclamation"});
     });
   }else{
     await quiz.findOne({ code: params.id }).exec()
     .then((data) => {
       if (!data) {
-        return res.render("404.ejs", { session: req.session });
+        return res.render("error.ejs", {session: req.session, code: 204, message: `No Content Found. <a href="/">Home</a>`, icon: "fa-empty-set"});
       }
       if(data.author !== req.session.user){
-        return res.render("404.ejs", { session: req.session });
+        return res.render("error.ejs", {session: req.session, code: 204, message: `No Content Found. <a href="/">Home</a>`, icon: "fa-empty-set"});
       }
       res.render("softwares/quizresponses.ejs", { session: req.session, quiz: data });
     })
     .catch((error) => {
-      res.render("404.ejs", { session: req.session });
+      res.render("error.ejs", {session: req.session, code: 500, message: `Something Went Wrong. <a href="/">Home</a>`, icon: "fa-triangle-exclamation"});
     });
   }
 })

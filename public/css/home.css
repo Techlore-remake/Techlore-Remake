@@ -34,26 +34,21 @@
 .about{
   color: var(--color);
   background-color: var(--bg-con);
+  font-weight: bold;
   border-radius: 20px;
   padding: 20px;
   padding-bottom: 50px;
   padding-left:10%;
   padding-right:10%;
   margin-bottom:5%;
+  font-size:15px;
   text-align:justify;
  margin: 40px;
   box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
-  font-weight:bolder;
 }
-.about p span{
+.about span{
   font-weight: bolder;
   font-size: 17px;
-  animation: primary_glow 3s ease-in-out infinite alternate;
-}
-.hero{
-  color: var(--color);
-  font-weight:bold;
-  font-size:20px;
 }
 .about h1{
   text-align:center;

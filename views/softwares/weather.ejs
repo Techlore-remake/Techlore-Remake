@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Weather App</title>
+    <title>Weather App | Techlore</title>
     <%- include('../partials/links2', {page: "weather"}) %>
   </head>
   <body>
@@ -21,12 +21,12 @@
             <p><b>Please Insert a valid city name</b></p>
         </div>
         <div class="weather">
-            <img src="/image/clear.jpg"class="weather-icon" /><br>
+            <img src="/imgs/weather/clear.jpg"class="weather-icon" /><br>
             <h1 id="temp" class="temp"></h1>
             <h2 class="city">Sample City</h2>
         <div class="details">
             <div class="wh">
-                <img src="/image/humi.png" alt="humidity"><br>
+                <img src="/imgs/weather/humi.png" alt="humidity"><br>
                 <br><div class="card-details">
                     <p class="humidity">Sample Humidity</p>
                     <h4>Humidity</h4>
@@ -34,7 +34,7 @@
             </div>
             <br><br>
             <div class="wh">
-                <img src="/image/ap.png"><br>
+                <img src="/imgs/weather/ap.png"><br>
                 <div class="card-details">
                     <p class="pressure">Sample Air_pressure</p>
                     <h4>Air-pressure</h4>
@@ -65,15 +65,15 @@ async function checkWeather(city) {
     $(".pressure").html(data.main.pressure)
 
     if (data.weather[0].main === "Clouds") {
-      $('.weather-icon').attr("src", "/image/cloud.png")
+      $('.weather-icon').attr("src", "/imgs/weather/cloud.png")
     } else if (data.weather[0].main === "Clear") {
-      $('.weather-icon').attr("src", "/image/clear.jpg")
+      $('.weather-icon').attr("src", "/imgs/weather/clear.jpg")
     } else if (data.weather[0].main === "Rain") {
-      $('.weather-icon').attr("src", "/image/rain.png")
+      $('.weather-icon').attr("src", "/imgs/weather/rain.png")
     } else if (data.weather[0].main === "Drizzle") {
-      $('.weather-icon').attr("src", "/image/dri.png")
+      $('.weather-icon').attr("src", "/imgs/weather/dri.png")
     } else if (data.weather[0].main === "Mist") {
-      $('.weather-icon').attr("src", "/image/mist.png")
+      $('.weather-icon').attr("src", "/imgs/weather/mist.png")
     }
     
     $(".weather").show()

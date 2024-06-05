@@ -6,13 +6,9 @@ const stream = require("stream");
 const upload = multer();
 const { google } = require("googleapis");
 
-function log() {
-  console.log(
-    chalk.bgCyanBright.bold(" [Router] Upload Successfully Booted ")
-  );
-}
-
-setTimeout(log, 1000);
+setTimeout(function() {
+  console.log(chalk.bgCyanBright.bold(" [Router] Upload Successfully Booted "));
+}, 1000);
 
 //   const KEYFILEPATH = 'service.json'
 //   const SCOPES = ['https://www.googleapis.com/auth/drive'];

@@ -20,11 +20,11 @@
 <span id="questions-con">
   <div class="q-container">
     <textarea class="question required" id="q" placeholder="Write your question here*" oninput="this.style.backgroundColor = ''"></textarea><br>
-    <textarea class="answer required" id="a1" placeholder="Answer 1*" oninput="this.style.backgroundColor = ''"></textarea><br>
-    <textarea class="answer required" id="a2" placeholder="Answer 2*" oninput="this.style.backgroundColor = ''"></textarea><br>
-    <textarea class="answer required" id="a3" placeholder="Answer 3*" oninput="this.style.backgroundColor = ''"></textarea><br>
-    <textarea class="answer required" id="a4" placeholder="Answer 4*" oninput="this.style.backgroundColor = ''"></textarea><br>
-    <input type="number" min="1" max="4" id="ca" class="c-answer required" placeholder="Correct Answer*" oninput="this.style.backgroundColor = ''">
+    <textarea class="answer required" id="a1" placeholder="Answer One*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a2" placeholder="Answer Two*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a3" placeholder="Answer Three*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <textarea class="answer required" id="a4" placeholder="Answer Four*" oninput="this.style.backgroundColor = ''"></textarea><br>
+    <input type="number" min="1" max="4" id="ca" class="c-answer required" placeholder="Number Of The Correct Option*" oninput="this.style.backgroundColor = ''">
     <br><br>
   </div>
     
@@ -84,7 +84,7 @@
             questions: questions
         })
         .then(function (res) {
-            window.location.href = `/quiz?id=${res.data.message}`
+            window.location.href = `/softwares/quiz/join?id=${res.data.message}`
         })
         .catch(function (error) {
           $('#error').children().text('An error occurred, Please contact an admin.')
@@ -99,11 +99,11 @@
       $('#questions-con').append(`
       <div class="q-container" style="margin-top:40px;">
         <textarea class="question required" id="q" placeholder="Write your question here*" oninput="this.style.backgroundColor = ''"></textarea><br>
-        <textarea class="answer required" id="a1" placeholder="Answer 1*" oninput="this.style.backgroundColor = ''"></textarea><br>
-        <textarea class="answer required" id="a2" placeholder="Answer 2*" oninput="this.style.backgroundColor = ''"></textarea><br>
-        <textarea class="answer required" id="a3" placeholder="Answer 3*" oninput="this.style.backgroundColor = ''"></textarea><br>
-        <textarea class="answer required" id="a4" placeholder="Answer 4*" oninput="this.style.backgroundColor = ''"></textarea><br>
-        <input type="number" min="1" max="4" id="ca" class="c-answer required" placeholder="Correct Answer*" oninput="this.style.backgroundColor = ''">
+        <textarea class="answer required" id="a1" placeholder="Answer One*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a2" placeholder="Answer Two*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a3" placeholder="Answer Three*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <textarea class="answer required" id="a4" placeholder="Answer Four*" oninput="this.style.backgroundColor = ''"></textarea><br>
+        <input type="number" min="1" max="4" id="ca" class="c-answer required" placeholder="Number Of The Correct Option*" oninput="this.style.backgroundColor = ''">
         <br><br>
          <button class="remove-q" onclick="deleteq(this)"><i class="fa-solid fa-trash"></i> Remove Question</button><br><br>
       </div>

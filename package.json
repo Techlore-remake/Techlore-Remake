@@ -1,7 +1,7 @@
 {
-  "name": "ejstemplate",
+  "name": "Techlore",
   "version": "1.0.0",
-  "description": "**This is the official ejs template made by Vidul**",
+  "description": "**This is the official Techlore Repository by GSVD Programmers**",
   "main": "index.js",
   "scripts": {
     "update": "npm i && npm install pm2 --save",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VidulHB"
+    "url": "git+https://github.com/Techlore-remake/Techlore-Remake.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VidulHB"
+    "url": "https://github.com/Techlore-remake/Techlore-Remake/issues"
   },
-  "homepage": "https://github.com/VidulHB",
+  "homepage": "https://github.com/Techlore-remake",
   "dependencies": {
     "body-parser": "^1.20.1",
     "chalk": "^4.1.0",

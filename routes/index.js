@@ -3,24 +3,27 @@ const index = express.Router();
 const chalk = require("chalk");
 const traffic = require("../PrivateModels/traffic");
 const users = require("../models/users");
-const maintenance_status = false;
-// true = under maintenance
 
-function log() {
+setTimeout(function() {
   console.log(chalk.bgCyanBright.bold(" [Router] Index Successfully Booted "));
-}
-setTimeout(log, 1000);
+}, 1000);
 
 const options = async (req, res, next) => {
   // Maintenance
-  if (maintenance_status !== false) {
-    return res.render("maintain.ejs", { session: req.session });
+  if (req.app.locals.Maintenance !== false) {
+    return res.render("error.ejs", {session: req.session, code: 502, message: `Site is under maintainence. Site will be back online soon.`, icon: "fa-screwdriver-wrench"});
   }
 
   // Login Requirement
   let RQ_Pages = ["/profile"];
   if(RQ_Pages.some(e => e === req.path) && !req.session.user){
     return res.redirect("/login");
+  }
+
+  // Disabled Pages
+  let Dis_Pages = ["/test"];
+  if(Dis_Pages.some(e => e === req.path)){
+    return res.render("error.ejs", {session: req.session, code: 423, message: `This Page Is Currently Disabled.`, icon: "fa-eye-slash"});
   }
 
   // Traffic Counting
@@ -81,7 +84,7 @@ index.get("/news", options, async (req, res, next) => {
       res.render("news.ejs", { session: req.session, news: data });
     })
     .catch((error) => {
-      res.render("404.ejs", { session: req.session });
+      res.render("error.ejs", {session: req.session, code: 500, message: `Something Went Wrong. <a href="/">Home</a>`, icon: "fa-triangle-exclamation"});
     });
 });
 

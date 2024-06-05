@@ -1,25 +1,33 @@
 const express = require("express");
 const index = express.Router();
+const app = express()
 const chalk = require("chalk");
 const traffic = require("../PrivateModels/traffic");
 const users = require("../models/users");
-const maintenance_status = false;
-// true = under maintenance
 
-function log() {
+setTimeout(function() {
   console.log(chalk.bgCyanBright.bold(" [Router] Index Successfully Booted "));
-}
-setTimeout(log, 1000);
+}, 1000);
 
-const maintenance = async (req, res, next) => {
-  if (maintenance_status === false) {
-    next();
-  } else {
-    res.render("maintain.ejs", { session: req.session });
+const options = async (req, res, next) => {
+  // Maintenance
+  if (req.app.locals.Maintenance !== false) {
+    return res.render("error.ejs", {session: req.session, code: 502, message: `Site is under maintainence. Site will be back online soon.`, icon: "fa-screwdriver-wrench"});
   }
-};
 
-const counttraffic = async (req, res, next) => {
+  // Login Requirement
+  let RQ_Pages = ["/profile"];
+  if(RQ_Pages.some(e => e === req.path) && !req.session.user){
+    return res.redirect("/login");
+  }
+
+  // Disabled Pages
+  let Dis_Pages = ["/ninja", "/tictactoe", "/match"];
+  if(Dis_Pages.some(e => e === req.path)){
+    return res.render("error.ejs", {session: req.session, code: 423, message: `This Page Is Currently Disabled.`, icon: "fa-eye-slash"});
+  }
+
+  // Traffic Counting
   let date = new Date();
   let formateddate = new Date(
     date.getFullYear() +
@@ -44,26 +52,20 @@ const counttraffic = async (req, res, next) => {
       Database_Changes: 0,
     });
   }
+
+  // Next
   next();
-};
+}
 
-const login_required = async (req, res, next) => {
-  if (!req.session.user) {
-    res.redirect("/login");
-  } else {
-    next();
-  }
-};
-
-index.get("/ninja", maintenance, counttraffic, async (req, res, next) => {
+index.get("/ninja", options, async (req, res, next) => {
   res.render("games/ninja.ejs", { session: req.session });
 });
 
-index.get("/tictactoe", maintenance, counttraffic, async (req, res, next) => {
+index.get("/tictactoe", options, async (req, res, next) => {
   res.render("games/tictactoe.ejs", { session: req.session });
 });
 
-index.get("/match", maintenance, counttraffic, async (req, res, next) => {
+index.get("/match", options, async (req, res, next) => {
   res.render("games/match.ejs", { session: req.session });
 });
 

@@ -25,7 +25,6 @@ const Schema = mongoose.Schema;
         answer: Number
       }]
     }]
-  
 })),
   (Quizzes = mongoose.model("quizzes", QuizSchema));
 

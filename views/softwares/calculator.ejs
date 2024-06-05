@@ -32,30 +32,10 @@
                 <span class="num 15" onclick="calc.txt.value+='+'"><i>+</i></span>
                 <span class="num 16" onclick="calc.txt.value+='0'"><i>0</i></span>
                 <span class="num 17" onclick="calc.txt.value+='.'"><i>.</i></span>
-                <span class="num 18" onclick="calc.txt.value+='%'"><i>%</i></span>
+                <span class="num 18" onclick="calc.txt.value+='/100'"><i>%</i></span>
 
                 <span class="num equal 19" onclick="document.calc.txt.value=(Math.round(eval(calc.txt.value)* 10000000000000)/10000000000000)" ><i>=</i></span>
               </div>
-              <!-- <div class="calculator-grid">
-                <span class="calc-btn" style="grid-area: c; width: 90px;">Clear</span>
-                <span class="calc-btn" style="grid-area: a1;"><i class="fa-solid fa-delete-left"></i></span>
-                <span class="calc-btn" style="grid-area: a2;">\</span>
-                <span class="calc-btn" style="grid-area: n7;">7</span>
-                <span class="calc-btn" style="grid-area: n8;">8</span>
-                <span class="calc-btn" style="grid-area: n9;">9</span>
-                <span class="calc-btn" style="grid-area: a3;">*</span>
-                <span class="calc-btn" style="grid-area: n4;">4</span>
-                <span class="calc-btn" style="grid-area: n5;">5</span>
-                <span class="calc-btn" style="grid-area: n6;">6</span>
-                <span class="calc-btn" style="grid-area: a4;">-</span>
-                <span class="calc-btn" style="grid-area: n1;">1</span>
-                <span class="calc-btn" style="grid-area: n2;">2</span>
-                <span class="calc-btn" style="grid-area: n3;">3</span>
-                <span class="calc-btn" style="grid-area: a5;">+</span>
-                <span class="calc-btn" style="grid-area: a6;">.</span>
-                <span class="calc-btn" style="grid-area: n0;">0</span>
-                <span class="calc-btn" style="grid-area: a7; width: 90px;">=</span>
-              </div> -->
             </div>
 <%- include('../partials/footer') %>
 <script>
@@ -78,7 +58,7 @@
       calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
       hover(2)
     }
-    if(event.which === 191){
+    if(event.which === 191 || event.which === 111){
       calc.txt.value += '/'
       hover(3)
     }
@@ -94,8 +74,12 @@
       calc.txt.value += '9'
       hover(6)
     }
-    if(event.which === 88 || (lastkey === 56 && event.which === 16)){
+    if(lastkey === 56 && event.which === 16){
       calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
+      calc.txt.value += '*'
+      hover(7)
+    }
+    if(event.which === 88 || event.which === 106){
       calc.txt.value += '*'
       hover(7)
     }
@@ -127,8 +111,12 @@
       calc.txt.value += '3'
       hover(14)
     }
-    if(event.which === 107 || (lastkey === 187 && event.which === 16)){
+    if(lastkey === 187 && event.which === 16){
       calc.txt.value = calc.txt.value.substring(0, calc.txt.value.length-1)
+      calc.txt.value += ''
+      hover(15)
+    }
+    if(event.which === 107){
       calc.txt.value += ''
       hover(15)
     }

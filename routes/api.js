@@ -4,11 +4,10 @@ const chalk = require("chalk");
 const mongoose = require('mongoose');
 const fs = require('fs')
 const traffic = require('../PrivateModels/traffic');
-function log() {
-  console.log(chalk.bgCyanBright.bold(" [Router] API Successfully Booted "));
-}
 
-setTimeout(log, 1000);
+setTimeout(function() {
+  console.log(chalk.bgCyanBright.bold(" [Router] API Successfully Booted "));
+}, 1000);
 
 api.use(async (req, res, next) => {
   let date = new Date()
@@ -262,6 +261,7 @@ api.post('/signup', async (req, res, next) => {
       name: info.name,
       username: info.username,
       email: info.email,
+      birthday: info.birthday,
       password: info.password,
       admin: {
         status: false,
@@ -346,28 +346,6 @@ api.post('/quiz/visibility', async (req, res, next) => {
   });
 })
 
-api.post('/quiz/deleteres', async (req, res, next) => {
-  const post_data = req.body
-  const quiz = require(`../models/quizzes`)
-  quiz.findOne({ code : post_data.id }).exec()
-  .then((data) => {
-    let responses = data.responses
-    responses.splice(post_data.index, 1)
-    quiz.findOneAndUpdate({ code: post_data.id }, { $set: { responses: responses }}).exec()
-  .then((Document) => {
-    res.status(200).json({ "message": "success"})
-  })
-  .catch((error) => {
-    res.status(401).json({ "message": "error"})
-    console.error('Error creating document:', error);
-  })
-  })
-  .catch((error) => {
-    res.status(401).json({ "message": "error"})
-    console.error('Error creating document:', error);
-  });
-})
-
 function generateRandomCode() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let code = '';
@@ -384,10 +362,12 @@ api.post('/quiz/create', async (req, res, next) => {
 
   await quiz.create({
     title: post_data.title,
-      description: post_data.desc,
-      code: code,
-      author: post_data.user,
-      questions: post_data.questions
+    description: post_data.desc,
+    code: code,
+    active: true,
+    author: post_data.user,
+    questions: post_data.questions,
+    responses: []
   })
   .then((data) => {
     res.status(200).json({ "message": `${data.code}`})
@@ -414,7 +394,9 @@ api.post('/quiz/submit', async (req, res, next) => {
       answers.push({ answer: response.answer})
     })
     let responses = []
-    responses.push(data.responses)
+    if(data.responses.length !== 0){
+      responses.push(data.responses)
+    }
     responses.push({
       user: post_data.user,
       score: score,
@@ -436,5 +418,26 @@ api.post('/quiz/submit', async (req, res, next) => {
   });
 })
 
+api.post('/quiz/deleteres', async (req, res, next) => {
+  const post_data = req.body
+  const quiz = require(`../models/quizzes`)
+  quiz.findOne({ code : post_data.id }).exec()
+  .then((data) => {
+    let responses = data.responses
+    responses.splice(post_data.index, 1)
+    quiz.findOneAndUpdate({ code: post_data.id }, { $set: { responses: responses }}).exec()
+  .then((Document) => {
+    res.status(200).json({ "message": "success"})
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+    console.error('Error creating document:', error);
+  })
+  })
+  .catch((error) => {
+    res.status(401).json({ "message": "error"})
+    console.error('Error creating document:', error);
+  });
+})
 
 module.exports = api;

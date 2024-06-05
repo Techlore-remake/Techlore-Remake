@@ -90,6 +90,9 @@
   float: left;
   animation: primary_glow 3s ease-in-out infinite alternate;
 }
+.grid-area i{
+  width: 200px;
+}
 .q-desc{
   margin-top: -15px;
   margin-left: 5px;

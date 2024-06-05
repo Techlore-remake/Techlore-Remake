@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>SignUp | Techlore</title>
+  <title>Sign-Up | Techlore</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <%- include('./partials/links2', {page: "signup"}) %>
 </head>
@@ -18,17 +18,20 @@
 <div class="err-message" id="error">
   <p>Error messsage here</p>
 </div>
-    <label for="name"><b>Name</b></label><br>
+    <label for="name"><b>Name*</b></label><br>
     <input type="text" placeholder="Enter Name" name="name" required><br>
     
-    <label for="username"><b>Username</b></label><br>
+    <label for="birthday"><b>Birthday*</b></label><br>
+    <input type="date" placeholder="Enter Birthday" name="birthday" required><br>
+    
+    <label for="username"><b>Username*</b></label><br>
     <input type="text" placeholder="Enter Username" name="username" required><br>
     
-    <label for="username"><b>Email</b></label><br>
+    <label for="username"><b>Email*</b></label><br>
     <input type="text" placeholder="Enter Email" name="email" required><br>
 
-  <label for="password"><b>Password</b></label><br>
-  <input type="password" placeholder="Enter Password" name="password" required><br>
+    <label for="password"><b>Password*</b></label><br>
+    <input type="password" placeholder="Enter Password" name="password" required><br>
 
   <button type="submit2" id="sbutton">Sign up</button><br>
     <p style="color: var(--color);">Already Have An Account? <a href="/login" style="text-decoration: none; color: #3ca2e6; font-weight: bolder;">Login</a></p>
@@ -56,6 +59,7 @@
       name: `${data.name}`,
       username: `${data.username}`,
       email: `${data.email}`,
+      birthday: `${data.birthday}`,
       password: `${data.password}`,
   })
   .then(function (res) {

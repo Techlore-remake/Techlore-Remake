@@ -10,13 +10,13 @@
   padding-bottom:2.5%;
 }
 .login_form h1{
-  color: var(--color);
+  color: var(--primary-1);
   font-weight: bolder;
 }
 .login_form button{
   margin-top:30px;
   border-radius: 50px;
-  background-color: var(--primary-2);
+  background-color: var(--primary-3);
   color: var(--color);
   font-weight:bolder;
   align-items:center;

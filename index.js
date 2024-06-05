@@ -107,6 +107,7 @@ app.use(
     saveUninitialized: true,
   }),
 );
+app.locals.Maintenance = false;
 app.locals.Title = "Techlore";
 
 //Routes
@@ -125,5 +126,5 @@ app.use("/Upload", upload);
 
 //404 page
 app.use((req, res, next) => {
-  res.render("404.ejs", {session: req.session});
+  res.render("error.ejs", {session: req.session, code: 404, message: `Looks Like Your Lost. <a href="/">Home</a>`, icon: "fa-circle-exclamation"});
 });

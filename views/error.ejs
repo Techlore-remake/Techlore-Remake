@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title><%-code%> | Techlore</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <%- include('./partials/links2', {page: "404"}) %>
+</head>
+<body>
+  <%- include('./partials/navbar', {page: "404", user: session.user}) %>
+  <div class="con">
+    <i class="fa-solid <%-icon%>"></i>
+    <h1><%-code%></h1>
+     <p><%-message%></p>
+    </div>
+    <%- include('./partials/footer') %>
+</body>
+</html>

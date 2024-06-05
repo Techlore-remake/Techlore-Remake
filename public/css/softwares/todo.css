@@ -56,7 +56,7 @@
 .task-input input::placeholder{
   color: var(--color);
 }
-.controls, li{
+.controls, .task-box li{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,7 +111,7 @@
 }
 .task-box.overflow{
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 600px;
 }
 .task-box::-webkit-scrollbar{
   width: 5px;
