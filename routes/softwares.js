@@ -164,6 +164,10 @@ software.get("/weather",  options, async (req, res, next) => {
   res.render("softwares/weather.ejs", { session: req.session });
 });
 
+software.get("/weatherold",  options, async (req, res, next) => {
+  res.render("softwares/weatherold.ejs", { session: req.session });
+});
+
 software.get("/todo",  options, async (req, res, next) => {
   res.render("softwares/todo.ejs", { session: req.session });
 });

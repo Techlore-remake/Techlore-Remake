@@ -1,97 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Weather App | Techlore</title>
-    <%- include('../partials/head', {page: "weather"}) %>
-  </head>
-  <body>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Weather | Techlore</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <%- include('../partials/head', {page: "weather2"}) %>
+</head>
+<body>
 <%- include('../partials/navbar', {page: "weather", user: session.user}) %>
 
-    <div class="card">
-        <h1>Weather App</h1><br><br>
-        <div class="search">
-            <input id="search-result" type="text" placeholder="Enter city name" spellcheck="false" name="city" required/>
-            <button class="btn" id="search-btn">Search</button>
-        </div>
-        <div class="err">
-            <p><b>Please Insert a valid city name</b></p>
+    <div class="container">
+        <div class="inputs">
+            <input class="input" type="text" name="region" id="region" placeholder="Enter Region">
+            <button class="enter">Search</button>
         </div>
         <div class="weather">
-            <img src="/imgs/weather/clear.jpg"class="weather-icon" /><br>
-            <h1 id="temp" class="temp"></h1>
-            <h2 class="city">Sample City</h2>
-        <div class="details">
-            <div class="wh">
-                <img src="/imgs/weather/humi.png" alt="humidity"><br>
-                <br><div class="card-details">
-                    <p class="humidity">Sample Humidity</p>
-                    <h4>Humidity</h4>
+            <div class="big-box">
+                <div class="icon-div">
+                    <i class="fa-duotone fa-clouds fa-8x"></i>
+                </div>
+                <div class="info">
+                    <p><span class="blue"><i class="fa-solid fa-location-dot"></i> Location:</span> <span id="loc">------, -------</span> </p>
+                    <p><span class="blue"><i class="fa-solid fa-temperature-empty"></i> Status:</span> <span id="status">---------</span></p>
+                    <p><span class="blue"><i class="fa-solid fa-calendar-clock"></i> Local Time:</span> <span id="ltime">---------- --:--</span></p>
+                    <p><span class="blue"><i class="fa-solid fa-business-time"></i> Last Updated:</span> <span id="utime">---------- --:--</span></p>
                 </div>
             </div>
-            <br><br>
-            <div class="wh">
-                <img src="/imgs/weather/ap.png"><br>
-                <div class="card-details">
-                    <p class="pressure">Sample Air_pressure</p>
-                    <h4>Air-pressure</h4>
+            <div class="small-boxes">
+                <div class="box">
+                    <p><span class="blue"><i class="fa-solid fa-temperature-high"></i> Tempreture:</span> <span id="temp">--</span> <sup>o</sup>C </p>
+                </div>
+                <div class="box">
+                    <p><span class="blue"><i class="fa-solid fa-temperature-list"></i> Feels Like:</span> <span id="ftemp">--</span> <sup>o</sup>C </p>
+                </div>
+                <div class="box">
+                    <p><span class="blue"><i class="fa-solid fa-droplet-percent"></i> Humidity:</span> <span id="hum">--</span> % </p>
+                </div>
+                <div class="box">
+                    <p><span class="blue"><i class="fa-solid fa-gauge"></i> Air-Pressure:</span> <span id="ap">----</span> mbar </p>
+                </div>
+                <div class="box">
+                    <p><span class="blue"><i class="fa-solid fa-wind"></i> Wind:</span> <span id="wind">--</span> km/h </p>
+                </div>
+                <div class="box">
+                    <p><span class="blue"><i class="fa-solid fa-clouds"></i> Clouds:</span> <span id="clouds">--</span> % </p>
                 </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
-<%- include('../partials/footer') %>
-<script>
-let apiKey = "f0fee14aabf92d0adb96846415cfa0da";
-let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=en";
         
-let cel; 
-async function checkWeather(city) {
-  try {
-    const response = await fetch(`${apiUrl}&q=${city}&appid=${apiKey}`);
+<%- include('../partials/footer') %>
 
-    if (!response.ok) {
-      throw new Error("Try again.Error while fetching.");
-    }
-
-    const data = await response.json();
-    $(".city").html(data.name)
-    $(".temp").html(Math.round(data.main.temp) + "°C")
-    $(".humidity").html(data.main.humidity + "%")
-    $(".pressure").html(data.main.pressure)
-
-    if (data.weather[0].main === "Clouds") {
-      $('.weather-icon').attr("src", "/imgs/weather/cloud.png")
-    } else if (data.weather[0].main === "Clear") {
-      $('.weather-icon').attr("src", "/imgs/weather/clear.jpg")
-    } else if (data.weather[0].main === "Rain") {
-      $('.weather-icon').attr("src", "/imgs/weather/rain.png")
-    } else if (data.weather[0].main === "Drizzle") {
-      $('.weather-icon').attr("src", "/imgs/weather/dri.png")
-    } else if (data.weather[0].main === "Mist") {
-      $('.weather-icon').attr("src", "/imgs/weather/mist.png")
-    }
+<script>
     
-    $(".weather").show()
-    $(".err").hide()
-    cel = Math.round(data.main.temp);
-    
-  } catch (error) {
-    $(".err").show()
-    $(".weather").hide()
-    console.error(error);
-  }
+
+    let day_icons = {
+            "113": "<i class='fas fa-sun fa-8x'></i>",
+            "116": "<i class='fas fa-cloud-sun fa-8x'></i>",
+            "119": "<i class='fas fa-cloud fa-8x'></i>",
+            "122": "<i class='fas fa-cloud-meatball fa-8x'></i>",
+            "143": "<i class='fas fa-smog fa-8x'></i>",
+            "176": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "179": "<i class='fas fa-snowflake fa-8x'></i>",
+            "182": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "185": "<i class='fas fa-cloud-showers-water fa-8x'></i>",
+            "200": "<i class='fas fa-bolt fa-8x'></i>",
+            "227": "<i class='fas fa-wind fa-8x'></i>",
+            "230": "<i class='fas fa-snow-blowing fa-8x'></i>",
+            "248": "<i class='fas fa-smog fa-8x'></i>",
+            "260": "<i class='fas fa-smog fa-8x'></i>",
+            "263": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "266": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "281": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "284": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "293": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "296": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "299": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "302": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "305": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "308": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "311": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "314": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "317": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "320": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "323": "<i class='fas fa-snowflake fa-8x'></i>",
+            "326": "<i class='fas fa-snowflake fa-8x'></i>",
+            "329": "<i class='fas fa-snowflake fa-8x'></i>",
+            "332": "<i class='fas fa-snowflake fa-8x'></i>",
+            "335": "<i class='fas fa-snowflake fa-8x'></i>",
+            "338": "<i class='fas fa-snowflake fa-8x'></i>",
+            "350": "<i class='fas fa-snowflake fa-8x'></i>",
+            "353": "<i class='fas fa-cloud-showers-light fa-8x'></i>",
+            "356": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "359": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "362": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "365": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "368": "<i class='fas fa-cloud-snow fa-8x'></i>",
+            "371": "<i class='fas fa-cloud-snow fa-8x'></i>",
+            "374": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "377": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "386": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "389": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "392": "<i class='fas fa-cloud-snow fa-8x'></i>",
+            "395": "<i class='fas fa-cloud-snow fa-8x'></i>"
+        }
+    let night_icons = {
+            "113": "<i class='fas fa-moon fa-8x'></i>",
+            "116": "<i class='fas fa-cloud-moon fa-8x'></i>",
+            "119": "<i class='fas fa-cloud fa-8x'></i>",
+            "122": "<i class='fas fa-cloud-meatball fa-8x'></i>",
+            "143": "<i class='fas fa-smog fa-8x'></i>",
+            "176": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "179": "<i class='fas fa-snowflake fa-8x'></i>",
+            "182": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "185": "<i class='fas fa-cloud-showers-water fa-8x'></i>",
+            "200": "<i class='fas fa-bolt fa-8x'></i>",
+            "227": "<i class='fas fa-wind fa-8x'></i>",
+            "230": "<i class='fas fa-snow-blowing fa-8x'></i>",
+            "248": "<i class='fas fa-smog fa-8x'></i>",
+            "260": "<i class='fas fa-smog fa-8x'></i>",
+            "263": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "266": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "281": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "284": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "293": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "296": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "299": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "302": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "305": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "308": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "311": "<i class='fas fa-cloud-rain fa-8x'></i>",
+            "314": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "317": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "320": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "323": "<i class='fas fa-snowflake fa-8x'></i>",
+            "326": "<i class='fas fa-snowflake fa-8x'></i>",
+            "329": "<i class='fas fa-snowflake fa-8x'></i>",
+            "332": "<i class='fas fa-snowflake fa-8x'></i>",
+            "335": "<i class='fas fa-snowflake fa-8x'></i>",
+            "338": "<i class='fas fa-snowflake fa-8x'></i>",
+            "350": "<i class='fas fa-snowflake fa-8x'></i>",
+            "353": "<i class='fas fa-cloud-showers-light fa-8x'></i>",
+            "356": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "359": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "362": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "365": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "368": "<i class='fas fa-cloud-snow fa-8x'></i>",
+            "371": "<i class='fas fa-cloud-snow fa-8x'></i>",
+            "374": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "377": "<i class='fas fa-cloud-sleet fa-8x'></i>",
+            "386": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "389": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
+            "392": "<i class='fas fa-cloud-snow fa-8x'></i>",
+            "395": "<i class='fas fa-cloud-snow fa-8x'></i>"
+        }
+
+
+$('.enter').click(function () {
+if($('#region').val() !== ''){
+    $(this).addClass('disabled')
+
+    axios.get(`https://api.weatherapi.com/v1/current.json?key=a40373b7e84b415ba5023852240606&q=${$('#region').val()}&aqi=yes`)
+    .then(function (res) {
+        const data = res.data
+        $('#loc').text(`${data.location.name}, ${data.location.country}`)
+        $('#status').text(`${data.current.condition.text}`)
+        $('#ltime').text(`${data.location.localtime}`)
+        $('#utime').text(`${data.current.last_updated}`)
+        
+        $('#temp').text(`${data.current.temp_c}`)
+        $('#ftemp').text(`${data.current.feelslike_c}`)
+        $('#hum').text(`${data.current.humidity}`)
+        $('#ap').text(`${data.current.pressure_mb}`)
+        $('#wind').text(`${data.current.wind_kph}`)
+        $('#clouds').text(`${data.current.cloud}`)
+
+        let condition = data.current.condition.icon.replace('//cdn.weatherapi.com/weather/64x64/', '').replace('day/', '').replace('night/','').replace('.png', '')
+        $('.icon-div').empty()
+        if(data.current.is_day === 1){
+            $('.icon-div').html(day_icons[condition])
+        }else{
+            $('.icon-div').html(night_icons[condition])
+        }
+        
+        $('.enter').removeClass('disabled')
+    })
+    .catch(function (error) {
+        $('.enter').removeClass('disabled')
+        console.log(error)
+    })
 }
-$('#search-btn').click(function() {
-  const city = $('#search-result').val().trim()
-  if (city !== "") {
-    checkWeather(city);
-  }
-});
+})
 </script>
 </body>
 </html>
