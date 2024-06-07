@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Weather | Techlore</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <%- include('../partials/head', {page: "weather2"}) %>
+    <%- include('../partials/head', {page: "weather"}) %>
 </head>
 <body>
 <%- include('../partials/navbar', {page: "weather", user: session.user}) %>
@@ -29,22 +29,22 @@
             </div>
             <div class="small-boxes">
                 <div class="box">
-                    <p><span class="blue"><i class="fa-solid fa-temperature-high"></i> Tempreture:</span> <span id="temp">--</span> <sup>o</sup>C </p>
+                    <p><span class="blue"><i class="fa-solid fa-temperature-high"></i> Tempreture:</span> <span><span id="temp">--</span> <sup>o</sup>C</span> </p>
                 </div>
                 <div class="box">
-                    <p><span class="blue"><i class="fa-solid fa-temperature-list"></i> Feels Like:</span> <span id="ftemp">--</span> <sup>o</sup>C </p>
+                    <p><span class="blue"><i class="fa-solid fa-temperature-list"></i> Feels Like:</span> <span><span id="ftemp">--</span> <sup>o</sup>C</span> </p>
                 </div>
                 <div class="box">
-                    <p><span class="blue"><i class="fa-solid fa-droplet-percent"></i> Humidity:</span> <span id="hum">--</span> % </p>
+                    <p><span class="blue"><i class="fa-solid fa-droplet-percent"></i> Humidity:</span> <span><span id="hum">--</span> %</span> </p>
                 </div>
                 <div class="box">
-                    <p><span class="blue"><i class="fa-solid fa-gauge"></i> Air-Pressure:</span> <span id="ap">----</span> mbar </p>
+                    <p><span class="blue"><i class="fa-solid fa-gauge"></i> Air-Pressure:</span> <span><span id="ap">----</span> mbar</span> </p>
                 </div>
                 <div class="box">
-                    <p><span class="blue"><i class="fa-solid fa-wind"></i> Wind:</span> <span id="wind">--</span> km/h </p>
+                    <p><span class="blue"><i class="fa-solid fa-wind"></i> Wind:</span> <span><span id="wind">--</span> km/h</span> </p>
                 </div>
                 <div class="box">
-                    <p><span class="blue"><i class="fa-solid fa-clouds"></i> Clouds:</span> <span id="clouds">--</span> % </p>
+                    <p><span class="blue"><i class="fa-solid fa-clouds"></i> Clouds:</span> <span><span id="clouds">--</span> %</span> </p>
                 </div>
             </div>
         </div>
@@ -53,8 +53,6 @@
 <%- include('../partials/footer') %>
 
 <script>
-    
-
     let day_icons = {
             "113": "<i class='fas fa-sun fa-8x'></i>",
             "116": "<i class='fas fa-cloud-sun fa-8x'></i>",
@@ -91,7 +89,7 @@
             "335": "<i class='fas fa-snowflake fa-8x'></i>",
             "338": "<i class='fas fa-snowflake fa-8x'></i>",
             "350": "<i class='fas fa-snowflake fa-8x'></i>",
-            "353": "<i class='fas fa-cloud-showers-light fa-8x'></i>",
+            "353": "<i class='fas fa-cloud-showers fa-8x'></i>",
             "356": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
             "359": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
             "362": "<i class='fas fa-cloud-sleet fa-8x'></i>",
@@ -141,7 +139,7 @@
             "335": "<i class='fas fa-snowflake fa-8x'></i>",
             "338": "<i class='fas fa-snowflake fa-8x'></i>",
             "350": "<i class='fas fa-snowflake fa-8x'></i>",
-            "353": "<i class='fas fa-cloud-showers-light fa-8x'></i>",
+            "353": "<i class='fas fa-cloud-showers fa-8x'></i>",
             "356": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
             "359": "<i class='fas fa-cloud-showers-heavy fa-8x'></i>",
             "362": "<i class='fas fa-cloud-sleet fa-8x'></i>",
@@ -156,41 +154,59 @@
             "395": "<i class='fas fa-cloud-snow fa-8x'></i>"
         }
 
+function update_weather() {
+    if($('#region').val() !== ''){
+        $('.enter').addClass('disabled')
+
+        axios.get(`https://api.weatherapi.com/v1/current.json?key=a40373b7e84b415ba5023852240606&q=${$('#region').val()}&aqi=yes`)
+        .then(function (res) {
+            const data = res.data
+            let loc = `${data.location.name}, ${data.location.country}`
+            if(loc.toString().length > 15){
+                loc = `${loc.substring(0, 15)}...`
+            }
+            $('#loc').text(`${loc}`)
+            let status = `${data.current.condition.text}`
+            if(status.toString().length > 15){
+                status = `${status.substring(0, 15)}...`
+            }
+            $('#status').text(`${status}`)
+            $('#ltime').text(`${data.location.localtime}`)
+            $('#utime').text(`${data.current.last_updated}`)
+
+            $('#temp').text(`${data.current.temp_c}`)
+            $('#ftemp').text(`${data.current.feelslike_c}`)
+            $('#hum').text(`${data.current.humidity}`)
+            $('#ap').text(`${data.current.pressure_mb}`)
+            $('#wind').text(`${data.current.wind_kph}`)
+            $('#clouds').text(`${data.current.cloud}`)
+
+            let condition = data.current.condition.icon.replace('//cdn.weatherapi.com/weather/64x64/', '').replace('day/', '').replace('night/','').replace('.png', '')
+            $('.icon-div').empty()
+            if(data.current.is_day === 1){
+                $('.icon-div').html(day_icons[condition])
+            }else{
+                $('.icon-div').html(night_icons[condition])
+            }
+            setTimeout(function () {
+                $('.enter').removeClass('disabled')
+            }, 500)
+        })
+        .catch(function (error) {
+            $('.enter').removeClass('disabled')
+            console.log(error)
+        })
+    }
+}
 
 $('.enter').click(function () {
-if($('#region').val() !== ''){
-    $(this).addClass('disabled')
+update_weather()
+})
 
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=a40373b7e84b415ba5023852240606&q=${$('#region').val()}&aqi=yes`)
-    .then(function (res) {
-        const data = res.data
-        $('#loc').text(`${data.location.name}, ${data.location.country}`)
-        $('#status').text(`${data.current.condition.text}`)
-        $('#ltime').text(`${data.location.localtime}`)
-        $('#utime').text(`${data.current.last_updated}`)
-        
-        $('#temp').text(`${data.current.temp_c}`)
-        $('#ftemp').text(`${data.current.feelslike_c}`)
-        $('#hum').text(`${data.current.humidity}`)
-        $('#ap').text(`${data.current.pressure_mb}`)
-        $('#wind').text(`${data.current.wind_kph}`)
-        $('#clouds').text(`${data.current.cloud}`)
-
-        let condition = data.current.condition.icon.replace('//cdn.weatherapi.com/weather/64x64/', '').replace('day/', '').replace('night/','').replace('.png', '')
-        $('.icon-div').empty()
-        if(data.current.is_day === 1){
-            $('.icon-div').html(day_icons[condition])
-        }else{
-            $('.icon-div').html(night_icons[condition])
-        }
-        
-        $('.enter').removeClass('disabled')
-    })
-    .catch(function (error) {
-        $('.enter').removeClass('disabled')
-        console.log(error)
-    })
-}
+$('body').on("keyup", function(event) {
+    if(event.which === 13){
+        update_weather()
+    }
 })
 </script>
 </body>

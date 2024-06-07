@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron';
+  box-sizing: border-box;
+}
+h1 {
+  color: white;
+  font-weight: 700;
+}
+
+.card {
+  width: 90%;
+  max-width: 470px;
+  background: linear-gradient(var(--bg-con),var(--bg));
+  color: #fff;
+  margin: 100px auto;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  padding: 40px 35px;
+  text-align: center;
+   box-shadow: 0 10px 10px 0 var(--bg-con-shadow), 0 10px 30px 0 var(--bg-con-shadow);
+}
+.search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 9px;
+}
+.search input {
+  border: 0;
+  outline: 0;
+  background: #e8f0fd;
+  color: #555;
+  padding: 5px 10px;
+  border-radius: 30px;
+  flex: 1;
+  margin-right: 16px;
+  font-size: 18px;
+}
+.btn {
+  border: 0;
+  border-radius: 30px;
+  outline: 0;
+  padding: 5px 10px;
+  background-color: #ffdb62;
+  cursor: pointer;
+}
+.weather-icon {
+  width: 170px;
+  margin-top: 20px;
+}
+.weather img{
+  border-radius: 20px;
+}
+
+.weather h1 {
+  font-size: 80px;
+  font-weight: 500;
+}
+.weather h1 {
+  font-size: 45px;
+  font-weight: 400;
+  margin-top: -10px;
+}
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 50px;
+}
+.wh {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.wh h4{
+  color: rgb(242, 242, 18);
+  font-weight: bolder;
+}
+.wh img {
+  width: 60px;
+  height: 60px;
+  padding-right: 15px;
+  border-radius: 20px;
+}
+
+.humidity,.press{
+  font-size: 20px;
+  margin-top: -6px;
+}
+
+.degree-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+@media screen and (max-width: 600px) {
+.search input{
+    width:30%;
+}
+.details{
+  flex-direction: column;
+  display: inline;
+}
+.wh img{
+  width: 80px;
+}
+}
+.weather {
+  display: none;
+}
+
+
+.err {
+  text-align: left;
+  margin-left: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+.err p{
+  color: red;
+}
